@@ -32,7 +32,7 @@ actual fun KButton(
 
     UIKitView(
         factory = {
-            val button = UIButton.buttonWithType(UIButtonTypeSystem) as UIButton
+            val button = UIButton.buttonWithType(UIButtonTypeSystem)
 
             // Create a target object to handle the button action
             val target = object : NSObject() {
