@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.farimarwat.krossui.KTextField
 import com.farimarwat.krossui.components.KButton
+import com.farimarwat.krossui.components.KDialog
 import com.farimarwat.krossui.components.KSwitch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -30,7 +31,7 @@ import krossuidemo.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
+        var showDialog by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
                 .safeContentPadding()
@@ -55,7 +56,7 @@ fun App() {
                     .height(48.dp),
                 text = "Press Me",
                 onClick = {
-                    println("Clicked")
+                    showDialog = true
                 }
             )
             KSwitch(
@@ -67,6 +68,22 @@ fun App() {
                 }
 
             )
+
+            if(showDialog){
+                KDialog(
+                    show = showDialog,
+                    title = "My Dialog",
+                    message = textValue,
+                    confirmText = "OK",
+                    cancelText = "Close",
+                    onConfirm = {
+                        showDialog = false
+                    },
+                    onCancel = {
+                        showDialog = false
+                    }
+                )
+            }
         }
     }
 }
