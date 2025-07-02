@@ -145,7 +145,5 @@ actual fun KTextField(
             }
         },
         modifier = modifier
-            .fillMaxWidth()
-            .height(40.dp)
     )
 }
