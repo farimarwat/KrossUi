@@ -57,6 +57,7 @@ fun App() {
                 text = "Press Me",
                 onClick = {
                     showDialog = true
+                    println(showDialog)
                 }
             )
             KSwitch(
@@ -73,7 +74,7 @@ fun App() {
                 KDialog(
                     show = showDialog,
                     title = "My Dialog",
-                    message = textValue,
+                    message = "I am a native dialog",
                     confirmText = "OK",
                     cancelText = "Close",
                     onConfirm = {
