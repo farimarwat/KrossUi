@@ -1,6 +1,6 @@
 // commonMain/src/commonMain/kotlin/com/farimarwat/krossui/KButton.kt
 
-package com.farimarwat.krossui.components
+package com.farimarwat.krossui.components.KButton
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,8 +12,7 @@ expect fun KButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
-    textColor: Color = Color.White,
-    backgroundColor: Color = Color.Blue,
+    colors: KButtonColors = KButtonDefaults.colors(),
     fontSize: TextUnit = TextUnit.Unspecified,
     isEnabled: Boolean = true
 )

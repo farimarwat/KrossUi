@@ -12,9 +12,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.farimarwat.krossui.components.KTextField
-import com.farimarwat.krossui.components.KButton
+import com.farimarwat.krossui.components.KButton.KButton
+import com.farimarwat.krossui.components.KButton.KButtonDefaults
 import com.farimarwat.krossui.components.KDialog
 import com.farimarwat.krossui.components.KSwitch
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -47,6 +49,10 @@ fun App() {
                 modifier = Modifier.fillMaxWidth()
                     .height(48.dp),
                 text = "Press Me",
+                colors = KButtonDefaults.colors(
+                    containerColor = Color.Red,
+                    contentColor = Color.Black
+                ),
                 onClick = {
                     showDialog = true
                     println(showDialog)

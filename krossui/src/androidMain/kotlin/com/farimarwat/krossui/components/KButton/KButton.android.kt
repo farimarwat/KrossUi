@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components
+package com.farimarwat.krossui.components.KButton
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -14,8 +14,7 @@ actual fun KButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    textColor: Color,
-    backgroundColor: Color,
+    colors: KButtonColors,
     fontSize: TextUnit,
     isEnabled: Boolean
 ) {
@@ -24,18 +23,13 @@ actual fun KButton(
         enabled = isEnabled,
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
-            contentColor = textColor,
-            disabledContainerColor = backgroundColor.copy(alpha = 0.3f),
-            disabledContentColor = textColor.copy(alpha = 0.3f)
+            containerColor = if (isEnabled) colors.backgroundColor else colors.disabledBackgroundColor,
+            contentColor = if (isEnabled) colors.textColor else colors.disabledTextColor
         )
     ) {
         Text(
             text = text,
-            style = TextStyle(
-                color = textColor,
-                fontSize = fontSize
-            )
+            fontSize = fontSize
         )
     }
 }
