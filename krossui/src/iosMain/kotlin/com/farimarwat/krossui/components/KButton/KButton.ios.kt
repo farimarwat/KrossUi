@@ -22,6 +22,7 @@ actual fun KButton(
     onClick: () -> Unit,
     colors: KButtonColors,
     fontSize: TextUnit,
+    cornerRadius: Double,
     isEnabled: Boolean
 ) {
     val clickCallback = remember { mutableStateOf(onClick) }
@@ -53,9 +54,10 @@ actual fun KButton(
             button.backgroundColor = if(isEnabled) colors.backgroundColor.toUiColor() else colors.disabledBackgroundColor.toUiColor()
 
             // Font
-            if (fontSize != TextUnit.Unspecified) {
-                button.titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
-            }
+            button.titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
+            //Corner Radius
+            button.layer.cornerRadius = cornerRadius
+            button.clipsToBounds = true
 
             // Add target-action
             button.addTarget(
@@ -65,7 +67,6 @@ actual fun KButton(
             )
 
             button.enabled = isEnabled
-            button.layer.cornerRadius = 8.0
 
             // Store target to prevent garbage collection
             button.accessibilityHint = target.toString() // Simple way to keep reference

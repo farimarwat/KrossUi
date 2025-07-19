@@ -1,6 +1,7 @@
 package com.farimarwat.krossui.components.KButton
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
 object KButtonDefaults {
@@ -17,6 +18,6 @@ object KButtonDefaults {
         disabledTextColor = disabledTextColor
     )
 
-    val DefaultFontSize = 14.sp
+    val DefaultFontSize: TextUnit = 14.sp
     val CornerRadius = 8.0
 }

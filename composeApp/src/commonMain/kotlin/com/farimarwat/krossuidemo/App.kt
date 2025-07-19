@@ -53,6 +53,7 @@ fun App() {
                     containerColor = Color.Red,
                     contentColor = Color.Black
                 ),
+                cornerRadius = 20.0,
                 onClick = {
                     showDialog = true
                     println(showDialog)

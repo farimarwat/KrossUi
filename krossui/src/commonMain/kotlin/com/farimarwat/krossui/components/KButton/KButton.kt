@@ -13,6 +13,7 @@ expect fun KButton(
     text: String,
     onClick: () -> Unit,
     colors: KButtonColors = KButtonDefaults.colors(),
-    fontSize: TextUnit = TextUnit.Unspecified,
+    fontSize: TextUnit = KButtonDefaults.DefaultFontSize,
+    cornerRadius: Double = KButtonDefaults.CornerRadius,
     isEnabled: Boolean = true
 )
