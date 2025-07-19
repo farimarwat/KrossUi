@@ -1,4 +1,4 @@
-package com.farimarwat.krossui
+package com.farimarwat.krossui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.TextUnit
@@ -45,7 +46,7 @@ actual fun KTextField(
         ),
         enabled = isEnabled,
         readOnly = isReadOnly,
-        textStyle = androidx.compose.ui.text.TextStyle(
+        textStyle = TextStyle(
             color = textColor, fontSize = fontSize
         ),
         maxLines = maxLines,

@@ -1,4 +1,4 @@
-package com.farimarwat.krossui
+package com.farimarwat.krossui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

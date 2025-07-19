@@ -26,21 +26,22 @@ actual fun KButton(
     fontSize: TextUnit,
     isEnabled: Boolean
 ) {
-    // Store the onClick callback in a remembered mutable reference
     val clickCallback = remember { mutableStateOf(onClick) }
+    val target = remember {
+       object : NSObject() {
+            @ObjCAction
+            fun buttonTapped() {
+                clickCallback.value()
+            }
+        }
+
+    }
     clickCallback.value = onClick
 
     UIKitView(
         factory = {
             val button = UIButton.buttonWithType(UIButtonTypeSystem)
 
-            // Create a target object to handle the button action
-            val target = object : NSObject() {
-                @ObjCAction
-                fun buttonTapped() {
-                    clickCallback.value()
-                }
-            }
 
             button.setTitle(text, forState = UIControlStateNormal)
 
