@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +18,7 @@ import com.farimarwat.krossui.components.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KDialog
 import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
+import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -70,6 +72,18 @@ fun App() {
                     switch = it
                 }
 
+            )
+
+            var sliderValue by remember { mutableStateOf(0.5f)}
+            KSlider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    ,
+                value = sliderValue,
+                onValueChanged = {
+                    sliderValue = it
+                    println("Slider Value: ${it}")
+                }
             )
 
             if(showDialog){
