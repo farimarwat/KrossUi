@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components.KOutLineButton
+package com.farimarwat.krossui.components.KOutLinedButton
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -20,11 +20,11 @@ import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KOutLineButton(
+actual fun KOutLinedButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    colors: KOutLineButtonColors,
+    colors: KOutLinedButtonColors,
     fontSize: TextUnit,
     cornerRadius: Double,
     borderWidth: Double,

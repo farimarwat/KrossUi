@@ -1,11 +1,10 @@
-package com.farimarwat.krossui.components.KOutLineButton
+package com.farimarwat.krossui.components.KOutLinedButton
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.farimarwat.krossui.components.KButton.KButtonColors
 
-object KOutLineButtonDefaults {
+object KOutLinedButtonDefaults {
 
     fun colors(
         containerColor: Color = Color.White,
@@ -14,7 +13,7 @@ object KOutLineButtonDefaults {
         disabledTextColor: Color = contentColor.copy(alpha = 0.3f),
         borderColor:Color = Color.Blue,
         disabledBorderColor: Color = borderColor.copy(alpha = 0.3f)
-    ): KOutLineButtonColors = KOutLineButtonColors(
+    ): KOutLinedButtonColors = KOutLinedButtonColors(
         backgroundColor = containerColor,
         textColor = contentColor,
         disabledBackgroundColor = disabledBackgroundColor,

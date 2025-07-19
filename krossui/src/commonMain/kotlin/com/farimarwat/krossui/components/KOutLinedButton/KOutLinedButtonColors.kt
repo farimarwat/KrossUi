@@ -1,8 +1,8 @@
-package com.farimarwat.krossui.components.KOutLineButton
+package com.farimarwat.krossui.components.KOutLinedButton
 
 import androidx.compose.ui.graphics.Color
 
-data class KOutLineButtonColors(
+data class KOutLinedButtonColors(
     val backgroundColor: Color,
     val textColor: Color,
     val disabledBackgroundColor: Color,
