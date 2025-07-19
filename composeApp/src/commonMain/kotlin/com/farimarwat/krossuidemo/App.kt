@@ -18,6 +18,7 @@ import com.farimarwat.krossui.components.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KButton.KButtonDefaults
 import com.farimarwat.krossui.components.KDialog
+import com.farimarwat.krossui.components.KOutLineButton.KOutLineButton
 import com.farimarwat.krossui.components.KSwitch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -49,14 +50,18 @@ fun App() {
                 modifier = Modifier.fillMaxWidth()
                     .height(48.dp),
                 text = "Press Me",
-                colors = KButtonDefaults.colors(
-                    containerColor = Color.Red,
-                    contentColor = Color.Black
-                ),
                 cornerRadius = 20.0,
                 onClick = {
                     showDialog = true
                     println(showDialog)
+                }
+            )
+            KOutLineButton(
+                modifier = Modifier.fillMaxWidth()
+                    .height(48.dp),
+                text = "Help Me",
+                onClick = {
+
                 }
             )
             KSwitch(

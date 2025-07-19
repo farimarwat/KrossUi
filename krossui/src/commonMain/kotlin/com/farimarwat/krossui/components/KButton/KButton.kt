@@ -1,4 +1,4 @@
-// commonMain/src/commonMain/kotlin/com/farimarwat/krossui/KButton.kt
+// commonMain/src/commonMain/kotlin/com/farimarwat/krossui/KOutLineButton.kt
 
 package com.farimarwat.krossui.components.KButton
 
