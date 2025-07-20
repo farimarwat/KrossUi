@@ -7,10 +7,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.ImeAction
+import com.farimarwat.krossui.components.Common.KPadding
 
 @Composable
 expect fun KTextField(
     modifier: Modifier,
+    padding: KPadding = KPadding.all(12.0),
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String = "",

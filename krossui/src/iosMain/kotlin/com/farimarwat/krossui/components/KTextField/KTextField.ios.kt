@@ -9,19 +9,48 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
+import platform.CoreGraphics.CGRect
 import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSRange
 import platform.UIKit.*
 import platform.darwin.NSObject
 
+// Custom UITextField with padding support
+@OptIn(ExperimentalForeignApi::class)
+private class PaddedUITextField(
+    private val padding: KPadding
+) : UITextField(frame = CGRectMake(0.0, 0.0, 300.0, 44.0)) {
+
+    override fun textRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
+        return bounds.useContents {
+            CGRectMake(
+                origin.x + padding.leading,
+                origin.y + padding.top,
+                size.width - (padding.leading + padding.trailing),
+                size.height - (padding.top + padding.bottom)
+            )
+        }
+    }
+
+    override fun editingRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
+        return textRectForBounds(bounds)
+    }
+
+    override fun placeholderRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
+        return textRectForBounds(bounds)
+    }
+}
+
 @OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun KTextField(
     modifier: Modifier,
+    padding: KPadding,
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
@@ -30,10 +59,11 @@ actual fun KTextField(
     isReadOnly: Boolean,
     maxLines: Int,
     borderWidth: Int,
-    cornerRadius:Double,
+    cornerRadius: Double,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
-    colors: KTextFieldColors
+    colors: KTextFieldColors,
+
 ) {
     val delegate = remember {
         object : NSObject(), UITextFieldDelegateProtocol {
@@ -57,17 +87,17 @@ actual fun KTextField(
             }
         }
     }
+
     UIKitView(
         modifier = modifier,
         factory = {
-            val textField = UITextField(frame = CGRectMake(0.0, 0.0, 300.0, 44.0))
+            val textField = PaddedUITextField(padding = padding)
 
             textField.borderStyle = UITextBorderStyle.UITextBorderStyleNone
             textField.layer.cornerRadius = cornerRadius
             textField.layer.borderWidth = borderWidth.toDouble()
             textField.layer.borderColor = colors.borderColor.toUiColor().CGColor
             textField.backgroundColor = colors.backgroundColor.toUiColor()
-
 
             // Keyboard type
             textField.keyboardType = when (keyboardType) {
@@ -92,7 +122,6 @@ actual fun KTextField(
                 ImeAction.Send -> UIReturnKeyType.UIReturnKeySend
                 else -> UIReturnKeyType.UIReturnKeyDefault
             }
-
 
             textField.delegate = delegate
             textField

@@ -30,4 +30,5 @@ object KTextFieldDefaults {
 
     val BorderWidth = 1
     val CornerRadius = 8.0
+    val Padding = 12
 }

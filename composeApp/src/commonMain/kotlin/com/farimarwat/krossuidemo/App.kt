@@ -42,11 +42,10 @@ fun App() {
                 modifier = Modifier.fillMaxWidth()
                     .height(48.dp),
                 value = textValue,
-                cornerRadius = 20.0,
+                cornerRadius = 8.0,
                 borderWidth = 5,
                 onValueChange = {
                     textValue = it
-                    println(it)
                 },
 
             )
