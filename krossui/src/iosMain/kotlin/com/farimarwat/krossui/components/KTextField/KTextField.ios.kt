@@ -139,28 +139,28 @@ actual fun KTextField(
             textField
         },
         update = { view ->
-            val paddedView = view as PaddedUITextField
+            val textField = view
 
             // Update text
-            if (paddedView.text != value) paddedView.text = value
+            if (textField.text != value) textField.text = value
 
             // Placeholder with proper color
-            paddedView.placeholder = placeholder
-            updatePlaceholderColor(paddedView, colors, isEnabled)
+            textField.placeholder = placeholder
+            updatePlaceholderColor(textField, colors, isEnabled)
 
             // Font size
             if (fontSize != TextUnit.Unspecified) {
-                paddedView.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
+                textField.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
             }
 
             // Update colors based on current state
-            val isFocused = paddedView.isFirstResponder()
-            updateTextFieldColors(paddedView, colors, isEnabled, isReadOnly, isFocused)
+            val isFocused = textField.isFirstResponder()
+            updateTextFieldColors(textField, colors, isEnabled, isReadOnly, isFocused)
 
             // Enable / Read-only states
-            paddedView.enabled = isEnabled
-            paddedView.userInteractionEnabled = !isReadOnly
-            paddedView.alpha = if (isEnabled) 1.0 else 0.6
+            textField.enabled = isEnabled
+            textField.userInteractionEnabled = !isReadOnly
+            textField.alpha = if (isEnabled) 1.0 else 0.6
         }
     )
 }
