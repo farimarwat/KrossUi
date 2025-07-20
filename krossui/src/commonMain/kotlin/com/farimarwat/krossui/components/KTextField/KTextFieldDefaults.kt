@@ -8,7 +8,8 @@ object KTextFieldDefaults {
     @Composable
     fun colors(
         textColor: Color = Color.Black,
-        backgroundColor: Color = Color.White,
+        unfocusedBackgroundColor: Color = Color.White,
+        focusedBackgroundColor:Color = Color.LightGray,
         placeholderColor: Color = Color.Gray,
         borderColor: Color = Color.LightGray,
         focusedBorderColor: Color = Color.Blue,
@@ -18,7 +19,8 @@ object KTextFieldDefaults {
     ): KTextFieldColors {
         return KTextFieldColors(
             textColor = textColor,
-            backgroundColor = backgroundColor,
+            unfocusedBackgroundColor = unfocusedBackgroundColor,
+            focusedBackgroundColor = focusedBackgroundColor,
             placeholderColor = placeholderColor,
             borderColor = borderColor,
             focusedBorderColor = focusedBorderColor,

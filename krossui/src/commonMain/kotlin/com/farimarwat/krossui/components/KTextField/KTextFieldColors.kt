@@ -4,7 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 data class KTextFieldColors(
     val textColor: Color,
-    val backgroundColor: Color,
+    val unfocusedBackgroundColor: Color,
+    val focusedBackgroundColor:Color,
     val placeholderColor: Color,
     val borderColor: Color,
     val focusedBorderColor: Color,

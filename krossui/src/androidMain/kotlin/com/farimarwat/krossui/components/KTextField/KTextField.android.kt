@@ -12,16 +12,19 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.farimarwat.krossui.components.Common.KPadding
 
 @Composable
 actual fun KTextField(
     modifier: Modifier,
+    padding: KPadding,
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
@@ -33,7 +36,7 @@ actual fun KTextField(
     cornerRadius: Double,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
-    colors: KTextFieldColors
+    colors: KTextFieldColors,
 ) {
     val shape = RoundedCornerShape(cornerRadius.dp)
 
@@ -45,7 +48,7 @@ actual fun KTextField(
                 shape = shape
             )
             .background(
-                color = colors.backgroundColor,
+                color = Color.Transparent,
                 shape = shape
             )
     ) {
@@ -70,7 +73,8 @@ actual fun KTextField(
             ),
             shape = shape,
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = colors.backgroundColor,
+                unfocusedContainerColor = colors.unfocusedBackgroundColor,
+                focusedContainerColor = colors.focusedBackgroundColor,
                 unfocusedTextColor = colors.textColor,
                 cursorColor = colors.textColor,
                 focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,

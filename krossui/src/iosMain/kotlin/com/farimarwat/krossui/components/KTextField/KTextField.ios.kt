@@ -97,7 +97,7 @@ actual fun KTextField(
             textField.layer.cornerRadius = cornerRadius
             textField.layer.borderWidth = borderWidth.toDouble()
             textField.layer.borderColor = colors.borderColor.toUiColor().CGColor
-            textField.backgroundColor = colors.backgroundColor.toUiColor()
+            textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
 
             // Keyboard type
             textField.keyboardType = when (keyboardType) {
@@ -135,7 +135,7 @@ actual fun KTextField(
 
             // Colors
             view.textColor = colors.textColor.toUiColor()
-            view.backgroundColor = colors.backgroundColor.toUiColor()
+            view.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
             view.layer.borderColor = colors.borderColor.toUiColor().CGColor
 
             // Font size

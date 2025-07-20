@@ -43,9 +43,10 @@ fun App() {
                     .height(48.dp),
                 value = textValue,
                 cornerRadius = 8.0,
-                borderWidth = 5,
+                borderWidth = 1,
                 onValueChange = {
                     textValue = it
+                    println(it)
                 },
 
             )
