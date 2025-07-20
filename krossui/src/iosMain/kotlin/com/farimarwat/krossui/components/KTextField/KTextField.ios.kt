@@ -17,6 +17,8 @@ import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGRect
 import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSRange
+import platform.Foundation.addAttribute
+import platform.Foundation.create
 import platform.UIKit.*
 import platform.darwin.NSObject
 
@@ -63,7 +65,6 @@ actual fun KTextField(
     keyboardType: KeyboardType,
     imeAction: ImeAction,
     colors: KTextFieldColors,
-
 ) {
     val delegate = remember {
         object : NSObject(), UITextFieldDelegateProtocol {
@@ -85,6 +86,15 @@ actual fun KTextField(
                 textField.resignFirstResponder()
                 return true
             }
+
+            // Handle focus state changes for colors
+            override fun textFieldDidBeginEditing(textField: UITextField) {
+                updateTextFieldColors(textField as PaddedUITextField, colors, isEnabled, isReadOnly, isFocused = true)
+            }
+
+            override fun textFieldDidEndEditing(textField: UITextField) {
+                updateTextFieldColors(textField as PaddedUITextField, colors, isEnabled, isReadOnly, isFocused = false)
+            }
         }
     }
 
@@ -96,8 +106,6 @@ actual fun KTextField(
             textField.borderStyle = UITextBorderStyle.UITextBorderStyleNone
             textField.layer.cornerRadius = cornerRadius
             textField.layer.borderWidth = borderWidth.toDouble()
-            textField.layer.borderColor = colors.borderColor.toUiColor().CGColor
-            textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
 
             // Keyboard type
             textField.keyboardType = when (keyboardType) {
@@ -124,29 +132,97 @@ actual fun KTextField(
             }
 
             textField.delegate = delegate
+
+            // Apply initial colors
+            updateTextFieldColors(textField, colors, isEnabled, isReadOnly, isFocused = false)
+
             textField
         },
         update = { view ->
+            val paddedView = view as PaddedUITextField
+
             // Update text
-            if (view.text != value) view.text = value
+            if (paddedView.text != value) paddedView.text = value
 
-            // Placeholder
-            view.placeholder = placeholder
-
-            // Colors
-            view.textColor = colors.textColor.toUiColor()
-            view.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
-            view.layer.borderColor = colors.borderColor.toUiColor().CGColor
+            // Placeholder with proper color
+            paddedView.placeholder = placeholder
+            updatePlaceholderColor(paddedView, colors, isEnabled)
 
             // Font size
             if (fontSize != TextUnit.Unspecified) {
-                view.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
+                paddedView.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
             }
 
+            // Update colors based on current state
+            val isFocused = paddedView.isFirstResponder()
+            updateTextFieldColors(paddedView, colors, isEnabled, isReadOnly, isFocused)
+
             // Enable / Read-only states
-            view.enabled = isEnabled
-            view.userInteractionEnabled = !isReadOnly
-            view.alpha = if (isEnabled) 1.0 else 0.6
+            paddedView.enabled = isEnabled
+            paddedView.userInteractionEnabled = !isReadOnly
+            paddedView.alpha = if (isEnabled) 1.0 else 0.6
         }
     )
+}
+
+// Helper function to update text field colors based on state
+@OptIn(ExperimentalForeignApi::class)
+private fun updateTextFieldColors(
+    textField: PaddedUITextField,
+    colors: KTextFieldColors,
+    isEnabled: Boolean,
+    isReadOnly: Boolean,
+    isFocused: Boolean
+) {
+    when {
+        !isEnabled -> {
+            // Disabled state
+            textField.textColor = colors.disabledTextColor.toUiColor()
+            textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
+            textField.layer.borderColor = colors.disabledBorderColor.toUiColor().CGColor
+        }
+        isReadOnly -> {
+            // Read-only state
+            textField.textColor = colors.readOnlyTextColor.toUiColor()
+            textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
+            textField.layer.borderColor = colors.unfocusedBorderColor.toUiColor().CGColor
+        }
+        isFocused -> {
+            // Focused state
+            textField.textColor = colors.textColor.toUiColor()
+            textField.backgroundColor = colors.focusedBackgroundColor.toUiColor()
+            textField.layer.borderColor = colors.focusedBorderColor.toUiColor().CGColor
+        }
+        else -> {
+            // Normal unfocused state
+            textField.textColor = colors.textColor.toUiColor()
+            textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
+            textField.layer.borderColor = colors.unfocusedBorderColor.toUiColor().CGColor
+        }
+    }
+}
+
+// Helper function to update placeholder color
+@OptIn(ExperimentalForeignApi::class)
+private fun updatePlaceholderColor(
+    textField: PaddedUITextField,
+    colors: KTextFieldColors,
+    isEnabled: Boolean
+) {
+    val placeholderText = textField.placeholder ?: return
+
+    val placeholderColor = if (isEnabled) {
+        colors.placeholderColor.toUiColor()
+    } else {
+        colors.disabledTextColor.toUiColor()
+    }
+
+    // Create attributed string for placeholder with proper color
+    val attributedPlaceholder = platform.Foundation.NSMutableAttributedString.create(placeholderText)
+    attributedPlaceholder.addAttribute(
+        platform.UIKit.NSForegroundColorAttributeName,
+        placeholderColor,
+        platform.Foundation.NSMakeRange(0u, placeholderText.length.toULong())
+    )
+    textField.attributedPlaceholder = attributedPlaceholder
 }

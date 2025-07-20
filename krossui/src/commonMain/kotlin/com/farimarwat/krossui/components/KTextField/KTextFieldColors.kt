@@ -7,7 +7,7 @@ data class KTextFieldColors(
     val unfocusedBackgroundColor: Color,
     val focusedBackgroundColor:Color,
     val placeholderColor: Color,
-    val borderColor: Color,
+    val unfocusedBorderColor: Color,
     val focusedBorderColor: Color,
     val disabledTextColor: Color,
     val disabledBorderColor: Color,

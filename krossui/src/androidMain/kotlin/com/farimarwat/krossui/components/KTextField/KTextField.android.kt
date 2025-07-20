@@ -13,7 +13,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.TextStyle
@@ -44,7 +43,7 @@ actual fun KTextField(
         modifier = modifier
             .border(
                 width = borderWidth.dp,
-                color = colors.borderColor,
+                color = colors.unfocusedBorderColor,
                 shape = shape
             )
             .background(

@@ -1,7 +1,6 @@
 package com.farimarwat.krossui.components.KTextField
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 
 object KTextFieldDefaults {
@@ -9,9 +8,9 @@ object KTextFieldDefaults {
     fun colors(
         textColor: Color = Color.Black,
         unfocusedBackgroundColor: Color = Color.White,
-        focusedBackgroundColor:Color = Color.LightGray,
+        focusedBackgroundColor:Color = Color.White,
         placeholderColor: Color = Color.Gray,
-        borderColor: Color = Color.LightGray,
+        unfocusedBorderColor: Color = Color.LightGray,
         focusedBorderColor: Color = Color.Blue,
         disabledTextColor: Color = Color.Gray,
         disabledBorderColor: Color = Color.Gray,
@@ -22,7 +21,7 @@ object KTextFieldDefaults {
             unfocusedBackgroundColor = unfocusedBackgroundColor,
             focusedBackgroundColor = focusedBackgroundColor,
             placeholderColor = placeholderColor,
-            borderColor = borderColor,
+            unfocusedBorderColor = unfocusedBorderColor,
             focusedBorderColor = focusedBorderColor,
             disabledTextColor = disabledTextColor,
             disabledBorderColor = disabledBorderColor,
