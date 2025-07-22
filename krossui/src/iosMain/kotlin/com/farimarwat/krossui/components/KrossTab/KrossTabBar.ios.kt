@@ -9,7 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
+import platform.UIKit.UIColor
 import platform.UIKit.UIImage
 import platform.UIKit.UITabBar
 import platform.UIKit.UITabBarDelegateProtocol
@@ -19,10 +21,11 @@ import platform.darwin.NSObject
 @OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun KrossTabBar(
+    modifier: Modifier,
     tabs: List<KrossTabItem>,
     selectedIndex: Int,
     onTabClick: (Int) -> Unit,
-    modifier: Modifier
+    colors: KrossTabBarColors
 ) {
     val tabBar = remember { UITabBar() }
     val delegate = remember {
@@ -35,7 +38,11 @@ actual fun KrossTabBar(
             }
         }
     }
-
+    LaunchedEffect(Unit) {
+        tabBar.barTintColor = colors.backgroundColor.toUiColor()
+        tabBar.tintColor = colors.selectedContentColor.toUiColor()
+        tabBar.unselectedItemTintColor = colors.unselectedContentColor.toUiColor()
+    }
     // Setup tab bar items
     LaunchedEffect(tabs) {
         val tabBarItems = tabs.mapIndexed { index, tab ->

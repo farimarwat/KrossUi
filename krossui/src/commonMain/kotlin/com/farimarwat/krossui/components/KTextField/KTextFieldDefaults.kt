@@ -2,6 +2,7 @@ package com.farimarwat.krossui.components.KTextField
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 
 object KTextFieldDefaults {
     @Composable
@@ -11,7 +12,7 @@ object KTextFieldDefaults {
         focusedBackgroundColor:Color = Color.White,
         placeholderColor: Color = Color.Gray,
         unfocusedBorderColor: Color = Color.LightGray,
-        focusedBorderColor: Color = Color.Blue,
+        focusedBorderColor: Color = PlatformColors.systemBlue,
         disabledTextColor: Color = Color.Gray,
         disabledBorderColor: Color = Color.Gray,
         readOnlyTextColor: Color = Color.DarkGray

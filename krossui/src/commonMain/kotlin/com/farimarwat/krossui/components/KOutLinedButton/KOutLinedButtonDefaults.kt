@@ -3,15 +3,16 @@ package com.farimarwat.krossui.components.KOutLinedButton
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 
 object KOutLinedButtonDefaults {
 
     fun colors(
         containerColor: Color = Color.White,
-        contentColor: Color = Color.Blue,
+        contentColor: Color = PlatformColors.systemBlue,
         disabledBackgroundColor: Color = containerColor.copy(alpha = 0.3f),
         disabledTextColor: Color = contentColor.copy(alpha = 0.3f),
-        borderColor:Color = Color.Blue,
+        borderColor:Color = PlatformColors.systemBlue,
         disabledBorderColor: Color = borderColor.copy(alpha = 0.3f)
     ): KOutLinedButtonColors = KOutLinedButtonColors(
         backgroundColor = containerColor,

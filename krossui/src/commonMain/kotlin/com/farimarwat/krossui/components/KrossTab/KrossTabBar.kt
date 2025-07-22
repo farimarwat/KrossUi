@@ -5,8 +5,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 expect fun KrossTabBar(
+    modifier: Modifier = Modifier,
     tabs: List<KrossTabItem>,
     selectedIndex: Int,
     onTabClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    colors: KrossTabBarColors = KrossTabBarDefaults.colors()
 )

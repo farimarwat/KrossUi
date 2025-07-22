@@ -3,11 +3,12 @@ package com.farimarwat.krossui.components.KButton
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 
 object KButtonDefaults {
 
     fun colors(
-        containerColor: Color = Color.Blue,
+        containerColor: Color = PlatformColors.systemBlue,
         contentColor: Color = Color.White,
         disabledBackgroundColor: Color = containerColor.copy(alpha = 0.3f),
         disabledTextColor: Color = contentColor.copy(alpha = 0.3f)

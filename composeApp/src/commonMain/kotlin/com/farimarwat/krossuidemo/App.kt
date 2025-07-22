@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.components.KTextField.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
@@ -25,6 +26,7 @@ import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch
 import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
 import com.farimarwat.krossui.components.KrossTab.KrossTabBar
+import com.farimarwat.krossui.components.KrossTab.KrossTabBarDefaults
 import com.farimarwat.krossui.components.KrossTab.KrossTabItem
 import krossuidemo.composeapp.generated.resources.Res
 import krossuidemo.composeapp.generated.resources.ic_home
@@ -58,21 +60,25 @@ fun App() {
         Scaffold(
             bottomBar = {
                 KrossTabBar(
+                    modifier = Modifier.fillMaxWidth(),
                     list,
                     selectedTab,
                     onTabClick = {
                         selectedTab = it
                     },
-                    modifier = Modifier.fillMaxWidth()
-
+                    colors = KrossTabBarDefaults.colors(
+                        selectedContentColor = PlatformColors.systemRed,
+                        unselectedContentColor = PlatformColors.systemGray
+                    )
                 )
             }
         ) { paddingValues ->
             Column(
                 modifier = Modifier
-                    .safeContentPadding()
+                    .padding(8.dp)
                     .fillMaxSize()
-                    .padding(paddingValues),
+                    .padding(paddingValues)
+                ,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
