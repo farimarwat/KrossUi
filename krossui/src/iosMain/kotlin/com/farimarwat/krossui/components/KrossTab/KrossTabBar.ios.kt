@@ -1,16 +1,22 @@
 package com.farimarwat.krossui.components.KrossTab
 
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIImage
 import platform.UIKit.UITabBar
 import platform.UIKit.UITabBarDelegateProtocol
 import platform.UIKit.UITabBarItem
 import platform.darwin.NSObject
 
+@OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun KrossTabBar(
     tabs: List<KrossTabItem>,
@@ -51,7 +57,14 @@ actual fun KrossTabBar(
     }
 
     UIKitView(
-        factory = { tabBar },
-        modifier = modifier
+        factory = {
+            tabBar.apply {
+                setNeedsLayout()
+                layoutIfNeeded()
+            }
+                  },
+        modifier =  modifier
+            .wrapContentHeight()
+        .defaultMinSize(minHeight = 83.dp)
     )
 }

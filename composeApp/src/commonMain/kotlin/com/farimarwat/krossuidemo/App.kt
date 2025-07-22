@@ -62,18 +62,18 @@ fun App() {
                     list,
                     selectedTab,
                     onTabClick = {
-                        println("Tab Clicked: ${it}")
+                        selectedTab = it
                     },
                     modifier = Modifier.fillMaxWidth()
-                        .height(56.dp)
+
                 )
             }
-        ) {
+        ) { paddingValues ->
             Column(
                 modifier = Modifier
                     .safeContentPadding()
                     .fillMaxSize()
-                    .padding(32.dp),
+                    .padding(paddingValues),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
