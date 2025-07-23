@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components
+package com.farimarwat.krossui.components.KDialog
 
 import androidx.compose.runtime.Composable
 

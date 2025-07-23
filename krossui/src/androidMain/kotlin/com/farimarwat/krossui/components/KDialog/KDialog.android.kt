@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components
+package com.farimarwat.krossui.components.KDialog
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
