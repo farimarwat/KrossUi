@@ -11,8 +11,6 @@ expect fun KSwitch(
     modifier: Modifier = Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    thumbColor: Color = Color.White,
-    trackColorChecked: Color = PlatformColors.systemBlue,
-    trackColorUnchecked: Color = Color.Gray,
+    colors: KSwitchColors = KSwitchDefaults.colors(),
     isEnabled: Boolean = true
 )

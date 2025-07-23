@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import platform.CoreGraphics.CGRectMake
@@ -18,9 +19,7 @@ actual fun KSwitch(
     modifier: Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    thumbColor: Color,
-    trackColorChecked: Color,
-    trackColorUnchecked: Color,
+    colors: KSwitchColors,
     isEnabled: Boolean
 ) {
     // Store the callback in a remembered mutable reference
@@ -68,23 +67,9 @@ actual fun KSwitch(
                     // Update switch state
                     on = checked
                     enabled = isEnabled
-
-                    // Update colors
-                    onTintColor = UIColor(
-                        red = trackColorChecked.red.toDouble(),
-                        green = trackColorChecked.green.toDouble(),
-                        blue = trackColorChecked.blue.toDouble(),
-                        alpha = trackColorChecked.alpha.toDouble()
-                    )
-
-                    // Note: iOS UISwitch thumb color (thumbTintColor) is available from iOS 13+
-                    // and track color when off (backgroundColor) has limited customization
-                    thumbTintColor = UIColor(
-                        red = thumbColor.red.toDouble(),
-                        green = thumbColor.green.toDouble(),
-                        blue = thumbColor.blue.toDouble(),
-                        alpha = thumbColor.alpha.toDouble()
-                    )
+                    onTintColor = colors.trackColorChecked.toUiColor()
+                    tintColor = colors.trackColorUnchecked.toUiColor()
+                    thumbTintColor = colors.thumbColor.toUiColor()
 
                     // Alpha for disabled state
                     alpha = if (isEnabled) 1.0 else 0.5

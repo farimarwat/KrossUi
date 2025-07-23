@@ -16,9 +16,7 @@ actual fun KSwitch(
     modifier: Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    thumbColor: Color,
-    trackColorChecked: Color,
-    trackColorUnchecked: Color,
+   colors: KSwitchColors,
     isEnabled: Boolean
 ) {
     Row(
@@ -30,14 +28,14 @@ actual fun KSwitch(
             onCheckedChange = onCheckedChange,
             enabled = isEnabled,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = thumbColor,
-                uncheckedThumbColor = thumbColor,
-                checkedTrackColor = trackColorChecked,
-                uncheckedTrackColor = trackColorUnchecked,
-                disabledCheckedThumbColor = thumbColor.copy(alpha = 0.5f),
-                disabledUncheckedThumbColor = thumbColor.copy(alpha = 0.5f),
-                disabledCheckedTrackColor = trackColorChecked.copy(alpha = 0.5f),
-                disabledUncheckedTrackColor = trackColorUnchecked.copy(alpha = 0.5f)
+                checkedThumbColor = colors.thumbColor,
+                uncheckedThumbColor = colors.thumbColor,
+                checkedTrackColor = colors.trackColorChecked,
+                uncheckedTrackColor = colors.trackColorUnchecked,
+                disabledCheckedThumbColor = colors.thumbColor.copy(alpha = 0.5f),
+                disabledUncheckedThumbColor = colors.thumbColor.copy(alpha = 0.5f),
+                disabledCheckedTrackColor = colors.trackColorChecked.copy(alpha = 0.5f),
+                disabledUncheckedTrackColor = colors.trackColorUnchecked.copy(alpha = 0.5f)
             )
         )
     }
