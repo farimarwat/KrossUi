@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components.KrossTab
+package com.farimarwat.krossui.components.KTabBar
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -7,16 +7,15 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-actual fun KrossTabBar(
+actual fun KTabBar(
     modifier: Modifier,
-    tabs: List<KrossTabItem>,
+    tabs: List<KTabItem>,
     selectedIndex: Int,
     onTabClick: (Int) -> Unit,
-    colors: KrossTabBarColors
+    colors: KTabBarColors
 ) {
     NavigationBar(
         modifier = modifier

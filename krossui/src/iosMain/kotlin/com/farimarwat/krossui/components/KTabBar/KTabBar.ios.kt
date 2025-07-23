@@ -1,7 +1,6 @@
-package com.farimarwat.krossui.components.KrossTab
+package com.farimarwat.krossui.components.KTabBar
 
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.UIKit.UIColor
 import platform.UIKit.UIImage
 import platform.UIKit.UITabBar
 import platform.UIKit.UITabBarDelegateProtocol
@@ -20,12 +18,12 @@ import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KrossTabBar(
+actual fun KTabBar(
     modifier: Modifier,
-    tabs: List<KrossTabItem>,
+    tabs: List<KTabItem>,
     selectedIndex: Int,
     onTabClick: (Int) -> Unit,
-    colors: KrossTabBarColors
+    colors: KTabBarColors
 ) {
     val tabBar = remember { UITabBar() }
     val delegate = remember {

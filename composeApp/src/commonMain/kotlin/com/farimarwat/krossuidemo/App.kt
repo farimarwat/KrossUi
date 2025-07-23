@@ -25,9 +25,9 @@ import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch
 import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
 import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
-import com.farimarwat.krossui.components.KrossTab.KrossTabBar
-import com.farimarwat.krossui.components.KrossTab.KrossTabBarDefaults
-import com.farimarwat.krossui.components.KrossTab.KrossTabItem
+import com.farimarwat.krossui.components.KTabBar.KTabBar
+import com.farimarwat.krossui.components.KTabBar.KTabBarDefaults
+import com.farimarwat.krossui.components.KTabBar.KTabItem
 import krossuidemo.composeapp.generated.resources.Res
 import krossuidemo.composeapp.generated.resources.ic_home
 import krossuidemo.composeapp.generated.resources.ic_settings
@@ -41,17 +41,17 @@ fun App() {
         var showDialog by remember { mutableStateOf(false) }
         var selectedTab by remember { mutableStateOf(1)}
         val list = listOf(
-            KrossTabItem(
+            KTabItem(
                 "Home",
                 Res.drawable.ic_home,
                 "house.fill"
             ),
-            KrossTabItem(
+            KTabItem(
                 "Favourite",
                 Res.drawable.ic_star,
                 "star.fill"
             ),
-            KrossTabItem(
+            KTabItem(
                 "Settings",
                 Res.drawable.ic_settings,
                 "gearshape.fill"
@@ -59,14 +59,14 @@ fun App() {
         )
         Scaffold(
             bottomBar = {
-                KrossTabBar(
+                KTabBar(
                     modifier = Modifier.fillMaxWidth(),
                     list,
                     selectedTab,
                     onTabClick = {
                         selectedTab = it
                     },
-                    colors = KrossTabBarDefaults.colors(
+                    colors = KTabBarDefaults.colors(
                         selectedContentColor = PlatformColors.systemRed,
                         unselectedContentColor = PlatformColors.systemGray
                     )

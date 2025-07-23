@@ -1,13 +1,13 @@
-package com.farimarwat.krossui.components.KrossTab
+package com.farimarwat.krossui.components.KTabBar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-expect fun KrossTabBar(
+expect fun KTabBar(
     modifier: Modifier = Modifier,
-    tabs: List<KrossTabItem>,
+    tabs: List<KTabItem>,
     selectedIndex: Int,
     onTabClick: (Int) -> Unit,
-    colors: KrossTabBarColors = KrossTabBarDefaults.colors()
+    colors: KTabBarColors = KTabBarDefaults.colors()
 )
