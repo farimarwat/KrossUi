@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,6 +26,7 @@ import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
 import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch
 import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
+import com.farimarwat.krossui.components.KrossIndicator.KProgressIndicator
 import com.farimarwat.krossui.components.KrossTab.KrossTabBar
 import com.farimarwat.krossui.components.KrossTab.KrossTabBarDefaults
 import com.farimarwat.krossui.components.KrossTab.KrossTabItem
@@ -123,16 +125,27 @@ fun App() {
                         }
                     )
                 }
-                KSwitch(
-                    modifier = Modifier.width(100.dp)
-                        .height(48.dp),
-                    checked = switch,
-                    onCheckedChange = {
-                        switch = it
-                    }
 
-                )
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    KSwitch(
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(48.dp),
+                        checked = switch,
+                        onCheckedChange = {
+                            switch = it
+                        }
+                    )
 
+                    KProgressIndicator(
+
+                        size = 50.0
+                    )
+
+                }
                 var sliderValue by remember { mutableStateOf(0.5f)}
                 KSlider(
                     modifier = Modifier
