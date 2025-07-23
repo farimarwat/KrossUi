@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -26,7 +24,7 @@ import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
 import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch
 import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
-import com.farimarwat.krossui.components.KrossIndicator.KProgressIndicator
+import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
 import com.farimarwat.krossui.components.KrossTab.KrossTabBar
 import com.farimarwat.krossui.components.KrossTab.KrossTabBarDefaults
 import com.farimarwat.krossui.components.KrossTab.KrossTabItem

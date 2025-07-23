@@ -1,7 +1,8 @@
-package com.farimarwat.krossui.components.KrossIndicator
+package com.farimarwat.krossui.components.KProgressIndicator
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -10,13 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGAffineTransformMakeScale
-import platform.CoreGraphics.CGRectMake
 import platform.UIKit.UIActivityIndicatorView
-import platform.UIKit.UIActivityIndicatorViewStyleLarge
-import platform.UIKit.UIColor
-import platform.UIKit.UIView
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
@@ -24,7 +20,7 @@ actual fun KProgressIndicator(
     size: Double,
     color: Color
 ) {
-    val indicator = remember { UIActivityIndicatorView() }
+    val indicator = remember {UIActivityIndicatorView()}
 
     LaunchedEffect(size) {
         indicator.startAnimating()

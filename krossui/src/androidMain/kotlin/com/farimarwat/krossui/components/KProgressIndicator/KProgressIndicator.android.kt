@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components.KrossIndicator
+package com.farimarwat.krossui.components.KProgressIndicator
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator

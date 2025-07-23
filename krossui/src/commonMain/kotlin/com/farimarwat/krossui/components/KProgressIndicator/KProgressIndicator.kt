@@ -1,7 +1,6 @@
-package com.farimarwat.krossui.components.KrossIndicator
+package com.farimarwat.krossui.components.KProgressIndicator
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable

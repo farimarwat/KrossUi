@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components.KrossIndicator
+package com.farimarwat.krossui.components.KProgressIndicator
 
 import androidx.compose.ui.graphics.Color
 
