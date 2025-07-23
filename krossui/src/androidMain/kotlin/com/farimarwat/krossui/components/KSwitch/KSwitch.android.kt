@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components
+package com.farimarwat.krossui.components.KSwitch
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Switch
@@ -16,28 +16,15 @@ actual fun KSwitch(
     modifier: Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    label: String,
     thumbColor: Color,
     trackColorChecked: Color,
     trackColorUnchecked: Color,
-    labelColor: Color,
-    labelSize: TextUnit,
     isEnabled: Boolean
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (label.isNotEmpty()) {
-            Text(
-                text = label,
-                color = if (isEnabled) labelColor else labelColor.copy(alpha = 0.5f),
-                fontSize = labelSize,
-                modifier = Modifier.weight(1f)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-        }
-
         Switch(
             checked = checked,
             onCheckedChange = onCheckedChange,

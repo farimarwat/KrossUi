@@ -22,7 +22,7 @@ import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KDialog
 import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
 import com.farimarwat.krossui.components.KSlider.KSlider
-import com.farimarwat.krossui.components.KSwitch
+import com.farimarwat.krossui.components.KSwitch.KSwitch
 import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
 import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
 import com.farimarwat.krossui.components.KTabBar.KTabBar

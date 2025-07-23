@@ -1,4 +1,4 @@
-package com.farimarwat.krossui.components
+package com.farimarwat.krossui.components.KSwitch
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -18,12 +18,9 @@ actual fun KSwitch(
     modifier: Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    label: String,
     thumbColor: Color,
     trackColorChecked: Color,
     trackColorUnchecked: Color,
-    labelColor: Color,
-    labelSize: TextUnit,
     isEnabled: Boolean
 ) {
     // Store the callback in a remembered mutable reference
@@ -34,15 +31,6 @@ actual fun KSwitch(
         factory = {
             // Create a container view
             val containerView = UIView(frame = CGRectMake(0.0, 0.0, 300.0, 44.0))
-
-            // Create label if provided
-            var labelView: UILabel? = null
-            if (label.isNotEmpty()) {
-                labelView = UILabel(frame = CGRectMake(0.0, 0.0, 200.0, 44.0))
-                labelView.text = label
-                labelView.textAlignment = NSTextAlignmentLeft
-                containerView.addSubview(labelView)
-            }
 
             // Create UISwitch
             val uiSwitch = UISwitch()
@@ -74,22 +62,6 @@ actual fun KSwitch(
         },
         update = { view ->
             view.let { containerView ->
-                // Update label if it exists (first subview might be label)
-                val labelView = containerView.subviews.firstOrNull { it is UILabel } as? UILabel
-                labelView?.apply {
-                    text = label
-                    textColor = UIColor(
-                        red = labelColor.red.toDouble(),
-                        green = labelColor.green.toDouble(),
-                        blue = labelColor.blue.toDouble(),
-                        alpha = if (isEnabled) labelColor.alpha.toDouble() else labelColor.alpha.toDouble() * 0.5
-                    )
-
-                    if (labelSize != TextUnit.Unspecified) {
-                        font = UIFont.systemFontOfSize(labelSize.value.toDouble())
-                    }
-                }
-
                 // Update switch (find UISwitch in subviews)
                 val uiSwitch = containerView.subviews.firstOrNull { it is UISwitch } as? UISwitch
                 uiSwitch?.apply {
