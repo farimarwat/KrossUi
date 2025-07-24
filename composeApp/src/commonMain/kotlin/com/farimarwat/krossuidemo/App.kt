@@ -1,6 +1,7 @@
 package com.farimarwat.krossuidemo
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,8 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +24,8 @@ import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.components.KTextField.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KDialog.KDialog
+import com.farimarwat.krossui.components.KMenu.KMenu
+import com.farimarwat.krossui.components.KMenu.KMenuItem
 import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
 import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch.KSwitch
@@ -155,6 +161,32 @@ fun App() {
                     }
                 )
 
+                val list = listOf(
+                    KMenuItem(
+                        title = "Home sweet Home",
+                        androidIcon = Res.drawable.ic_home,
+                        iosIcon = "house"
+                    ),
+                    KMenuItem(
+                        title = "Favourite",
+                        androidIcon = Res.drawable.ic_star,
+                        iosIcon = "star.fill"
+                    ),
+                    KMenuItem(
+                        title = "Settings",
+                        androidIcon = Res.drawable.ic_settings,
+                        iosIcon = "gear"
+                    )
+                )
+                KMenu(
+                    title = "Menu",
+                    items = list,
+                    iOSIcon = "gear",
+                    androidIcon = Res.drawable.ic_settings,
+                    onItemClick = {
+
+                    }
+                )
                 if(showDialog){
                     KDialog(
                         show = showDialog,
