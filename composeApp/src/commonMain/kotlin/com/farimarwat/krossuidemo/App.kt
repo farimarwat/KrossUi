@@ -110,9 +110,10 @@ fun App() {
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ){
                     KButton(
-                        modifier = Modifier.fillMaxWidth()
-                            .weight(0.5f)
-                            .height(48.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(40.dp)
+                            .weight(0.5f),
                         text = "Press Me",
                         onClick = {
                             showDialog = true
@@ -122,7 +123,7 @@ fun App() {
                     KOutLinedButton(
                         modifier = Modifier.fillMaxWidth()
                             .weight(0.5f)
-                            .height(48.dp),
+                            .height(40.dp),
                         text = "Help Me",
                         onClick = {
 
