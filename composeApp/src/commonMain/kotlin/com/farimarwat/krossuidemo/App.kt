@@ -30,6 +30,7 @@ import com.farimarwat.krossui.components.KIconButton.KIconButton
 import com.farimarwat.krossui.components.KMenu.KMenu
 import com.farimarwat.krossui.components.KMenu.KMenuItem
 import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
+import com.farimarwat.krossui.components.KPicker.KPicker
 import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch.KSwitch
 import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
@@ -220,6 +221,15 @@ fun App() {
                        )
                    }
                }
+
+                KPicker(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    items = listOf("Apple","Mango","Graps","PineApple","Banana"),
+                    onItemPicked = {
+                        println(it)
+                    }
+                )
                 if(showDialog){
                     KDialog(
                         show = showDialog,
