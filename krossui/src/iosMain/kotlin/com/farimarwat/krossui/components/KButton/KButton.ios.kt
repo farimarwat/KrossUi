@@ -51,12 +51,12 @@ actual fun KButton(
 
                  // Title color
                  setTitleColor(
-                     color = if(isEnabled) colors.textColor.toUiColor() else colors.disabledTextColor.toUiColor(),
+                     color = if(isEnabled) colors.contentColor.toUiColor() else colors.disabledContentColor.toUiColor(),
                      forState = UIControlStateNormal
                  )
 
                  // Background color
-                 backgroundColor = if(isEnabled) colors.backgroundColor.toUiColor() else colors.disabledBackgroundColor.toUiColor()
+                 backgroundColor = if(isEnabled) colors.containerColor.toUiColor() else colors.disabledContainerColor.toUiColor()
 
                  // Font
                  titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
@@ -89,12 +89,12 @@ actual fun KButton(
 
                     // Update title color
                     setTitleColor(
-                        color = if(isEnabled) colors.textColor.toUiColor() else colors.disabledTextColor.toUiColor(),
+                        color = if(isEnabled) colors.contentColor.toUiColor() else colors.disabledContentColor.toUiColor(),
                         forState = UIControlStateNormal
                     )
 
                     // Update background color
-                    this.backgroundColor = if(isEnabled) colors.backgroundColor.toUiColor() else colors.disabledBackgroundColor.toUiColor()
+                    this.backgroundColor = if(isEnabled) colors.containerColor.toUiColor() else colors.disabledContainerColor.toUiColor()
                     // Update font
                     if (fontSize != TextUnit.Unspecified) {
                         titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())

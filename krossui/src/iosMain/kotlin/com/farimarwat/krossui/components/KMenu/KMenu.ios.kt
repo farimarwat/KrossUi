@@ -29,17 +29,19 @@ actual fun KMenu(
 ) {
     val itemClickCallback = remember { mutableStateOf(onItemClick) }
     itemClickCallback.value = onItemClick
-    val button = remember { UIButton.buttonWithType(UIButtonTypeSystem).apply {
-        // Set icon or text
-        if (iOSIcon != null) {
-            val iconImage = UIImage.systemImageNamed(iOSIcon)
-            setImage(iconImage, forState = UIControlStateNormal)
-            setTitle("", forState = UIControlStateNormal)
-        } else {
-            setTitle(title, forState = UIControlStateNormal)
-            setTitleColor(colors.contentColor.toUiColor(), UIControlStateNormal)
+    val button = remember {
+        UIButton.buttonWithType(UIButtonTypeSystem).apply {
+            // Set icon or text
+            if (iOSIcon != null) {
+                val iconImage = UIImage.systemImageNamed(iOSIcon)
+                setImage(iconImage, forState = UIControlStateNormal)
+                setTitle("", forState = UIControlStateNormal)
+            } else {
+                setTitle(title, forState = UIControlStateNormal)
+                setTitleColor(colors.contentColor.toUiColor(), UIControlStateNormal)
+            }
         }
-    } }
+    }
     val size = button.intrinsicContentSize
     UIKitView(
         modifier = Modifier

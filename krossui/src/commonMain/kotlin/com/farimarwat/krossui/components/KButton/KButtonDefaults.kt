@@ -13,10 +13,10 @@ object KButtonDefaults {
         disabledBackgroundColor: Color = containerColor.copy(alpha = 0.3f),
         disabledTextColor: Color = contentColor.copy(alpha = 0.3f)
     ): KButtonColors = KButtonColors(
-        backgroundColor = containerColor,
-        textColor = contentColor,
-        disabledBackgroundColor = disabledBackgroundColor,
-        disabledTextColor = disabledTextColor
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledBackgroundColor,
+        disabledContentColor = disabledTextColor
     )
 
     val DefaultFontSize: TextUnit = 14.sp

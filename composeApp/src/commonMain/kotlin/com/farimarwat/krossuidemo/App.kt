@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -24,6 +26,7 @@ import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.components.KTextField.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KDialog.KDialog
+import com.farimarwat.krossui.components.KIconButton.KIconButton
 import com.farimarwat.krossui.components.KMenu.KMenu
 import com.farimarwat.krossui.components.KMenu.KMenuItem
 import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
@@ -179,15 +182,44 @@ fun App() {
                         iosIcon = "gear"
                     )
                 )
-                KMenu(
-                    title = "Menu",
-                    items = list,
-                    iOSIcon = "gear",
-                    androidIcon = Res.drawable.ic_settings,
-                    onItemClick = {
+               Row(
+                   modifier = Modifier.fillMaxWidth()
+               ){
+                   Box(
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .weight(0.5f),
+                       contentAlignment = Alignment.Center
+                   ){
+                       KMenu(
+                           title = "Menu",
+                           items = list,
+                           iOSIcon = "gear",
+                           androidIcon = Res.drawable.ic_settings,
+                           onItemClick = {
 
-                    }
-                )
+                           }
+                       )
+                   }
+                   Box(
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .weight(0.5f),
+                       contentAlignment = Alignment.Center
+                   ){
+                       KIconButton(
+                           modifier = Modifier
+                               .wrapContentWidth()
+                               .height(40.dp),
+                           title = "Favourite",
+                           iosIcon = "star.fill",
+                           androidIcon = Res.drawable.ic_star,
+                           onClick = {
+                               println("Icon Button Pressed")
+                           }
+                       )
+                   }
+               }
                 if(showDialog){
                     KDialog(
                         show = showDialog,

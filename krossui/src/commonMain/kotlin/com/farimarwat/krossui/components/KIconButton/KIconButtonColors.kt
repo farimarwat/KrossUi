@@ -1,8 +1,8 @@
-package com.farimarwat.krossui.components.KButton
+package com.farimarwat.krossui.components.KIconButton
 
 import androidx.compose.ui.graphics.Color
 
-data class KButtonColors(
+data class KIconButtonColors(
     val containerColor: Color,
     val contentColor: Color,
     val disabledContainerColor: Color,
