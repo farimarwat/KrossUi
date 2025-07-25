@@ -1,5 +1,9 @@
 package com.farimarwat.krossuidemo
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +16,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,6 +31,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.components.KTextField.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
+import com.farimarwat.krossui.components.KDatePicker.KDatePicker
 import com.farimarwat.krossui.components.KDialog.KDialog
 import com.farimarwat.krossui.components.KIconButton.KIconButton
 import com.farimarwat.krossui.components.KMenu.KMenu
@@ -43,7 +50,10 @@ import krossuidemo.composeapp.generated.resources.ic_home
 import krossuidemo.composeapp.generated.resources.ic_settings
 import krossuidemo.composeapp.generated.resources.ic_star
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 @Composable
 @Preview
 fun App() {
@@ -85,9 +95,11 @@ fun App() {
         ) { paddingValues ->
             Column(
                 modifier = Modifier
+                    .background(PlatformColors.systemBackground)
                     .padding(8.dp)
                     .fillMaxSize()
                     .padding(paddingValues)
+                    .verticalScroll(rememberScrollState())
                 ,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -230,6 +242,18 @@ fun App() {
                         println(it)
                     }
                 )
+                var showDatePicker by remember { mutableStateOf(false)}
+                Row{
+                    KButton(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(48.dp)
+                            .weight(0.5f),
+                        onClick = {
+                            showDatePicker = true
+                        },
+                        text = "Date Picker"
+                    )
+                }
                 if(showDialog){
                     KDialog(
                         show = showDialog,
@@ -242,6 +266,20 @@ fun App() {
                         },
                         onCancel = {
                             showDialog = false
+                        }
+                    )
+                }
+
+                if(showDatePicker){
+                    KDatePicker(
+                        show = showDatePicker,
+                        initialDate = Clock.System.now().toEpochMilliseconds(),
+                        onDismiss = {
+                            showDatePicker = false
+                        },
+                        onDateSelected = {
+                            showDatePicker = false
+                            print(it)
                         }
                     )
                 }
