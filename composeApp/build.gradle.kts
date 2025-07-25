@@ -43,6 +43,9 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            // commonMain
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
             implementation(project(":krossui"))
         }
         commonTest.dependencies {

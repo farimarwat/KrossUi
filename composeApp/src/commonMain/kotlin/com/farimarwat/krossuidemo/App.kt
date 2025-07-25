@@ -45,6 +45,9 @@ import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
 import com.farimarwat.krossui.components.KTabBar.KTabBar
 import com.farimarwat.krossui.components.KTabBar.KTabBarDefaults
 import com.farimarwat.krossui.components.KTabBar.KTabItem
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import krossuidemo.composeapp.generated.resources.Res
 import krossuidemo.composeapp.generated.resources.ic_home
 import krossuidemo.composeapp.generated.resources.ic_settings
@@ -52,6 +55,7 @@ import krossuidemo.composeapp.generated.resources.ic_star
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
 @Composable
@@ -243,7 +247,10 @@ fun App() {
                     }
                 )
                 var showDatePicker by remember { mutableStateOf(false)}
-                Row{
+                var currentDate by remember { mutableStateOf("")}
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ){
                     KButton(
                         modifier = Modifier.fillMaxWidth()
                             .height(48.dp)
@@ -252,6 +259,12 @@ fun App() {
                             showDatePicker = true
                         },
                         text = "Date Picker"
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
+                        text = currentDate
                     )
                 }
                 if(showDialog){
@@ -279,11 +292,17 @@ fun App() {
                         },
                         onDateSelected = {
                             showDatePicker = false
-                            print(it)
+                            currentDate = formatDateFromMillis(it)
                         }
                     )
                 }
             }
         }
     }
+}
+
+@OptIn(ExperimentalTime::class)
+fun formatDateFromMillis(timestamp: Long): String {
+    val instant = Instant.fromEpochMilliseconds(timestamp)
+    return instant.toString()
 }

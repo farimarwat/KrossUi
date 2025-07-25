@@ -62,7 +62,7 @@ fun DatePickerUIView(
     onDismiss: () -> Unit,
     onDateSelected: (Long) -> Unit
 ) {
-    var currentDate by remember { mutableStateOf(initialDate) }
+    var currentDate = remember { initialDate }
 
     val datePicker = remember {
         UIDatePicker().apply {
