@@ -13,11 +13,13 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.Popup
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,8 +35,9 @@ actual fun KDatePicker(
         datePickerState.selectedDateMillis ?: 0
     }
     if (show) {
-        Dialog(
-            onDismissRequest = onDismiss
+        Popup(
+            onDismissRequest = onDismiss,
+            alignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
