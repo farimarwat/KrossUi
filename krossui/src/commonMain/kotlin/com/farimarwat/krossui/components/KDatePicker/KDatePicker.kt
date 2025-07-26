@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 expect fun KDatePicker(
     show: Boolean,
     initialDate:Long,
+    colors: KDatePickerColors = KDatePickerDefaults.colors(),
     onDismiss:()->Unit={},
     onDateSelected:(Long)->Unit
 )

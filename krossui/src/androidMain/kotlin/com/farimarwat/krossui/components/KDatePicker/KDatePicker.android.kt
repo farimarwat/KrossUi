@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -20,12 +21,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun KDatePicker(
     show: Boolean,
     initialDate: Long,
+    colors: KDatePickerColors,
     onDismiss: () -> Unit,
     onDateSelected: (Long) -> Unit
 ) {
@@ -37,29 +40,43 @@ actual fun KDatePicker(
     if (show) {
         Popup(
             onDismissRequest = onDismiss,
-            alignment = Alignment.Center
+            alignment = Alignment.Center,
+            properties = PopupProperties(
+                usePlatformDefaultWidth = true
+            )
         ) {
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
-                    .background(Color.White)
             ) {
                 DatePicker(
                     state = datePickerState,
+                    colors = DatePickerDefaults.colors(
+                        containerColor = colors.containerColor,
+                        dayContentColor = colors.contentColor
+                    )
                 )
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colors.footerContainerColor),
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(onClick = {
                         onDismiss()
                     }) {
-                        Text("Cancel")
+                        Text(
+                            text = "Cancel",
+                            color = colors.footerContentColor
+                        )
                     }
                     TextButton(onClick = {
                         onDateSelected(datePickerState.selectedDateMillis ?: 0)
                     }) {
-                        Text("Done")
+                        Text(
+                            text = "Done",
+                            color = colors.footerContentColor
+                        )
                     }
                 }
             }

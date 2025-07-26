@@ -26,12 +26,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.components.KTextField.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KDatePicker.KDatePicker
+import com.farimarwat.krossui.components.KDatePicker.KDatePickerColors
+import com.farimarwat.krossui.components.KDatePicker.KDatePickerDefaults
 import com.farimarwat.krossui.components.KDialog.KDialog
 import com.farimarwat.krossui.components.KIconButton.KIconButton
 import com.farimarwat.krossui.components.KMenu.KMenu
@@ -249,6 +252,8 @@ fun App() {
                 var showDatePicker by remember { mutableStateOf(false)}
                 var currentDate by remember { mutableStateOf("")}
                 Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     KButton(
@@ -264,7 +269,9 @@ fun App() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(0.5f),
-                        text = currentDate
+                        text = currentDate,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
                 if(showDialog){
@@ -287,6 +294,9 @@ fun App() {
                     KDatePicker(
                         show = showDatePicker,
                         initialDate = Clock.System.now().toEpochMilliseconds(),
+                        colors = KDatePickerDefaults.colors(
+                            containerColor = PlatformColors.systemGray
+                        ),
                         onDismiss = {
                             showDatePicker = false
                         },

@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
+import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSDate
@@ -41,105 +43,103 @@ import platform.UIKit.UIDevice
 import platform.UIKit.systemBackgroundColor
 
 import platform.darwin.NSObject
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, ExperimentalComposeUiApi::class)
 @Composable
 actual fun KDatePicker(
     show: Boolean,
     initialDate: Long,
+    colors: KDatePickerColors,
     onDismiss: () -> Unit,
     onDateSelected: (Long) -> Unit
 ) {
     if (show) {
-        DatePickerUIView(
-            initialDate = initialDate,
-            onDismiss = onDismiss,
-            onDateSelected = onDateSelected
-        )
-    }
-}
-@OptIn(ExperimentalForeignApi::class, ExperimentalComposeUiApi::class)
-@Composable
-fun DatePickerUIView(
-    initialDate: Long,
-    onDismiss: () -> Unit,
-    onDateSelected: (Long) -> Unit
-) {
-    var currentDate = remember { initialDate }
+        var currentDate = remember { initialDate }
 
-    val datePicker = remember {
-        UIDatePicker().apply {
-            val target =  object : NSObject() {
-                @ObjCAction
-                fun dateChanged() {
-                    val timeInterval = this@apply.date.timeIntervalSince1970
-                    val timestamp = (timeInterval * 1000).toLong()
-                    currentDate = timestamp
-                }
-            }
-            datePickerMode = UIDatePickerMode.UIDatePickerModeDate
-            backgroundColor = UIColor.redColor
-
-            if (UIDevice.currentDevice.systemVersion.substringBefore(".").toInt() >= 13.4) {
-                preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
-            }
-
-            val nsDate = NSDate.dateWithTimeIntervalSince1970(initialDate / 1000.0)
-            setDate(nsDate, animated = true)
-
-            locale = NSLocale.currentLocale
-            backgroundColor = UIColor.systemBackgroundColor
-
-
-
-            addTarget(
-                target = target,
-                action = NSSelectorFromString("dateChanged"),
-                forControlEvents = UIControlEventValueChanged
-            )
-        }
-    }
-    Popup(
-        onDismissRequest = onDismiss,
-        alignment = Alignment.Center
-    ){
-        Column(
-            modifier = Modifier
-                .clip(RoundedCornerShape(16.dp))
-                .background(Color.White)
-        ){
-            UIKitView(
-                factory = {
-                    datePicker.sizeToFit()
-                    datePicker
-                },
-                modifier = Modifier
-                    .height(260.dp)
-                    .fillMaxWidth(),
-                update = { picker ->
-                    if (currentDate != initialDate) {
-                        val nsDate = NSDate.dateWithTimeIntervalSince1970(initialDate / 1000.0)
-                        picker.setDate(nsDate, animated = true)
-                        currentDate = initialDate
+        val datePicker = remember {
+            UIDatePicker().apply {
+                val target =  object : NSObject() {
+                    @ObjCAction
+                    fun dateChanged() {
+                        val timeInterval = this@apply.date.timeIntervalSince1970
+                        val timestamp = (timeInterval * 1000).toLong()
+                        currentDate = timestamp
                     }
                 }
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                TextButton(onClick = {
-                    onDismiss()
-                }) {
-                    Text("Cancel")
-                }
-                TextButton(onClick = {
-                    onDateSelected(currentDate)
-                }) {
-                    Text("Done")
-                }
-            }
+                datePickerMode = UIDatePickerMode.UIDatePickerModeDate
+                backgroundColor = UIColor.redColor
 
+                if (UIDevice.currentDevice.systemVersion.substringBefore(".").toInt() >= 13.4) {
+                    preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
+                }
+
+                val nsDate = NSDate.dateWithTimeIntervalSince1970(initialDate / 1000.0)
+                setDate(nsDate, animated = true)
+
+                locale = NSLocale.currentLocale
+                backgroundColor = colors.containerColor.toUiColor()
+                addTarget(
+                    target = target,
+                    action = NSSelectorFromString("dateChanged"),
+                    forControlEvents = UIControlEventValueChanged
+                )
+            }
+        }
+        Popup(
+            onDismissRequest = onDismiss,
+            alignment = Alignment.Center,
+            properties = PopupProperties(
+                usePlatformDefaultWidth = true
+            )
+        ){
+            Column(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.White)
+            ){
+                UIKitView(
+                    factory = {
+                        datePicker.sizeToFit()
+                        datePicker
+                    },
+                    modifier = Modifier
+                        .height(260.dp)
+                        .fillMaxWidth(),
+                    update = { picker ->
+                        if (currentDate != initialDate) {
+                            val nsDate = NSDate.dateWithTimeIntervalSince1970(initialDate / 1000.0)
+                            picker.setDate(nsDate, animated = true)
+                            currentDate = initialDate
+                        }
+                    }
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colors.footerContainerColor)
+                    ,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = {
+                        onDismiss()
+                    }) {
+                        Text(
+                            text = "Cancel",
+                            color = colors.footerContentColor
+                        )
+                    }
+                    TextButton(onClick = {
+                        onDateSelected(currentDate)
+                    }) {
+                        Text(
+                            text = "Done",
+                            color = colors.footerContentColor
+                        )
+                    }
+                }
+
+            }
         }
     }
 }
+
 
