@@ -66,8 +66,7 @@ actual fun KDatePicker(
                     }
                 }
                 datePickerMode = UIDatePickerMode.UIDatePickerModeDate
-                backgroundColor = UIColor.redColor
-
+                backgroundColor = colors.containerColor.toUiColor()
                 if (UIDevice.currentDevice.systemVersion.substringBefore(".").toInt() >= 13.4) {
                     preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
                 }
@@ -88,13 +87,12 @@ actual fun KDatePicker(
             onDismissRequest = onDismiss,
             alignment = Alignment.Center,
             properties = PopupProperties(
-                usePlatformDefaultWidth = true
+                clippingEnabled = true
             )
         ){
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
-                    .background(Color.White)
             ){
                 UIKitView(
                     factory = {
@@ -103,7 +101,8 @@ actual fun KDatePicker(
                     },
                     modifier = Modifier
                         .height(260.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .background(colors.containerColor),
                     update = { picker ->
                         if (currentDate != initialDate) {
                             val nsDate = NSDate.dateWithTimeIntervalSince1970(initialDate / 1000.0)

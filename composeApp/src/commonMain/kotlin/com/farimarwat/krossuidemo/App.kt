@@ -295,7 +295,7 @@ fun App() {
                         show = showDatePicker,
                         initialDate = Clock.System.now().toEpochMilliseconds(),
                         colors = KDatePickerDefaults.colors(
-                            containerColor = PlatformColors.systemGray
+                            containerColor = PlatformColors.systemBackground
                         ),
                         onDismiss = {
                             showDatePicker = false

@@ -42,7 +42,7 @@ actual fun KDatePicker(
             onDismissRequest = onDismiss,
             alignment = Alignment.Center,
             properties = PopupProperties(
-                usePlatformDefaultWidth = true
+                clippingEnabled = true
             )
         ) {
             Column(
