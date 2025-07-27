@@ -20,12 +20,20 @@ class PickerDataSourceDelegate(
         return items.size.toLong()
     }
 
+    // Track selection manually since we need to find the correct delegate method
+    private var lastSelectedRow: Long = -1
+
     override fun pickerView(pickerView: UIPickerView, titleForRow: Long, forComponent: Long): String? {
-        val item = items.getOrNull(titleForRow.toInt())
-        item?.let{
-            onItemPicked(it)
+        // Check if this is the currently selected row
+        val currentSelected = pickerView.selectedRowInComponent(forComponent)
+        if (currentSelected != lastSelectedRow && currentSelected == titleForRow) {
+            lastSelectedRow = currentSelected
+            val selectedItem = items.getOrNull(titleForRow.toInt())
+            selectedItem?.let {
+                onItemPicked(it)
+            }
         }
-        return item
+        return items.getOrNull(titleForRow.toInt())
     }
 }
 
