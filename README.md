@@ -1,14 +1,41 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# KrossUI 🌐
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+**KrossUI** is a powerful Kotlin Multiplatform UI component library designed to simplify cross-platform UI development for Android and iOS. It provides a unified set of beautiful, customizable, and production-ready UI components built with `JetBrains Compose Multiplatform`.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+---
 
+## 🚀 Features
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+- 🧩 **Composable Components** — Easily pluggable UI building blocks like buttons, pickers, dialogs, etc.
+- 📱 **Android + iOS Support** — Works seamlessly across Android and iOS with shared business/UI logic.
+- 🎨 **Consistent Design** — Achieve pixel-perfect design across platforms with built-in theming and customization.
+- ⚡ **Lightweight & Performant** — Optimized for performance with minimal dependencies.
+- 🛠️ **Developer Friendly** — Simple API, clean codebase, and easily extendable.
+
+---
+
+## 📦 Installation
+
+Coming soon
+
+---
+
+## 📚 Documentation
+
+Coming soon! Stay tuned for full usage examples, setup guides, and customization tips.
+
+---
+
+## 🙌 Contribute
+
+KrossUI is open to contributions! Whether you're fixing bugs, improving documentation, or adding new components, your help is welcome. Check out the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
+
+## 📄 License
+
+KrossUI is licensed under the [Apache 2.0 License](LICENSE).
+
+---
+
+Built with ❤️ by [Farimarwat](https://github.com/farimarwat)
