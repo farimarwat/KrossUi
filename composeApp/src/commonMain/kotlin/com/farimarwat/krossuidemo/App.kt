@@ -229,8 +229,7 @@ fun App() {
                    ){
                        KIconButton(
                            modifier = Modifier
-                               .wrapContentWidth()
-                               .height(40.dp),
+                               .fillMaxWidth(),
                            title = "Favourite",
                            iosIcon = "star.fill",
                            androidIcon = Res.drawable.ic_star,
