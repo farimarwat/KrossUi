@@ -1,17 +1,17 @@
 package com.farimarwat.krossui.components.KSlider
 
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.toUiColor
 import platform.UIKit.UISlider
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
-import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.UIControlEventValueChanged
 import platform.darwin.NSObject
@@ -62,11 +62,21 @@ actual fun KSlider(
             // Return the UISlider instance
             slider
         },
-        modifier = modifier,
+        modifier = modifier
+            .defaultMinSize(minWidth = 150.dp, minHeight = 44.dp), // Ensure minimum usable size
         update = { slider ->
             if (slider.value != value) {
                 slider.value = value
             }
+
+            // Update colors if they change
+            slider.minimumTrackTintColor = colors.activeTrackColor.toUiColor()
+            slider.maximumTrackTintColor = colors.inactiveTrackColor.toUiColor()
+            slider.thumbTintColor = colors.thumbColor.toUiColor()
+
+            // Update range if it changes
+            slider.minimumValue = minValue
+            slider.maximumValue = maxValue
         }
     )
 }

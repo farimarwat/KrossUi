@@ -167,7 +167,6 @@ fun App() {
                             switch = it
                         }
                     )
-
                     KProgressIndicator(
                         size = 50.0
                     )
@@ -177,7 +176,7 @@ fun App() {
                 KSlider(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp),
+                    ,
                     value = sliderValue,
                     onValueChanged = {
                         sliderValue = it
