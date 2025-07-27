@@ -155,20 +155,34 @@ fun App() {
                 }
 
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    KSwitch(
-
-                        checked = switch,
-                        onCheckedChange = {
-                            switch = it
-                            println(it)
-                        }
-                    )
-                    KProgressIndicator(
-                        size = 50.0
-                    )
+                   Box(
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .weight(0.5f),
+                       contentAlignment = Alignment.Center
+                   ){
+                       KSwitch(
+                           checked = switch,
+                           onCheckedChange = {
+                               switch = it
+                               println(it)
+                           }
+                       )
+                   }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        KProgressIndicator(
+                            size = 50.0
+                        )
+                    }
 
                 }
                 var sliderValue by remember { mutableStateOf(0.5f)}
