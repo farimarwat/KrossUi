@@ -159,12 +159,11 @@ fun App() {
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     KSwitch(
-                        modifier = Modifier
-                            .width(100.dp)
-                            .height(48.dp),
+
                         checked = switch,
                         onCheckedChange = {
                             switch = it
+                            println(it)
                         }
                     )
                     KProgressIndicator(
