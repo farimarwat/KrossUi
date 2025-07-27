@@ -145,9 +145,8 @@ fun App() {
                         }
                     )
                     KOutLinedButton(
-                        modifier = Modifier.fillMaxWidth()
-                            .weight(0.5f)
-                            .height(40.dp),
+                        modifier = Modifier
+                            .weight(0.5f),
                         text = "Help Me",
                         onClick = {
 
