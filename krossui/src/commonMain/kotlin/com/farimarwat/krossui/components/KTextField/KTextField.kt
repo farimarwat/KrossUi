@@ -11,7 +11,7 @@ import com.farimarwat.krossui.components.Common.KPadding
 
 @Composable
 expect fun KTextField(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     padding: KPadding = KPadding.all(12.0),
     value: String,
     onValueChange: (String) -> Unit,

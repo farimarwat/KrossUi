@@ -115,7 +115,7 @@ fun App() {
                 var switch by remember { mutableStateOf(true) }
                 KTextField(
                     modifier = Modifier.fillMaxWidth()
-                        .height(48.dp),
+                        ,
                     value = textValue,
                     cornerRadius = 8.0,
                     borderWidth = 1,

@@ -2,12 +2,15 @@ package com.farimarwat.krossui.components.KTextField
 
 // iosMain
 
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.components.Common.KPadding
 import com.farimarwat.krossui.utils.toUiColor
@@ -26,7 +29,7 @@ import platform.darwin.NSObject
 @OptIn(ExperimentalForeignApi::class)
 private class PaddedUITextField(
     private val padding: KPadding
-) : UITextField(frame = CGRectMake(0.0, 0.0, 300.0, 44.0)) {
+) : UITextField(frame = CGRectMake(0.0, 0.0, 0.0, 0.0)) { // Start with zero frame
 
     override fun textRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
         return bounds.useContents {
@@ -66,6 +69,30 @@ actual fun KTextField(
     imeAction: ImeAction,
     colors: KTextFieldColors,
 ) {
+    // Calculate minimum dimensions
+    val minSize = remember(placeholder, fontSize, maxLines, padding) {
+        val tempTextField = UITextField().apply {
+            text = if (placeholder.isNotEmpty()) placeholder else "Sample Text"
+            font = UIFont.systemFontOfSize(fontSize.value.toDouble())
+            borderStyle = UITextBorderStyle.UITextBorderStyleNone
+            sizeToFit()
+        }
+
+        tempTextField.intrinsicContentSize.useContents {
+            val baseWidth = kotlin.math.max(width.toInt(), 120)
+            val baseHeight = if (maxLines > 1) {
+                kotlin.math.max(height.toInt() * maxLines, 44)
+            } else {
+                kotlin.math.max(height.toInt(), 44)
+            }
+
+            IntSize(
+                width = baseWidth + padding.leading.toInt() + padding.trailing.toInt() + (borderWidth * 2),
+                height = baseHeight + padding.top.toInt() + padding.bottom.toInt() + (borderWidth * 2)
+            )
+        }
+    }
+
     val delegate = remember {
         object : NSObject(), UITextFieldDelegateProtocol {
             override fun textField(
@@ -87,7 +114,6 @@ actual fun KTextField(
                 return true
             }
 
-            // Handle focus state changes for colors
             override fun textFieldDidBeginEditing(textField: UITextField) {
                 updateTextFieldColors(textField as PaddedUITextField, colors, isEnabled, isReadOnly, isFocused = true)
             }
@@ -99,7 +125,8 @@ actual fun KTextField(
     }
 
     UIKitView(
-        modifier = modifier,
+        modifier = modifier
+            .defaultMinSize(minWidth = minSize.width.dp, minHeight = minSize.height.dp),
         factory = {
             val textField = PaddedUITextField(padding = padding)
 
@@ -132,8 +159,6 @@ actual fun KTextField(
             }
 
             textField.delegate = delegate
-
-            // Apply initial colors
             updateTextFieldColors(textField, colors, isEnabled, isReadOnly, isFocused = false)
 
             textField
@@ -141,23 +166,18 @@ actual fun KTextField(
         update = { view ->
             val textField = view
 
-            // Update text
             if (textField.text != value) textField.text = value
 
-            // Placeholder with proper color
             textField.placeholder = placeholder
             updatePlaceholderColor(textField, colors, isEnabled)
 
-            // Font size
             if (fontSize != TextUnit.Unspecified) {
                 textField.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
             }
 
-            // Update colors based on current state
             val isFocused = textField.isFirstResponder()
             updateTextFieldColors(textField, colors, isEnabled, isReadOnly, isFocused)
 
-            // Enable / Read-only states
             textField.enabled = isEnabled
             textField.userInteractionEnabled = !isReadOnly
             textField.alpha = if (isEnabled) 1.0 else 0.6
@@ -176,25 +196,21 @@ private fun updateTextFieldColors(
 ) {
     when {
         !isEnabled -> {
-            // Disabled state
             textField.textColor = colors.disabledTextColor.toUiColor()
             textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.disabledBorderColor.toUiColor().CGColor
         }
         isReadOnly -> {
-            // Read-only state
             textField.textColor = colors.readOnlyTextColor.toUiColor()
             textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.unfocusedBorderColor.toUiColor().CGColor
         }
         isFocused -> {
-            // Focused state
             textField.textColor = colors.textColor.toUiColor()
             textField.backgroundColor = colors.focusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.focusedBorderColor.toUiColor().CGColor
         }
         else -> {
-            // Normal unfocused state
             textField.textColor = colors.textColor.toUiColor()
             textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.unfocusedBorderColor.toUiColor().CGColor
@@ -217,7 +233,6 @@ private fun updatePlaceholderColor(
         colors.disabledTextColor.toUiColor()
     }
 
-    // Create attributed string for placeholder with proper color
     val attributedPlaceholder = platform.Foundation.NSMutableAttributedString.create(placeholderText)
     attributedPlaceholder.addAttribute(
         platform.UIKit.NSForegroundColorAttributeName,
