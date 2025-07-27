@@ -130,13 +130,14 @@ fun App() {
                 )
                 Row (
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ){
                     KButton(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(40.dp)
-                            .weight(0.5f),
+                            .weight(0.5f)
+                            ,
                         text = "Press Me",
                         onClick = {
                             showDialog = true
