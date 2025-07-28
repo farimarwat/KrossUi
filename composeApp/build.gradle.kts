@@ -47,6 +47,7 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
 
             implementation(project(":krossui"))
+            //implementation("io.github.farimarwat:krossui:1.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -148,8 +148,9 @@ fun App() {
                         modifier = Modifier
                             .weight(0.5f),
                         text = "Help Me",
+                        borderWidth = 2.0,
                         onClick = {
-
+                            println("Working")
                         }
                     )
                 }
@@ -285,38 +286,34 @@ fun App() {
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                if(showDialog){
-                    KDialog(
-                        show = showDialog,
-                        title = "My Dialog",
-                        message = textValue,
-                        confirmText = "OK",
-                        cancelText = "Close",
-                        onConfirm = {
-                            showDialog = false
-                        },
-                        onCancel = {
-                            showDialog = false
-                        }
-                    )
-                }
+                KDialog(
+                    show = showDialog,
+                    title = "My Dialog",
+                    message = textValue,
+                    confirmText = "OK",
+                    cancelText = "Close",
+                    onConfirm = {
+                        showDialog = false
+                    },
+                    onCancel = {
+                        showDialog = false
+                    }
+                )
 
-                if(showDatePicker){
-                    KDatePicker(
-                        show = showDatePicker,
-                        initialDate = Clock.System.now().toEpochMilliseconds(),
-                        colors = KDatePickerDefaults.colors(
-                            containerColor = PlatformColors.systemBackground
-                        ),
-                        onDismiss = {
-                            showDatePicker = false
-                        },
-                        onDateSelected = {
-                            showDatePicker = false
-                            currentDate = formatDateFromMillis(it)
-                        }
-                    )
-                }
+                KDatePicker(
+                    show = showDatePicker,
+                    initialDate = Clock.System.now().toEpochMilliseconds(),
+                    colors = KDatePickerDefaults.colors(
+                        containerColor = PlatformColors.systemBackground
+                    ),
+                    onDismiss = {
+                        showDatePicker = false
+                    },
+                    onDateSelected = {
+                        showDatePicker = false
+                        currentDate = formatDateFromMillis(it)
+                    }
+                )
             }
         }
     }

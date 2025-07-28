@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
 kotlin {
@@ -103,6 +104,46 @@ kotlin {
                 // KMP dependencies declared in commonMain.
             }
         }
+    }
+
+    mavenPublishing{
+        coordinates(
+            groupId = "io.github.farimarwat",
+            artifactId = "krossui",
+            version = "1.0"
+        )
+        pom {
+            name.set("KrossUI")
+            description.set("A simple and customizable UI component library for Kotlin Multiplatform (KMP), offering native-style widgets like buttons, dialogs, pickers, and more — fully optimized for Android and iOS.")
+            inceptionYear.set("2025")
+            url.set("https://github.com/farimarwat/KrossUi")
+
+            licenses {
+                license {
+                    name.set("MIT")
+                    url.set("https://opensource.org/licenses/MIT")
+                }
+            }
+
+            // Specify developers information
+            developers {
+                developer {
+                    id.set("farimarwat")
+                    name.set("Farman Ullah Khan Marwat")
+                    email.set("farimarwat@gmail.com")
+                }
+            }
+
+            // Specify SCM information
+            scm {
+                url.set("https://github.com/farimarwat/KrossUi")
+            }
+        }
+
+        publishToMavenCentral()
+
+        // Enable GPG signing for all publications
+        signAllPublications()
     }
 
 }
