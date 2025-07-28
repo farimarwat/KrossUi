@@ -25,7 +25,9 @@ implementation("io.github.farimarwat:krossui:1.0")
 
 ## 📚 Documentation
 
-Refer to the repo's [wiki](https://github.com/farimarwat/KrossUi/wiki)
+
+ Refer to the repo's [wiki](https://github.com/farimarwat/KrossUi/wiki)
+ 
 ---
 
 ## 🙌 Contribute
