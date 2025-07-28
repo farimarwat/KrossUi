@@ -16,14 +16,16 @@
 
 ## 📦 Installation
 
-Coming soon
+commonMain
+```kotlin
+implementation("io.github.farimarwat:krossui:1.0")
+```
 
 ---
 
 ## 📚 Documentation
 
-Coming soon! Stay tuned for full usage examples, setup guides, and customization tips.
-
+Refer to the repo's [wiki](https://github.com/farimarwat/KrossUi/wiki)
 ---
 
 ## 🙌 Contribute
