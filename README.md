@@ -32,13 +32,13 @@ implementation("io.github.farimarwat:krossui:1.0")
 
 ## 🙌 Contribute
 
-KrossUI is open to contributions! Whether you're fixing bugs, improving documentation, or adding new components, your help is welcome. Check out the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+KrossUI is open to contributions! Whether you're fixing bugs, improving documentation, or adding new components, your help is welcome. Open an [issue](https://github.com/farimarwat/KrossUi/issues) or submit a pull request.
 
 ---
 
 ## 📄 License
 
-KrossUI is licensed under the [Apache 2.0 License](LICENSE).
+KrossUI is licensed under the [MIT License](LICENSE).
 
 ---
 
