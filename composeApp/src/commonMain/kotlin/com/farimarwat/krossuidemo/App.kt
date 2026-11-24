@@ -1,326 +1,156 @@
 package com.farimarwat.krossuidemo
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.farimarwat.krossui.components.ColorUtils.PlatformColors
-import com.farimarwat.krossui.components.Common.KPadding
-import com.farimarwat.krossui.components.KTextField.KTextField
-import com.farimarwat.krossui.components.KButton.KButton
-import com.farimarwat.krossui.components.KDatePicker.KDatePicker
-import com.farimarwat.krossui.components.KDatePicker.KDatePickerColors
-import com.farimarwat.krossui.components.KDatePicker.KDatePickerDefaults
-import com.farimarwat.krossui.components.KDialog.KDialog
-import com.farimarwat.krossui.components.KIconButton.KIconButton
-import com.farimarwat.krossui.components.KMenu.KMenu
-import com.farimarwat.krossui.components.KMenu.KMenuItem
-import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
-import com.farimarwat.krossui.components.KPicker.KPicker
-import com.farimarwat.krossui.components.KSlider.KSlider
-import com.farimarwat.krossui.components.KSwitch.KSwitch
-import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
-import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
-import com.farimarwat.krossui.components.KTabBar.KTabBar
-import com.farimarwat.krossui.components.KTabBar.KTabBarDefaults
-import com.farimarwat.krossui.components.KTabBar.KTabItem
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import krossuidemo.composeapp.generated.resources.Res
-import krossuidemo.composeapp.generated.resources.ic_home
-import krossuidemo.composeapp.generated.resources.ic_settings
-import krossuidemo.composeapp.generated.resources.ic_star
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
 
-@OptIn(ExperimentalTime::class)
+/** Pages of the demo catalog. */
+enum class DemoPageId(val title: String, val subtitle: String) {
+    Buttons("Buttons", "KButton, KOutlinedButton, KIconButton"),
+    TextFields("Text fields", "KTextField, KSecureField"),
+    Switch("Switch", "KSwitch"),
+    Slider("Slider", "KSlider: continuous, steps, colors"),
+    Picker("Picker", "KPicker: wheel, controlled index"),
+    DatePicker("Date picker", "KDatePicker with LocalDate"),
+    Menu("Menu", "KMenu: text and icon"),
+    Dialog("Dialog", "KDialog: alert and confirmation"),
+    Progress("Progress", "KProgressIndicator"),
+    TabBar("Tab bar", "KTabBar"),
+    Layout("Layout", "Wrap, fill and fixed sizes"),
+    LongList("Long list", "200 rows of native controls: scrolling and clipping"),
+    Performance("Performance", "Scroll benchmark: KrossUI vs Compose Material")
+}
+
+/**
+ * @param benchmark `"native"` or `"material"`: open the Performance page and run that benchmark
+ *   (launch argument, for repeatable measurements).
+ */
 @Composable
 @Preview
-fun App() {
-    MaterialTheme {
-        var showDialog by remember { mutableStateOf(false) }
-        var selectedTab by remember { mutableStateOf(1)}
-        val list = listOf(
-            KTabItem(
-                "Home",
-                Res.drawable.ic_home,
-                "house.fill"
-            ),
-            KTabItem(
-                "Favourite",
-                Res.drawable.ic_star,
-                "star.fill"
-            ),
-            KTabItem(
-                "Settings",
-                Res.drawable.ic_settings,
-                "gearshape.fill"
-            )
-        )
-        Scaffold(
-            bottomBar = {
-                KTabBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    list,
-                    selectedTab,
-                    onTabClick = {
-                        selectedTab = it
-                    },
-                    colors = KTabBarDefaults.colors(
-                        selectedContentColor = PlatformColors.systemRed,
-                        unselectedContentColor = PlatformColors.systemGray
-                    )
-                )
-            }
-        ) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .background(PlatformColors.systemBackground)
-                    .padding(8.dp)
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-                ,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                var textValue by remember { mutableStateOf("") }
-                var switch by remember { mutableStateOf(true) }
-                KTextField(
-                    modifier = Modifier.fillMaxWidth()
-                        ,
-                    value = textValue,
-                    cornerRadius = 8.0,
-                    borderWidth = 1,
-                    onValueChange = {
-                        textValue = it
-                        println(it)
-                    },
-                    padding = KPadding.horizontal(12.0),
-                    colors = KTextFieldDefaults.colors(
-                        focusedBackgroundColor = Color.LightGray
-                    )
-                )
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    KButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f)
-                            ,
-                        text = "Press Me",
-                        onClick = {
-                            showDialog = true
-                            println(showDialog)
-                        }
-                    )
-                    KOutLinedButton(
-                        modifier = Modifier
-                            .weight(0.5f),
-                        text = "Help Me",
-                        borderWidth = 2.0,
-                        onClick = {
-                            println("Working")
-                        }
+fun App(benchmark: String? = null) {
+    // Display options for manual testing (null = follow the system)
+    var darkOverride by rememberSaveable { mutableStateOf<Boolean?>(null) }
+    var rtl by rememberSaveable { mutableStateOf(false) }
+    var enabled by rememberSaveable { mutableStateOf(true) }
+    var page by rememberSaveable { mutableStateOf(if (benchmark != null) DemoPageId.Performance else null) }
+
+    LaunchedEffect(darkOverride) { applyAppearanceOverride(darkOverride) }
+    PlatformBackHandler(enabled = page != null) { page = null }
+
+    val systemDark = isSystemInDarkTheme()
+    val dark = darkOverride ?: systemDark
+    MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+        CompositionLocalProvider(LocalLayoutDirection provides if (rtl) LayoutDirection.Rtl else LayoutDirection.Ltr) {
+            Scaffold(
+                topBar = {
+                    DemoTopBar(
+                        title = page?.title ?: "KrossUI",
+                        onBack = if (page != null) ({ page = null }) else null,
+                        dark = dark,
+                        onDarkChange = { darkOverride = it },
+                        rtl = rtl,
+                        onRtlChange = { rtl = it },
+                        enabled = enabled,
+                        onEnabledChange = { enabled = it }
                     )
                 }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .weight(0.5f),
-                       contentAlignment = Alignment.Center
-                   ){
-                       KSwitch(
-                           checked = switch,
-                           onCheckedChange = {
-                               switch = it
-                               println(it)
-                           }
-                       )
-                   }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        KProgressIndicator(
-                            size = 50.0
-                        )
+            ) { padding ->
+                Box(Modifier.fillMaxSize().padding(padding)) {
+                    val options = DemoOptions(enabled = enabled)
+                    // A fresh event log per page
+                    val log = remember(page) { EventLog() }
+                    when (page) {
+                        null -> CatalogHome(onOpen = { page = it })
+                        DemoPageId.Buttons -> ButtonsPage(options, log)
+                        DemoPageId.TextFields -> TextFieldsPage(options, log)
+                        DemoPageId.Switch -> SwitchPage(options, log)
+                        DemoPageId.Slider -> SliderPage(options, log)
+                        DemoPageId.Picker -> PickerPage(log)
+                        DemoPageId.DatePicker -> DatePickerPage(log)
+                        DemoPageId.Menu -> MenuPage(log)
+                        DemoPageId.Dialog -> DialogPage(log)
+                        DemoPageId.Progress -> ProgressPage(log)
+                        DemoPageId.TabBar -> TabBarPage(log)
+                        DemoPageId.Layout -> LayoutScreen(Modifier.fillMaxSize())
+                        DemoPageId.LongList -> LongListScreen(options)
+                        DemoPageId.Performance -> PerformanceScreen(autoRun = benchmark)
                     }
-
                 }
-                var sliderValue by remember { mutableStateOf(0.5f)}
-                KSlider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                    ,
-                    value = sliderValue,
-                    onValueChanged = {
-                        sliderValue = it
-                        println("Slider Value: ${it}")
-                    }
-                )
-
-                val list = listOf(
-                    KMenuItem(
-                        title = "Home sweet Home",
-                        androidIcon = Res.drawable.ic_home,
-                        iosIcon = "house"
-                    ),
-                    KMenuItem(
-                        title = "Favourite",
-                        androidIcon = Res.drawable.ic_star,
-                        iosIcon = "star.fill"
-                    ),
-                    KMenuItem(
-                        title = "Settings",
-                        androidIcon = Res.drawable.ic_settings,
-                        iosIcon = "gear"
-                    )
-                )
-               Row(
-                   modifier = Modifier.fillMaxWidth()
-               ){
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .weight(0.5f),
-                       contentAlignment = Alignment.Center
-                   ){
-                       KMenu(
-                           title = "Menu",
-                           items = list,
-                           iOSIcon = "gear",
-                           androidIcon = Res.drawable.ic_settings,
-                           onItemClick = {
-
-                           }
-                       )
-                   }
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .weight(0.5f),
-                       contentAlignment = Alignment.Center
-                   ){
-                       KIconButton(
-                           modifier = Modifier
-                               .fillMaxWidth(),
-                           title = "Favourite",
-                           iosIcon = "star.fill",
-                           androidIcon = Res.drawable.ic_star,
-                           onClick = {
-                               println("Icon Button Pressed")
-                           }
-                       )
-                   }
-               }
-
-                KPicker(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    items = listOf("Apple","Mango","Graps","PineApple","Banana"),
-                    onItemPicked = {
-                        println(it)
-                    }
-                )
-                var showDatePicker by remember { mutableStateOf(false)}
-                var currentDate by remember { mutableStateOf("")}
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    KButton(
-                        modifier = Modifier.fillMaxWidth()
-                            .height(48.dp)
-                            .weight(0.5f),
-                        onClick = {
-                            showDatePicker = true
-                        },
-                        text = "Date Picker"
-                    )
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f),
-                        text = currentDate,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-                KDialog(
-                    show = showDialog,
-                    title = "My Dialog",
-                    message = textValue,
-                    confirmText = "OK",
-                    cancelText = "Close",
-                    onConfirm = {
-                        showDialog = false
-                    },
-                    onCancel = {
-                        showDialog = false
-                    }
-                )
-
-                KDatePicker(
-                    show = showDatePicker,
-                    initialDate = Clock.System.now().toEpochMilliseconds(),
-                    colors = KDatePickerDefaults.colors(
-                        containerColor = PlatformColors.systemBackground
-                    ),
-                    onDismiss = {
-                        showDatePicker = false
-                    },
-                    onDateSelected = {
-                        showDatePicker = false
-                        currentDate = formatDateFromMillis(it)
-                    }
-                )
             }
         }
     }
 }
 
-@OptIn(ExperimentalTime::class)
-fun formatDateFromMillis(timestamp: Long): String {
-    val instant = Instant.fromEpochMilliseconds(timestamp)
-    return instant.toString()
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DemoTopBar(
+    title: String,
+    onBack: (() -> Unit)?,
+    dark: Boolean,
+    onDarkChange: (Boolean) -> Unit,
+    rtl: Boolean,
+    onRtlChange: (Boolean) -> Unit,
+    enabled: Boolean,
+    onEnabledChange: (Boolean) -> Unit
+) {
+    Column {
+        TopAppBar(
+            title = { Text(title) },
+            navigationIcon = { if (onBack != null) TextButton(onClick = onBack) { Text("Back") } }
+        )
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FilterChip(selected = dark, onClick = { onDarkChange(!dark) }, label = { Text("Dark") })
+            FilterChip(selected = rtl, onClick = { onRtlChange(!rtl) }, label = { Text("RTL") })
+            FilterChip(selected = enabled, onClick = { onEnabledChange(!enabled) }, label = { Text("Enabled") })
+        }
+        HorizontalDivider(Modifier.padding(top = 8.dp))
+    }
+}
+
+@Composable
+private fun CatalogHome(onOpen: (DemoPageId) -> Unit) {
+    LazyColumn {
+        items(DemoPageId.entries) { page ->
+            ListItem(
+                headlineContent = { Text(page.title) },
+                supportingContent = { Text(page.subtitle) },
+                modifier = Modifier.clickable { onOpen(page) }
+            )
+            HorizontalDivider()
+        }
+    }
 }

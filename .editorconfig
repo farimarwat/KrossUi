@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{kt,kts}]
+ktlint_code_style = android_studio
+max_line_length = 120
+# Composables are PascalCase by Compose convention
+ktlint_function_naming_ignore_when_annotated_with = Composable
+# Defaults like `CornerRadius` follow Compose naming (PascalCase), not SCREAMING_CASE
+ktlint_standard_property-naming = disabled
+# Apple platform packages (platform.UIKit.*, ...) are large; wildcard imports are fine there
+ij_kotlin_packages_to_use_import_on_demand = java.util.*,kotlinx.android.synthetic.**,platform.**
+
+# Generated code (e.g. Compose resources accessors under build/) is not linted
+[**/build/**]
+ktlint_standard = disabled

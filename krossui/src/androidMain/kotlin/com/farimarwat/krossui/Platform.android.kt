@@ -1,3 +1,3 @@
 package com.farimarwat.krossui
 
-actual fun platform() = "Android"
+public actual fun platform(): String = "Android"

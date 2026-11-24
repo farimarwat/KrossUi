@@ -3,26 +3,38 @@ plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    id("com.vanniktech.maven.publish") version "0.34.0"
+    alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.roborazzi)
 }
 
 kotlin {
+    // Every public declaration must state its visibility, so nothing becomes public API by accident
+    explicitApi()
+
+    // Public API is recorded in krossui/api/; CI fails if it changes without updating the dump
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation()
+
+    compilerOptions {
+        // expect/actual classes are Beta in Kotlin; we use them deliberately (PlatformColors)
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+        optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
+        optIn.add("kotlinx.cinterop.BetaInteropApi")
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
 
     // Target declarations - add or remove as needed below. These define
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
-    androidLibrary {
+    android {
         namespace = "com.farimarwat.krossui"
-        compileSdk = 36
-        minSdk = 24
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
 
+        // Android UI tests run on the JVM with Robolectric (interaction + Roborazzi screenshots)
         withHostTestBuilder {
-        }
-
-        withDeviceTestBuilder {
-            sourceSetTreeName = "test"
         }.configure {
-            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            isIncludeAndroidResources = true
         }
     }
 
@@ -34,12 +46,6 @@ kotlin {
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "krossuiKit"
-
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
 
     iosArm64 {
         binaries.framework {
@@ -61,15 +67,13 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.kotlin.stdlib)
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
-                implementation(libs.androidx.lifecycle.viewmodel)
-                implementation(libs.androidx.lifecycle.runtimeCompose)
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.foundation)
+                implementation(libs.compose.material3)
+                implementation(libs.compose.ui)
+                implementation(libs.compose.components.resources)
+                // Part of the public API (KDatePicker uses LocalDate)
+                api(libs.kotlinx.datetime)
             }
         }
 
@@ -87,11 +91,16 @@ kotlin {
             }
         }
 
-        getByName("androidDeviceTest") {
+        getByName("androidHostTest") {
             dependencies {
-                implementation(libs.androidx.runner)
-                implementation(libs.androidx.core)
+                implementation(libs.junit)
                 implementation(libs.androidx.testExt.junit)
+                implementation(libs.robolectric)
+                implementation(libs.androidx.compose.ui.test.junit4)
+                implementation(libs.androidx.compose.ui.test.manifest)
+                implementation(libs.roborazzi)
+                implementation(libs.roborazzi.compose)
+                implementation(libs.roborazzi.junit.rule)
             }
         }
 
@@ -106,15 +115,19 @@ kotlin {
         }
     }
 
-    mavenPublishing{
+    mavenPublishing {
+        // Version comes from VERSION_NAME in gradle.properties
         coordinates(
             groupId = "io.github.farimarwat",
-            artifactId = "krossui",
-            version = "1.0"
+            artifactId = "krossui"
         )
         pom {
             name.set("KrossUI")
-            description.set("A simple and customizable UI component library for Kotlin Multiplatform (KMP), offering native-style widgets like buttons, dialogs, pickers, and more — fully optimized for Android and iOS.")
+            description.set(
+                "Native UI components for Compose Multiplatform: one Kotlin API that renders Material 3 on Android " +
+                    "and UIKit on iOS, including Liquid Glass on iOS 26. Buttons, text fields, switches, sliders, " +
+                    "pickers, date picker, menus, dialogs and tab bar, with dark mode, accessibility and RTL support."
+            )
             inceptionYear.set("2025")
             url.set("https://github.com/farimarwat/KrossUi")
 
@@ -137,6 +150,8 @@ kotlin {
             // Specify SCM information
             scm {
                 url.set("https://github.com/farimarwat/KrossUi")
+                connection.set("scm:git:https://github.com/farimarwat/KrossUi.git")
+                developerConnection.set("scm:git:ssh://git@github.com/farimarwat/KrossUi.git")
             }
         }
 
@@ -145,5 +160,9 @@ kotlin {
         // Enable GPG signing for all publications
         signAllPublications()
     }
+}
 
+// Screenshot references live next to the tests and are committed; CI verifies against them
+roborazzi {
+    outputDir.set(file("screenshots"))
 }

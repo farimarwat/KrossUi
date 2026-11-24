@@ -1,3 +1,3 @@
 package com.farimarwat.krossui
 
-actual fun platform() = "iOS"
+public actual fun platform(): String = "iOS"

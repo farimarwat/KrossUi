@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    name: Lint and Android build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Lint
+        run: ./gradlew ktlintCheck
+      - name: Build library and Android demo
+        run: ./gradlew :krossui:compileAndroidMain :androidApp:assembleDebug
+      - name: Unit tests (Android host)
+        run: ./gradlew :krossui:testAndroidHostTest
+
+  ios:
+    name: iOS build and API check
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Build library and iOS demo
+        run: ./gradlew :krossui:compileKotlinIosArm64 :krossui:compileKotlinIosSimulatorArm64 :composeApp:compileKotlinIosSimulatorArm64
+      # Fails when the public API changes without running ./gradlew :krossui:updateKotlinAbi
+      - name: Check public API
+        run: ./gradlew :krossui:checkKotlinAbi
+      - name: Unit tests (iOS simulator)
+        run: ./gradlew :krossui:iosSimulatorArm64Test
+      # References in krossui/screenshots are recorded on macOS; font rendering differs on Linux
+      - name: Android screenshot tests
+        run: ./gradlew :krossui:verifyRoborazziAndroidHostTest
+      - name: Upload screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: roborazzi-diffs
+          path: krossui/build/outputs/roborazzi

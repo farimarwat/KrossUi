@@ -1,3 +1,3 @@
 package com.farimarwat.krossui
 
-expect fun platform(): String
+public expect fun platform(): String
