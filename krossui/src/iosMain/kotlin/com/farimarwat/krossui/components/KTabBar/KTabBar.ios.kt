@@ -1,7 +1,5 @@
 package com.farimarwat.krossui.components.KTabBar
 
-import com.farimarwat.krossui.utils.NativeInteropProperties
-
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
@@ -12,6 +10,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIImage
@@ -76,8 +75,8 @@ public actual fun KTabBar(
             view.tintColor = colors.selectedContentColor.toUiColor()
             view.unselectedItemTintColor = colors.unselectedContentColor.toUiColor()
         },
-        modifier =  modifier
+        modifier = modifier
             .wrapContentHeight()
-        .defaultMinSize(minHeight = 83.dp)
+            .defaultMinSize(minHeight = 83.dp)
     )
 }

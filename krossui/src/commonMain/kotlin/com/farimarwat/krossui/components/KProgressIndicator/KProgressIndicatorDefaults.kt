@@ -3,7 +3,6 @@ package com.farimarwat.krossui.components.KProgressIndicator
 import androidx.compose.ui.graphics.Color
 import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 
-
 /**
  * Default values and factory methods for [KProgressIndicator].
  */
@@ -15,9 +14,8 @@ public object KProgressIndicatorDefaults {
      * @param color The color for the progress indicator. Defaults to [PlatformColors.systemBlue].
      * @return A [KProgressIndicatorColors] instance with the given color.
      */
-    public fun colors(
-        color: Color = PlatformColors.systemBlue
-    ): KProgressIndicatorColors = KProgressIndicatorColors(color)
+    public fun colors(color: Color = PlatformColors.systemBlue): KProgressIndicatorColors =
+        KProgressIndicatorColors(color)
 
     /**
      * Default size of the progress indicator in dp.

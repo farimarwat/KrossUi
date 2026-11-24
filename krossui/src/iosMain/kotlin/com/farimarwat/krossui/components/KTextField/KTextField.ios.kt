@@ -1,9 +1,5 @@
 package com.farimarwat.krossui.components.KTextField
 
-import com.farimarwat.krossui.utils.NativeInteropProperties
-
-// iosMain
-
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,6 +13,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.components.Common.KPadding
+import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -31,28 +28,20 @@ import platform.darwin.NSObject
 
 // Custom UITextField with padding support
 @OptIn(ExperimentalForeignApi::class)
-private class PaddedUITextField(
-    private val padding: KPadding
-) : UITextField(frame = CGRectMake(0.0, 0.0, 0.0, 0.0)) { // Start with zero frame
+private class PaddedUITextField(private val padding: KPadding) : UITextField(frame = CGRectMake(0.0, 0.0, 0.0, 0.0)) {
 
-    override fun textRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
-        return bounds.useContents {
-            CGRectMake(
-                origin.x + padding.leading,
-                origin.y + padding.top,
-                size.width - (padding.leading + padding.trailing),
-                size.height - (padding.top + padding.bottom)
-            )
-        }
+    override fun textRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> = bounds.useContents {
+        CGRectMake(
+            origin.x + padding.leading,
+            origin.y + padding.top,
+            size.width - (padding.leading + padding.trailing),
+            size.height - (padding.top + padding.bottom)
+        )
     }
 
-    override fun editingRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
-        return textRectForBounds(bounds)
-    }
+    override fun editingRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> = textRectForBounds(bounds)
 
-    override fun placeholderRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> {
-        return textRectForBounds(bounds)
-    }
+    override fun placeholderRectForBounds(bounds: CValue<CGRect>): CValue<CGRect> = textRectForBounds(bounds)
 }
 
 @OptIn(ExperimentalForeignApi::class)
@@ -71,7 +60,7 @@ public actual fun KTextField(
     cornerRadius: Double,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
-    colors: KTextFieldColors,
+    colors: KTextFieldColors
 ) {
     // Calculate minimum dimensions
     val minSize = remember(placeholder, fontSize, maxLines, padding) {
@@ -125,11 +114,23 @@ public actual fun KTextField(
             }
 
             override fun textFieldDidBeginEditing(textField: UITextField) {
-                updateTextFieldColors(textField as PaddedUITextField, currentColors, currentIsEnabled, currentIsReadOnly, isFocused = true)
+                updateTextFieldColors(
+                    textField as PaddedUITextField,
+                    currentColors,
+                    currentIsEnabled,
+                    currentIsReadOnly,
+                    isFocused = true
+                )
             }
 
             override fun textFieldDidEndEditing(textField: UITextField) {
-                updateTextFieldColors(textField as PaddedUITextField, currentColors, currentIsEnabled, currentIsReadOnly, isFocused = false)
+                updateTextFieldColors(
+                    textField as PaddedUITextField,
+                    currentColors,
+                    currentIsEnabled,
+                    currentIsReadOnly,
+                    isFocused = false
+                )
             }
         }
     }
@@ -148,14 +149,20 @@ public actual fun KTextField(
             // Keyboard type
             textField.keyboardType = when (keyboardType) {
                 KeyboardType.Text -> UIKeyboardTypeDefault
+
                 KeyboardType.Number -> UIKeyboardTypeNumberPad
+
                 KeyboardType.Email -> UIKeyboardTypeEmailAddress
+
                 KeyboardType.Phone -> UIKeyboardTypePhonePad
+
                 KeyboardType.Uri -> UIKeyboardTypeURL
+
                 KeyboardType.Password -> {
                     textField.secureTextEntry = true
                     UIKeyboardTypeDefault
                 }
+
                 else -> UIKeyboardTypeDefault
             }
 
@@ -211,16 +218,19 @@ private fun updateTextFieldColors(
             textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.disabledBorderColor.toUiColor().CGColor
         }
+
         isReadOnly -> {
             textField.textColor = colors.readOnlyTextColor.toUiColor()
             textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.unfocusedBorderColor.toUiColor().CGColor
         }
+
         isFocused -> {
             textField.textColor = colors.textColor.toUiColor()
             textField.backgroundColor = colors.focusedBackgroundColor.toUiColor()
             textField.layer.borderColor = colors.focusedBorderColor.toUiColor().CGColor
         }
+
         else -> {
             textField.textColor = colors.textColor.toUiColor()
             textField.backgroundColor = colors.unfocusedBackgroundColor.toUiColor()
@@ -231,11 +241,7 @@ private fun updateTextFieldColors(
 
 // Helper function to update placeholder color
 @OptIn(ExperimentalForeignApi::class)
-private fun updatePlaceholderColor(
-    textField: PaddedUITextField,
-    colors: KTextFieldColors,
-    isEnabled: Boolean
-) {
+private fun updatePlaceholderColor(textField: PaddedUITextField, colors: KTextFieldColors, isEnabled: Boolean) {
     val placeholderText = textField.placeholder ?: return
 
     val placeholderColor = if (isEnabled) {

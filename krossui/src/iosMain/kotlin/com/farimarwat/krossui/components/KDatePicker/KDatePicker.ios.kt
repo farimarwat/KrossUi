@@ -1,8 +1,5 @@
 package com.farimarwat.krossui.components.KDatePicker
 
-import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.isIosAtLeast
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +24,8 @@ import androidx.compose.ui.viewinterop.UIKitView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import com.farimarwat.krossui.utils.NativeInteropProperties
+import com.farimarwat.krossui.utils.isIosAtLeast
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
@@ -42,9 +41,7 @@ import platform.UIKit.UIDatePicker
 import platform.UIKit.UIDatePickerMode
 import platform.UIKit.UIDatePickerStyle
 import platform.UIKit.UIDevice
-
 import platform.UIKit.systemBackgroundColor
-
 import platform.darwin.NSObject
 @OptIn(ExperimentalForeignApi::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -97,11 +94,11 @@ public actual fun KDatePicker(
             properties = PopupProperties(
                 clippingEnabled = true
             )
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
-            ){
+            ) {
                 UIKitView(
                     properties = NativeInteropProperties,
                     factory = {
@@ -127,8 +124,7 @@ public actual fun KDatePicker(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(colors.footerContainerColor)
-                    ,
+                        .background(colors.footerContainerColor),
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(onClick = {
@@ -148,7 +144,6 @@ public actual fun KDatePicker(
                         )
                     }
                 }
-
             }
         }
     }

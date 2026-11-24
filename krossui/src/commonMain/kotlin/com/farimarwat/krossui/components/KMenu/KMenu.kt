@@ -26,4 +26,3 @@ public expect fun KMenu(
     modifier: Modifier = Modifier,
     colors: KMenuColors = KMenuDefaults.colors()
 )
-

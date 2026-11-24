@@ -32,5 +32,5 @@ public expect fun KIconButton(
     cornerRadius: Double = KIconButtonDefaults.CornerRadius,
     isEnabled: Boolean = true,
     iosIcon: String? = null,
-    androidIcon: DrawableResource? = null,
+    androidIcon: DrawableResource? = null
 )

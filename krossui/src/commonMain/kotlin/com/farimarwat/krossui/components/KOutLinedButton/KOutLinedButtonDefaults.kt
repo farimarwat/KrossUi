@@ -23,7 +23,7 @@ public object KOutLinedButtonDefaults {
         contentColor: Color = PlatformColors.systemBlue,
         disabledBackgroundColor: Color = containerColor.copy(alpha = 0.3f),
         disabledTextColor: Color = contentColor.copy(alpha = 0.3f),
-        borderColor:Color = PlatformColors.systemBlue,
+        borderColor: Color = PlatformColors.systemBlue,
         disabledBorderColor: Color = borderColor.copy(alpha = 0.3f)
     ): KOutLinedButtonColors = KOutLinedButtonColors(
         backgroundColor = containerColor,
@@ -33,14 +33,17 @@ public object KOutLinedButtonDefaults {
         borderColor = borderColor,
         disabledBorderColor = disabledBorderColor
     )
+
     /**
      * The default font size for the button text.
      */
     public val DefaultFontSize: TextUnit = 14.sp
+
     /**
      * The default corner radius for the button in dp.
      */
     public val CornerRadius: Double = 8.0
+
     /**
      * The default border width for the outlined button in dp.
      */

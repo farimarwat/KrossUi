@@ -14,6 +14,8 @@ junit = "4.13.2"
 kotlin = "2.4.21"
 kotlinxDatetime = "0.8.0"
 mavenPublish = "0.37.0"
+ktlintGradle = "14.2.0"
+ktlint = "1.8.0"
 
 [libraries]
 # Compose Multiplatform
@@ -47,3 +49,4 @@ composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMul
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }

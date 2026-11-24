@@ -1,7 +1,5 @@
 package com.farimarwat.krossui.components.KMenu
 
-import com.farimarwat.krossui.utils.NativeInteropProperties
-
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -12,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
@@ -71,8 +70,6 @@ public actual fun KMenu(
             val menu = UIMenu.menuWithTitle("", children = actions)
             button.menu = menu
             button.showsMenuAsPrimaryAction = true
-
-
 
             button
         },

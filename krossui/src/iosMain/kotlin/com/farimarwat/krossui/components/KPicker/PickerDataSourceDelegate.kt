@@ -22,12 +22,13 @@ internal class PickerDataSourceDelegate(
     var items: List<String>,
     var colors: KPickerColors,
     var onItemPicked: (String) -> Unit
-) : NSObject(), UIPickerViewDataSourceProtocol, UIPickerViewDelegateProtocol {
+) : NSObject(),
+    UIPickerViewDataSourceProtocol,
+    UIPickerViewDelegateProtocol {
 
     override fun numberOfComponentsInPickerView(pickerView: UIPickerView): Long = 1L
 
-    override fun pickerView(pickerView: UIPickerView, numberOfRowsInComponent: Long): Long =
-        items.size.toLong()
+    override fun pickerView(pickerView: UIPickerView, numberOfRowsInComponent: Long): Long = items.size.toLong()
 
     @ObjCSignatureOverride
     override fun pickerView(

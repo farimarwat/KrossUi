@@ -16,4 +16,3 @@ public data class KMenuItem(
     val iosIcon: String? = null,
     val enabled: Boolean = true
 )
-

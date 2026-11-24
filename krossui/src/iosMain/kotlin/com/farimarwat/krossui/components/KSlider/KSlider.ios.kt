@@ -1,7 +1,5 @@
 package com.farimarwat.krossui.components.KSlider
 
-import com.farimarwat.krossui.utils.NativeInteropProperties
-
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -9,13 +7,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.toUiColor
-import platform.UIKit.UISlider
-
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.UIControlEventValueChanged
+import platform.UIKit.UISlider
 import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)

@@ -27,4 +27,3 @@ public object KMenuDefaults {
         disabledContentColor = disabledContentColor
     )
 }
-

@@ -7,4 +7,13 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.mavenPublish) apply false
+    alias(libs.plugins.ktlint) apply false
+}
+
+// Same ktlint setup for every module; rules live in .editorconfig
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    extensions.configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set(rootProject.libs.versions.ktlint.get())
+    }
 }

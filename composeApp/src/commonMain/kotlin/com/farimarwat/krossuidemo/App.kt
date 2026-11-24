@@ -22,15 +22,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 import com.farimarwat.krossui.components.Common.KPadding
-import com.farimarwat.krossui.components.KTextField.KTextField
 import com.farimarwat.krossui.components.KButton.KButton
 import com.farimarwat.krossui.components.KDatePicker.KDatePicker
 import com.farimarwat.krossui.components.KDatePicker.KDatePickerColors
@@ -41,13 +45,17 @@ import com.farimarwat.krossui.components.KMenu.KMenu
 import com.farimarwat.krossui.components.KMenu.KMenuItem
 import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
 import com.farimarwat.krossui.components.KPicker.KPicker
+import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
 import com.farimarwat.krossui.components.KSlider.KSlider
 import com.farimarwat.krossui.components.KSwitch.KSwitch
-import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
-import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
 import com.farimarwat.krossui.components.KTabBar.KTabBar
 import com.farimarwat.krossui.components.KTabBar.KTabBarDefaults
 import com.farimarwat.krossui.components.KTabBar.KTabItem
+import com.farimarwat.krossui.components.KTextField.KTextField
+import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -55,10 +63,6 @@ import krossuidemo.composeapp.generated.resources.Res
 import krossuidemo.composeapp.generated.resources.ic_home
 import krossuidemo.composeapp.generated.resources.ic_settings
 import krossuidemo.composeapp.generated.resources.ic_star
-import androidx.compose.ui.tooling.preview.Preview
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
 @Composable
@@ -66,7 +70,7 @@ import kotlin.time.Instant
 fun App() {
     MaterialTheme {
         var showDialog by remember { mutableStateOf(false) }
-        var selectedTab by remember { mutableStateOf(1)}
+        var selectedTab by remember { mutableStateOf(1) }
         val list = listOf(
             KTabItem(
                 "Home",
@@ -106,16 +110,14 @@ fun App() {
                     .padding(8.dp)
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-                ,
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 var textValue by remember { mutableStateOf("") }
                 var switch by remember { mutableStateOf(true) }
                 KTextField(
-                    modifier = Modifier.fillMaxWidth()
-                        ,
+                    modifier = Modifier.fillMaxWidth(),
                     value = textValue,
                     cornerRadius = 8.0,
                     borderWidth = 1,
@@ -128,16 +130,15 @@ fun App() {
                         focusedBackgroundColor = Color.LightGray
                     )
                 )
-                Row (
+                Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     KButton(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(0.5f)
-                            ,
+                            .weight(0.5f),
                         text = "Press Me",
                         onClick = {
                             showDialog = true
@@ -159,21 +160,21 @@ fun App() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically
-                ){
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .weight(0.5f),
-                       contentAlignment = Alignment.Center
-                   ){
-                       KSwitch(
-                           checked = switch,
-                           onCheckedChange = {
-                               switch = it
-                               println(it)
-                           }
-                       )
-                   }
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        KSwitch(
+                            checked = switch,
+                            onCheckedChange = {
+                                switch = it
+                                println(it)
+                            }
+                        )
+                    }
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -184,17 +185,15 @@ fun App() {
                             size = 50.0
                         )
                     }
-
                 }
-                var sliderValue by remember { mutableStateOf(0.5f)}
+                var sliderValue by remember { mutableStateOf(0.5f) }
                 KSlider(
                     modifier = Modifier
-                        .fillMaxWidth()
-                    ,
+                        .fillMaxWidth(),
                     value = sliderValue,
                     onValueChanged = {
                         sliderValue = it
-                        println("Slider Value: ${it}")
+                        println("Slider Value: $it")
                     }
                 )
 
@@ -215,59 +214,58 @@ fun App() {
                         iosIcon = "gear"
                     )
                 )
-               Row(
-                   modifier = Modifier.fillMaxWidth()
-               ){
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .weight(0.5f),
-                       contentAlignment = Alignment.Center
-                   ){
-                       KMenu(
-                           title = "Menu",
-                           items = list,
-                           iOSIcon = "gear",
-                           androidIcon = Res.drawable.ic_settings,
-                           onItemClick = {
-
-                           }
-                       )
-                   }
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .weight(0.5f),
-                       contentAlignment = Alignment.Center
-                   ){
-                       KIconButton(
-                           modifier = Modifier
-                               .fillMaxWidth(),
-                           title = "Favourite",
-                           iosIcon = "star.fill",
-                           androidIcon = Res.drawable.ic_star,
-                           onClick = {
-                               println("Icon Button Pressed")
-                           }
-                       )
-                   }
-               }
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        KMenu(
+                            title = "Menu",
+                            items = list,
+                            iOSIcon = "gear",
+                            androidIcon = Res.drawable.ic_settings,
+                            onItemClick = {
+                            }
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        KIconButton(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            title = "Favourite",
+                            iosIcon = "star.fill",
+                            androidIcon = Res.drawable.ic_star,
+                            onClick = {
+                                println("Icon Button Pressed")
+                            }
+                        )
+                    }
+                }
 
                 KPicker(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    items = listOf("Apple","Mango","Graps","PineApple","Banana"),
+                    items = listOf("Apple", "Mango", "Graps", "PineApple", "Banana"),
                     onItemPicked = {
                         println(it)
                     }
                 )
-                var showDatePicker by remember { mutableStateOf(false)}
-                var currentDate by remember { mutableStateOf("")}
+                var showDatePicker by remember { mutableStateOf(false) }
+                var currentDate by remember { mutableStateOf("") }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     KButton(
                         modifier = Modifier.fillMaxWidth()
                             .height(48.dp)

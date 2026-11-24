@@ -7,6 +7,4 @@ import androidx.compose.ui.graphics.Color
  *
  * @param color The color of the spinning progress arc.
  */
-public data class KProgressIndicatorColors(
-    val color: Color
-)
+public data class KProgressIndicatorColors(val color: Color)

@@ -21,8 +21,8 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 public actual fun KMenu(
-    title:String,
-    iOSIcon:String?,
+    title: String,
+    iOSIcon: String?,
     androidIcon: DrawableResource?,
     items: List<KMenuItem>,
     onItemClick: (KMenuItem) -> Unit,
@@ -30,13 +30,13 @@ public actual fun KMenu(
     colors: KMenuColors
 ) {
     var showMenu by remember { mutableStateOf(false) }
-    Box{
-        if(androidIcon != null){
+    Box {
+        if (androidIcon != null) {
             IconButton(
                 onClick = {
                     showMenu = !showMenu
                 }
-            ){
+            ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
                     painter = painterResource(androidIcon),
@@ -45,16 +45,16 @@ public actual fun KMenu(
             }
         } else {
             Button(
-                onClick = {showMenu = !showMenu}
-            ){
+                onClick = { showMenu = !showMenu }
+            ) {
                 Text(title)
             }
         }
 
-        //Menu
+        // Menu
         DropdownMenu(
             expanded = showMenu,
-            onDismissRequest = {showMenu = !showMenu},
+            onDismissRequest = { showMenu = !showMenu },
             modifier = modifier
         ) {
             items.forEach { item ->
@@ -74,6 +74,4 @@ public actual fun KMenu(
             }
         }
     }
-
 }
-

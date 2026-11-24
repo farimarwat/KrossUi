@@ -9,8 +9,4 @@ import androidx.compose.ui.graphics.Color
  * @param trackColorChecked Track color when the switch is in the checked state.
  * @param trackColorUnchecked Track color when the switch is in the unchecked state.
  */
-public data class KSwitchColors(
-    val thumbColor: Color,
-    val trackColorChecked: Color,
-    val trackColorUnchecked: Color,
-)
+public data class KSwitchColors(val thumbColor: Color, val trackColorChecked: Color, val trackColorUnchecked: Color)

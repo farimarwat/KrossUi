@@ -1,14 +1,15 @@
 package com.farimarwat.krossui.components.KSwitch
 
-import com.farimarwat.krossui.utils.NativeInteropProperties
-
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
+import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
@@ -34,7 +35,7 @@ public actual fun KSwitch(
     // Size comes from the switch itself (it differs between iOS versions, e.g. wider on iOS 26)
     val switchSize = remember { uiSwitch.intrinsicContentSize.useContents { width to height } }
 
-    val switchTarget = remember{
+    val switchTarget = remember {
         object : NSObject() {
             @ObjCAction
             fun switchChanged() {

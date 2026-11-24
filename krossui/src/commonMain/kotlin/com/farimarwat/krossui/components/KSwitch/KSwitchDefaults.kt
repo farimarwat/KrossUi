@@ -19,7 +19,7 @@ public object KSwitchDefaults {
     public fun colors(
         thumbColor: Color = Color.White,
         trackColorChecked: Color = PlatformColors.systemBlue,
-        trackColorUnchecked: Color = Color.Gray,
+        trackColorUnchecked: Color = Color.Gray
     ): KSwitchColors = KSwitchColors(
         thumbColor = thumbColor,
         trackColorChecked = trackColorChecked,

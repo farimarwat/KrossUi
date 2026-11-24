@@ -33,19 +33,17 @@ public object KTextFieldDefaults {
         disabledTextColor: Color = Color.Gray,
         disabledBorderColor: Color = Color.Gray,
         readOnlyTextColor: Color = Color.DarkGray
-    ): KTextFieldColors {
-        return KTextFieldColors(
-            textColor = textColor,
-            unfocusedBackgroundColor = unfocusedBackgroundColor,
-            focusedBackgroundColor = focusedBackgroundColor,
-            placeholderColor = placeholderColor,
-            unfocusedBorderColor = unfocusedBorderColor,
-            focusedBorderColor = focusedBorderColor,
-            disabledTextColor = disabledTextColor,
-            disabledBorderColor = disabledBorderColor,
-            readOnlyTextColor = readOnlyTextColor
-        )
-    }
+    ): KTextFieldColors = KTextFieldColors(
+        textColor = textColor,
+        unfocusedBackgroundColor = unfocusedBackgroundColor,
+        focusedBackgroundColor = focusedBackgroundColor,
+        placeholderColor = placeholderColor,
+        unfocusedBorderColor = unfocusedBorderColor,
+        focusedBorderColor = focusedBorderColor,
+        disabledTextColor = disabledTextColor,
+        disabledBorderColor = disabledBorderColor,
+        readOnlyTextColor = readOnlyTextColor
+    )
 
     /**
      * Default border width for [KTextField] in dp.

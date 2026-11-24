@@ -32,9 +32,8 @@ public actual fun KDatePicker(
     onDismiss: () -> Unit,
     onDateSelected: (Long) -> Unit
 ) {
-
     val datePickerState = rememberDatePickerState()
-    var currentDate = remember{
+    var currentDate = remember {
         datePickerState.selectedDateMillis ?: 0
     }
     if (show) {
@@ -80,8 +79,6 @@ public actual fun KDatePicker(
                     }
                 }
             }
-
         }
-
     }
 }

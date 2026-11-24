@@ -10,7 +10,7 @@ public data class KPadding(
         public fun all(value: Double): KPadding = KPadding(value, value, value, value)
         public fun horizontal(value: Double): KPadding = KPadding(value, value, 0.0, 0.0)
         public fun vertical(value: Double): KPadding = KPadding(0.0, 0.0, value, value)
-        public fun symmetric(horizontal: Double = 0.0, vertical: Double = 0.0): KPadding = 
+        public fun symmetric(horizontal: Double = 0.0, vertical: Double = 0.0): KPadding =
             KPadding(horizontal, horizontal, vertical, vertical)
     }
 }

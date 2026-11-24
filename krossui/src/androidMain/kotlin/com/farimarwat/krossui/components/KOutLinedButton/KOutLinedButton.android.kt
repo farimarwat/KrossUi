@@ -28,11 +28,11 @@ public actual fun KOutLinedButton(
         shape = RoundedCornerShape(cornerRadius.dp),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = if (isEnabled) colors.backgroundColor else colors.disabledBackgroundColor,
-            contentColor = if (isEnabled) colors.textColor else colors.disabledTextColor,
+            contentColor = if (isEnabled) colors.textColor else colors.disabledTextColor
         ),
         border = BorderStroke(
             borderWidth.dp,
-            if(isEnabled) colors.borderColor else colors.disabledBorderColor
+            if (isEnabled) colors.borderColor else colors.disabledBorderColor
         )
     ) {
         Text(

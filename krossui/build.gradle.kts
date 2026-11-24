@@ -17,7 +17,6 @@ kotlin {
         optIn.add("kotlinx.cinterop.BetaInteropApi")
     }
 
-
     // Target declarations - add or remove as needed below. These define
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
@@ -106,7 +105,7 @@ kotlin {
         }
     }
 
-    mavenPublishing{
+    mavenPublishing {
         coordinates(
             groupId = "io.github.farimarwat",
             artifactId = "krossui",
@@ -114,7 +113,9 @@ kotlin {
         )
         pom {
             name.set("KrossUI")
-            description.set("A simple and customizable UI component library for Kotlin Multiplatform (KMP), offering native-style widgets like buttons, dialogs, pickers, and more — fully optimized for Android and iOS.")
+            description.set(
+                "A simple and customizable UI component library for Kotlin Multiplatform (KMP), offering native-style widgets like buttons, dialogs, pickers, and more — fully optimized for Android and iOS."
+            )
             inceptionYear.set("2025")
             url.set("https://github.com/farimarwat/KrossUi")
 
@@ -145,5 +146,4 @@ kotlin {
         // Enable GPG signing for all publications
         signAllPublications()
     }
-
 }

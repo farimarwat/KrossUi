@@ -1,6 +1,7 @@
 package com.farimarwat.krossui.components.KSwitch
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -16,7 +17,7 @@ public actual fun KSwitch(
     modifier: Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-   colors: KSwitchColors,
+    colors: KSwitchColors,
     isEnabled: Boolean
 ) {
     Row(

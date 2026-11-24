@@ -8,10 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-public actual fun KProgressIndicator(
-    size: Double,
-    color: Color
-) {
+public actual fun KProgressIndicator(size: Double, color: Color) {
     CircularProgressIndicator(
         color = color,
         strokeWidth = 4.dp,

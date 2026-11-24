@@ -22,5 +22,5 @@ public expect fun KSlider(
     minValue: Float = 0f,
     maxValue: Float = 1f,
     colors: KSliderColors = KSliderDefaults.colors(),
-    onValueChanged: (Float) -> Unit = {},
+    onValueChanged: (Float) -> Unit = {}
 )

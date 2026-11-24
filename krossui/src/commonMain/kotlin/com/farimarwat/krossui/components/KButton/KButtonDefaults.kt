@@ -31,6 +31,7 @@ public object KButtonDefaults {
      * The default font size used in [KButton] text, expressed in sp.
      */
     public val DefaultFontSize: TextUnit = 14.sp
+
     /**
      * The default corner radius for [KButton], expressed in dp.
      */

@@ -13,6 +13,7 @@ import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.applyGlassConfiguration
 import com.farimarwat.krossui.utils.isLiquidGlassEnabled
 import com.farimarwat.krossui.utils.toUiColor
+import kotlin.math.max
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
@@ -27,7 +28,6 @@ import platform.UIKit.UIFont
 import platform.UIKit.UIImage
 import platform.UIKit.UIViewContentMode
 import platform.darwin.NSObject
-import kotlin.math.max
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
