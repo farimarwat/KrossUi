@@ -1,0 +1,23 @@
+package com.farimarwat.krossui
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+
+/**
+ * Provides default styling values for [KPicker].
+ */
+public object KPickerDefaults {
+
+    /**
+     * Returns default color values for the [KPicker] component.
+     *
+     * @return [KPickerColors] with predefined platform-aware colors.
+     */
+    @Composable
+    public fun colors(): KPickerColors = KPickerColors(
+        containerColor = Color.White,
+        contentColor = PlatformColors.systemBlue,
+        disabledContainerColor = PlatformColors.systemGray.copy(alpha = 0.5f),
+        disabledContentColor = PlatformColors.systemGray
+    )
+}

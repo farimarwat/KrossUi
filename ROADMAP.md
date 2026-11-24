@@ -29,12 +29,12 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - **Done when:** CI is green on PRs and fails on an unintended API change.
 
 ### Step 2 · API 2.0 cleanup
-- [ ] Lowercase packages: `com.farimarwat.krossui.button`, `.dialog`, `.picker`, … .
-- [ ] Rename `KOutLinedButton` → `KOutlinedButton`, `isEnabled` → `enabled`, `iOSIcon` → `iosIcon`.
-- [ ] Parameter order per Compose API guidelines: required → `modifier: Modifier = Modifier` → optional → trailing lambda.
-- [ ] `@Immutable` on all `*Colors` classes; corner radius / border as `Dp` instead of `Double`.
-- [ ] Keep old names in the old packages as `@Deprecated(ReplaceWith(...))` wrappers/typealiases.
-- [ ] Update demo app to the new API.
+- [x] One package: `com.farimarwat.krossui` (files flat in one folder).
+- [x] Rename `KOutLinedButton` → `KOutlinedButton`, `isEnabled` → `enabled`, `iOSIcon` → `iosIcon`.
+- [x] Parameter order per Compose API guidelines: required → `modifier: Modifier = Modifier` → optional → trailing lambda.
+- [x] `@Immutable` on all `*Colors` classes; corner radius / border / size as `Dp`; `KTextField` uses `PaddingValues`.
+- [x] Keep old names in the old packages as `@Deprecated(ReplaceWith(...))` wrappers/typealiases (`compat/`), documented in `MIGRATION.md`.
+- [x] Update demo app to the new API.
 - **Done when:** demo uses only new API; old API compiles with deprecation warnings.
 
 ### Step 3 · Theming (`KrossTheme`)

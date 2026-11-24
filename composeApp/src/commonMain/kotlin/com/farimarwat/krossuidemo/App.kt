@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,26 +34,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.farimarwat.krossui.components.ColorUtils.PlatformColors
-import com.farimarwat.krossui.components.Common.KPadding
-import com.farimarwat.krossui.components.KButton.KButton
-import com.farimarwat.krossui.components.KDatePicker.KDatePicker
-import com.farimarwat.krossui.components.KDatePicker.KDatePickerColors
-import com.farimarwat.krossui.components.KDatePicker.KDatePickerDefaults
-import com.farimarwat.krossui.components.KDialog.KDialog
-import com.farimarwat.krossui.components.KIconButton.KIconButton
-import com.farimarwat.krossui.components.KMenu.KMenu
-import com.farimarwat.krossui.components.KMenu.KMenuItem
-import com.farimarwat.krossui.components.KOutLinedButton.KOutLinedButton
-import com.farimarwat.krossui.components.KPicker.KPicker
-import com.farimarwat.krossui.components.KProgressIndicator.KProgressIndicator
-import com.farimarwat.krossui.components.KSlider.KSlider
-import com.farimarwat.krossui.components.KSwitch.KSwitch
-import com.farimarwat.krossui.components.KTabBar.KTabBar
-import com.farimarwat.krossui.components.KTabBar.KTabBarDefaults
-import com.farimarwat.krossui.components.KTabBar.KTabItem
-import com.farimarwat.krossui.components.KTextField.KTextField
-import com.farimarwat.krossui.components.KTextField.KTextFieldDefaults
+import com.farimarwat.krossui.KButton
+import com.farimarwat.krossui.KDatePicker
+import com.farimarwat.krossui.KDatePickerDefaults
+import com.farimarwat.krossui.KDialog
+import com.farimarwat.krossui.KIconButton
+import com.farimarwat.krossui.KMenu
+import com.farimarwat.krossui.KMenuItem
+import com.farimarwat.krossui.KOutlinedButton
+import com.farimarwat.krossui.KPicker
+import com.farimarwat.krossui.KProgressIndicator
+import com.farimarwat.krossui.KSlider
+import com.farimarwat.krossui.KSwitch
+import com.farimarwat.krossui.KTabBar
+import com.farimarwat.krossui.KTabBarDefaults
+import com.farimarwat.krossui.KTabItem
+import com.farimarwat.krossui.KTextField
+import com.farimarwat.krossui.KTextFieldDefaults
+import com.farimarwat.krossui.PlatformColors
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -91,12 +90,12 @@ fun App() {
         Scaffold(
             bottomBar = {
                 KTabBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    list,
-                    selectedTab,
+                    tabs = list,
+                    selectedIndex = selectedTab,
                     onTabClick = {
                         selectedTab = it
                     },
+                    modifier = Modifier.fillMaxWidth(),
                     colors = KTabBarDefaults.colors(
                         selectedContentColor = PlatformColors.systemRed,
                         unselectedContentColor = PlatformColors.systemGray
@@ -119,13 +118,13 @@ fun App() {
                 KTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = textValue,
-                    cornerRadius = 8.0,
-                    borderWidth = 1,
+                    cornerRadius = 8.dp,
+                    borderWidth = 1.dp,
                     onValueChange = {
                         textValue = it
                         println(it)
                     },
-                    padding = KPadding.horizontal(12.0),
+                    contentPadding = PaddingValues(horizontal = 12.dp),
                     colors = KTextFieldDefaults.colors(
                         focusedBackgroundColor = Color.LightGray
                     )
@@ -145,11 +144,11 @@ fun App() {
                             println(showDialog)
                         }
                     )
-                    KOutLinedButton(
+                    KOutlinedButton(
                         modifier = Modifier
                             .weight(0.5f),
                         text = "Help Me",
-                        borderWidth = 2.0,
+                        borderWidth = 2.dp,
                         onClick = {
                             println("Working")
                         }
@@ -182,7 +181,7 @@ fun App() {
                         contentAlignment = Alignment.Center
                     ) {
                         KProgressIndicator(
-                            size = 50.0
+                            size = 50.dp
                         )
                     }
                 }
@@ -191,7 +190,7 @@ fun App() {
                     modifier = Modifier
                         .fillMaxWidth(),
                     value = sliderValue,
-                    onValueChanged = {
+                    onValueChange = {
                         sliderValue = it
                         println("Slider Value: $it")
                     }
@@ -226,7 +225,7 @@ fun App() {
                         KMenu(
                             title = "Menu",
                             items = list,
-                            iOSIcon = "gear",
+                            iosIcon = "gear",
                             androidIcon = Res.drawable.ic_settings,
                             onItemClick = {
                             }
