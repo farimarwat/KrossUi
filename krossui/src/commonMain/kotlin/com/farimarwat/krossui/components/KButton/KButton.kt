@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 expect fun KButton(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
     colors: KButtonColors = KButtonDefaults.colors(),

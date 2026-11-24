@@ -1,10 +1,18 @@
 package com.farimarwat.krossui.components.KDialog
 
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.UIKitView
-import platform.UIKit.*
-
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
+import platform.UIKit.UIAlertAction
+import platform.UIKit.UIAlertActionStyleCancel
+import platform.UIKit.UIAlertActionStyleDefault
+import platform.UIKit.UIAlertController
+import platform.UIKit.UIAlertControllerStyleAlert
+import platform.UIKit.UIApplication
+import platform.UIKit.UIViewController
+import platform.UIKit.UIWindow
+import platform.UIKit.UIWindowScene
 
 @Composable
 actual fun KDialog(
@@ -17,48 +25,62 @@ actual fun KDialog(
     onCancel: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    if (show) {
-        var shown by remember { mutableStateOf(false) }
+    if (!show) return
 
-        if (!shown) {
-            shown = true
-            UIKitView(
-                factory = {
-                    val alert = UIAlertController.alertControllerWithTitle(
-                        title = title,
-                        message = message,
-                        preferredStyle = UIAlertControllerStyleAlert
-                    )
+    // The alert outlives individual recompositions, so always call the latest callbacks
+    val currentOnConfirm by rememberUpdatedState(onConfirm)
+    val currentOnCancel by rememberUpdatedState(onCancel)
+    val currentOnDismiss by rememberUpdatedState(onDismiss)
 
-                    alert.addAction(
-                        UIAlertAction.actionWithTitle(
-                            confirmText,
-                            UIAlertActionStyleDefault
-                        ) { _ ->
-                            onConfirm()
-                            onDismiss()
-                        }
-                    )
+    DisposableEffect(title, message, confirmText, cancelText) {
+        // Set once the user taps an action; UIKit then dismisses the alert itself
+        var handled = false
 
-                    if (cancelText != null) {
-                        alert.addAction(
-                            UIAlertAction.actionWithTitle(
-                                cancelText,
-                                UIAlertActionStyleCancel
-                            ) { _ ->
-                                onCancel()
-                                onDismiss()
-                            }
-                        )
-                    }
+        val alert = UIAlertController.alertControllerWithTitle(
+            title = title,
+            message = message,
+            preferredStyle = UIAlertControllerStyleAlert
+        )
 
-                    val controller = UIApplication.sharedApplication.keyWindow?.rootViewController
-                    controller?.presentViewController(alert, animated = true, completion = null)
+        alert.addAction(
+            UIAlertAction.actionWithTitle(confirmText, UIAlertActionStyleDefault) { _ ->
+                handled = true
+                currentOnConfirm()
+                currentOnDismiss()
+            }
+        )
 
-                    UIView()
-                },
-                modifier = Modifier
+        if (cancelText != null) {
+            alert.addAction(
+                UIAlertAction.actionWithTitle(cancelText, UIAlertActionStyleCancel) { _ ->
+                    handled = true
+                    currentOnCancel()
+                    currentOnDismiss()
+                }
             )
         }
+
+        topViewController()?.presentViewController(alert, animated = true, completion = null)
+
+        onDispose {
+            // show became false (or the dialog left composition) while the alert is still visible
+            if (!handled && alert.presentingViewController != null) {
+                alert.dismissViewControllerAnimated(true, completion = null)
+            }
+        }
     }
+}
+
+/** Finds the view controller currently on top, so the alert can be presented over modals too. */
+private fun topViewController(): UIViewController? {
+    val keyWindow = UIApplication.sharedApplication.connectedScenes
+        .filterIsInstance<UIWindowScene>()
+        .flatMap { scene -> scene.windows.filterIsInstance<UIWindow>() }
+        .firstOrNull { it.isKeyWindow() }
+
+    var top = keyWindow?.rootViewController
+    while (top?.presentedViewController != null) {
+        top = top.presentedViewController
+    }
+    return top
 }

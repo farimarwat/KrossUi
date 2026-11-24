@@ -12,7 +12,7 @@ actual object PlatformColors {
     actual val systemGray: Color = Color(0xFF8E8E93)    // iOS systemGray
 
     actual val label: Color = Color(0xFF000000)         // Approx for labelColor (black in light mode)
-    actual val secondaryLabel: Color = Color(0x3C3C4399) // Approx from Apple docs (60% black)
+    actual val secondaryLabel: Color = Color(0x993C3C43) // secondaryLabelColor: #3C3C43 at 60% alpha (ARGB)
     actual val systemBackground: Color = Color(0xFFFFFFFF) // White background for light mode
 }
 

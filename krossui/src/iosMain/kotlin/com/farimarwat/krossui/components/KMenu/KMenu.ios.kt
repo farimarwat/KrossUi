@@ -1,5 +1,6 @@
 package com.farimarwat.krossui.components.KMenu
 
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -44,10 +45,11 @@ actual fun KMenu(
     }
     val size = button.intrinsicContentSize
     UIKitView(
-        modifier = Modifier
-            .width(size.useContents { width }.dp)
-            .height(size.useContents { height }.dp)
-            .then(modifier),
+        modifier = modifier
+            .defaultMinSize(
+                minWidth = size.useContents { width }.dp,
+                minHeight = size.useContents { height }.dp
+            ),
         factory = {
             val actions = items.map { item ->
                 UIAction.actionWithTitle(

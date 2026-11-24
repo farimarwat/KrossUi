@@ -1,5 +1,6 @@
 package com.farimarwat.krossui.components.KOutLinedButton
 
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -119,14 +120,17 @@ actual fun KOutLinedButton(
                 // Update border color for enabled/disabled state
                 layer.borderColor = if(isEnabled) colors.borderColor.toUiColor().CGColor else colors.disabledBorderColor?.toUiColor()?.CGColor ?: colors.borderColor.toUiColor().CGColor
 
+                // Update corner radius and border width
+                layer.cornerRadius = cornerRadius
+                layer.borderWidth = borderWidth
+
                 // Update font
                 if (fontSize != TextUnit.Unspecified) {
                     titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
                 }
             }
         },
-        modifier = Modifier
-            .size(width = buttonSize.width.dp, height = buttonSize.height.dp)
-            .then(modifier)
+        modifier = modifier
+            .defaultMinSize(minWidth = buttonSize.width.dp, minHeight = buttonSize.height.dp)
     )
 }

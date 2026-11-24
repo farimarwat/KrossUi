@@ -53,21 +53,26 @@ actual fun KDatePicker(
     onDateSelected: (Long) -> Unit
 ) {
     if (show) {
-        var currentDate = remember { initialDate }
+        // Date currently chosen in the wheel; reset when a new initialDate is passed
+        var currentDate by remember(initialDate) { mutableStateOf(initialDate) }
+
+        // UIControl holds targets weakly, so the target must be remembered to stay alive
+        val target = remember {
+            object : NSObject() {
+                var onChanged: (Long) -> Unit = {}
+
+                @ObjCAction
+                fun dateChanged(sender: UIDatePicker) {
+                    onChanged((sender.date.timeIntervalSince1970 * 1000).toLong())
+                }
+            }
+        }
+        target.onChanged = { currentDate = it }
 
         val datePicker = remember {
             UIDatePicker().apply {
-                val target =  object : NSObject() {
-                    @ObjCAction
-                    fun dateChanged() {
-                        val timeInterval = this@apply.date.timeIntervalSince1970
-                        val timestamp = (timeInterval * 1000).toLong()
-                        currentDate = timestamp
-                    }
-                }
                 datePickerMode = UIDatePickerMode.UIDatePickerModeDate
-                backgroundColor = colors.containerColor.toUiColor()
-                if (UIDevice.currentDevice.systemVersion.substringBefore(".").toInt() >= 13.4) {
+                if (supportsPreferredDatePickerStyle()) {
                     preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
                 }
 
@@ -78,7 +83,7 @@ actual fun KDatePicker(
                 backgroundColor = colors.containerColor.toUiColor()
                 addTarget(
                     target = target,
-                    action = NSSelectorFromString("dateChanged"),
+                    action = NSSelectorFromString("dateChanged:"),
                     forControlEvents = UIControlEventValueChanged
                 )
             }
@@ -104,10 +109,14 @@ actual fun KDatePicker(
                         .fillMaxWidth()
                         .background(colors.containerColor),
                     update = { picker ->
-                        if (currentDate != initialDate) {
-                            val nsDate = NSDate.dateWithTimeIntervalSince1970(initialDate / 1000.0)
-                            picker.setDate(nsDate, animated = true)
-                            currentDate = initialDate
+                        picker.backgroundColor = colors.containerColor.toUiColor()
+                        // Sync the wheel only when the state differs (e.g. a new initialDate)
+                        val pickerDate = (picker.date.timeIntervalSince1970 * 1000).toLong()
+                        if (kotlin.math.abs(pickerDate - currentDate) >= 1000) {
+                            picker.setDate(
+                                NSDate.dateWithTimeIntervalSince1970(currentDate / 1000.0),
+                                animated = true
+                            )
                         }
                     }
                 )
@@ -141,4 +150,10 @@ actual fun KDatePicker(
     }
 }
 
-
+/** `preferredDatePickerStyle` is available from iOS 13.4. */
+private fun supportsPreferredDatePickerStyle(): Boolean {
+    val parts = UIDevice.currentDevice.systemVersion.split(".")
+    val major = parts.getOrNull(0)?.toIntOrNull() ?: 0
+    val minor = parts.getOrNull(1)?.toIntOrNull() ?: 0
+    return major > 13 || (major == 13 && minor >= 4)
+}

@@ -24,7 +24,6 @@ actual fun KProgressIndicator(
 
     LaunchedEffect(size) {
         indicator.startAnimating()
-        indicator.color = color.toUiColor()
 
         // Calculate scale factor based on desired size
         // UIActivityIndicatorView default size is about 20-22 points
@@ -36,6 +35,9 @@ actual fun KProgressIndicator(
 
     UIKitView(
         factory = { indicator },
+        update = { view ->
+            view.color = color.toUiColor()
+        },
         modifier = Modifier.size(size.dp)
     )
 }

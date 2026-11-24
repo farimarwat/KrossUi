@@ -27,7 +27,11 @@ actual fun KPicker(
         val width = maxWidth.value
         val height = maxHeight.value
 
-        val dataSourceDelegate = remember { PickerDataSourceDelegate(items, onItemPicked) }
+        val dataSourceDelegate = remember { PickerDataSourceDelegate(items, colors, onItemPicked) }
+        // Keep the delegate in sync with the latest parameters
+        dataSourceDelegate.items = items
+        dataSourceDelegate.colors = colors
+        dataSourceDelegate.onItemPicked = onItemPicked
 
         val pickerView = remember {
             UIPickerView().apply {
@@ -42,6 +46,7 @@ actual fun KPicker(
                 pickerView
             },
             update = {
+                it.backgroundColor = colors.containerColor.toUiColor()
                 it.reloadAllComponents()
             },
             modifier = Modifier.size(width.dp, height.dp)

@@ -2,6 +2,7 @@ package com.farimarwat.krossui.components.KButton
 
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
@@ -109,14 +110,16 @@ actual fun KButton(
                 // Update background color
                 this.backgroundColor = if(isEnabled) colors.containerColor.toUiColor() else colors.disabledContainerColor.toUiColor()
 
+                // Update corner radius
+                layer.cornerRadius = cornerRadius
+
                 // Update font
                 if (fontSize != TextUnit.Unspecified) {
                     titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
                 }
             }
         },
-        modifier = Modifier
-            .size(width = buttonSize.width.dp, height = buttonSize.height.dp)
-            .then(modifier)
+        modifier = modifier
+            .defaultMinSize(minWidth = buttonSize.width.dp, minHeight = buttonSize.height.dp)
     )
 }

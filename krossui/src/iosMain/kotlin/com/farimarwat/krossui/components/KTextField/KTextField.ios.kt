@@ -4,7 +4,9 @@ package com.farimarwat.krossui.components.KTextField
 
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -93,6 +95,12 @@ actual fun KTextField(
         }
     }
 
+    // The delegate is created once, so read the latest values through updated state
+    val currentOnValueChange by rememberUpdatedState(onValueChange)
+    val currentColors by rememberUpdatedState(colors)
+    val currentIsEnabled by rememberUpdatedState(isEnabled)
+    val currentIsReadOnly by rememberUpdatedState(isReadOnly)
+
     val delegate = remember {
         object : NSObject(), UITextFieldDelegateProtocol {
             override fun textField(
@@ -105,7 +113,7 @@ actual fun KTextField(
                     location.toInt() to (location + length).toInt()
                 }
                 val newText = currentText.replaceRange(range.first, range.second, replacementString)
-                onValueChange(newText)
+                currentOnValueChange(newText)
                 return true
             }
 
@@ -115,11 +123,11 @@ actual fun KTextField(
             }
 
             override fun textFieldDidBeginEditing(textField: UITextField) {
-                updateTextFieldColors(textField as PaddedUITextField, colors, isEnabled, isReadOnly, isFocused = true)
+                updateTextFieldColors(textField as PaddedUITextField, currentColors, currentIsEnabled, currentIsReadOnly, isFocused = true)
             }
 
             override fun textFieldDidEndEditing(textField: UITextField) {
-                updateTextFieldColors(textField as PaddedUITextField, colors, isEnabled, isReadOnly, isFocused = false)
+                updateTextFieldColors(textField as PaddedUITextField, currentColors, currentIsEnabled, currentIsReadOnly, isFocused = false)
             }
         }
     }
