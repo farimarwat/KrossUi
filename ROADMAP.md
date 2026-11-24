@@ -113,6 +113,17 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 Each new component ships with: common API + Colors + Defaults, Android/iOS/Desktop/Web actuals,
 theme support, accessibility, tests, screenshots, docs page, demo screen.
 
+### GitHub issue #1 — first in Phase 2
+Requested by a user ("Add new feature and enhancement", Aug 2025). Status as of 2.0 work:
+- [x] Android `KTextField` uses Material 3's text field (done in Step 3).
+- [ ] `KTextField` features: error state (`isError` + message), `label`, `supportingText`, leading / trailing icons
+      (Android: Material; iOS: drawn in platform style around the native UITextField, red border on error).
+- [ ] Rename `KTabBar` → bottom navigation name (suggested `KBottomNavBar`; final name to decide), keep a deprecated `KTabBar`.
+- [ ] Real top tabs: `KTabRow` (Material `TabRow` on Android, `UISegmentedControl` on iOS).
+- [ ] `KTimePicker` (Material `TimePicker` / time-wheel `UIDatePicker`) — also covers Step 13's time picker.
+- [ ] `KDateTimePicker` (date then time on Android / combined date-and-time wheel on iOS).
+- When done: reply on issue #1 and close it.
+
 ### Desktop & Web fallbacks (moved from Phase 1, step 8)
 - [ ] Add `jvm()` and `wasmJs()` targets.
 - [ ] Pure-Compose (Material 3) `actual` for each component, shared in an intermediate `composeMain` source set where possible.
