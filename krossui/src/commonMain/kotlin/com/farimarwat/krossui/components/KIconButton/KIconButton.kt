@@ -7,6 +7,9 @@ import org.jetbrains.compose.resources.DrawableResource
 
 /**
  * A cross-platform icon button component for Android and iOS.
+ *
+ * iOS 26+: native prominent Liquid Glass button (capsule shape; corner radius and disabled colors are
+ * handled by the system). Earlier iOS and Android: native filled button.
  * Supports platform-specific icons, customizable styling, and optional title text.
  *
  * @param modifier The [Modifier] to be applied to the button.

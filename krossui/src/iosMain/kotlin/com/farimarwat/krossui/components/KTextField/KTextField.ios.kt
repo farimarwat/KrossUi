@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KTextField
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 // iosMain
 
 import androidx.compose.foundation.layout.defaultMinSize
@@ -133,6 +135,7 @@ actual fun KTextField(
     }
 
     UIKitView(
+        properties = NativeInteropProperties,
         modifier = modifier
             .defaultMinSize(minWidth = minSize.width.dp, minHeight = minSize.height.dp),
         factory = {

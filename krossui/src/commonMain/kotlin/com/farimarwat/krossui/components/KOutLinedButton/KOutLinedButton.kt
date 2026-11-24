@@ -7,6 +7,9 @@ import androidx.compose.ui.unit.TextUnit
 /**
  * A cross-platform outlined button composable that adapts to the native platform style.
  *
+ * Android: Material 3 outlined button. iOS 26+: native regular Liquid Glass button (capsule shape, no border;
+ * [cornerRadius], [borderWidth] and disabled colors are handled by the system). Earlier iOS: native bordered button.
+ *
  * @param modifier The [Modifier] to apply to the button layout.
  * @param text The text displayed inside the button.
  * @param onClick The lambda function triggered on button click.

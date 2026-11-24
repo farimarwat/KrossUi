@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KProgressIndicator
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -34,6 +36,7 @@ actual fun KProgressIndicator(
     }
 
     UIKitView(
+        properties = NativeInteropProperties,
         factory = { indicator },
         update = { view ->
             view.color = color.toUiColor()

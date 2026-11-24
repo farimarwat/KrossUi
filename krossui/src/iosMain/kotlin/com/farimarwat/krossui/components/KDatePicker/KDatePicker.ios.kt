@@ -1,5 +1,8 @@
 package com.farimarwat.krossui.components.KDatePicker
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+import com.farimarwat.krossui.utils.isIosAtLeast
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -72,7 +75,7 @@ actual fun KDatePicker(
         val datePicker = remember {
             UIDatePicker().apply {
                 datePickerMode = UIDatePickerMode.UIDatePickerModeDate
-                if (supportsPreferredDatePickerStyle()) {
+                if (isIosAtLeast(13, 4)) {
                     preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
                 }
 
@@ -100,6 +103,7 @@ actual fun KDatePicker(
                     .clip(RoundedCornerShape(16.dp))
             ){
                 UIKitView(
+                    properties = NativeInteropProperties,
                     factory = {
                         datePicker.sizeToFit()
                         datePicker
@@ -148,12 +152,4 @@ actual fun KDatePicker(
             }
         }
     }
-}
-
-/** `preferredDatePickerStyle` is available from iOS 13.4. */
-private fun supportsPreferredDatePickerStyle(): Boolean {
-    val parts = UIDevice.currentDevice.systemVersion.split(".")
-    val major = parts.getOrNull(0)?.toIntOrNull() ?: 0
-    val minor = parts.getOrNull(1)?.toIntOrNull() ?: 0
-    return major > 13 || (major == 13 && minor >= 4)
 }

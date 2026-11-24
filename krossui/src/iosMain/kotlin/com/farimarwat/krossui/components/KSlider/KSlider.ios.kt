@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KSlider
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +43,7 @@ actual fun KSlider(
     valueChangedCallback.value = onValueChanged
 
     UIKitView(
+        properties = NativeInteropProperties,
         factory = {
             val slider = UISlider().apply {
                 minimumValue = minValue

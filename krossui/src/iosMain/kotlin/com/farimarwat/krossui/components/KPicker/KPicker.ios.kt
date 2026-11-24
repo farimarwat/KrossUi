@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KPicker
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -42,6 +44,7 @@ actual fun KPicker(
         }
 
         UIKitView(
+            properties = NativeInteropProperties,
             factory = {
                 pickerView
             },

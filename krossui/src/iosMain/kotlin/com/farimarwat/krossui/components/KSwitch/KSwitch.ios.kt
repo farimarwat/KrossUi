@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KSwitch
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -10,6 +12,7 @@ import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.toUiColor
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
+import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
@@ -27,15 +30,9 @@ actual fun KSwitch(
     // Store the callback in a remembered mutable reference
     val changeCallback = remember { mutableStateOf(onCheckedChange) }
     changeCallback.value = onCheckedChange
-    val width = 51.0
-    val height = 31.0
-    // Create UISwitch
-    val uiSwitch = remember {
-        UISwitch().apply {
-            setFrame(CGRectMake(0.0,0.0, width, height) )// Standard UISwitch size
-            on = checked
-        }
-    }
+    val uiSwitch = remember { UISwitch().apply { on = checked } }
+    // Size comes from the switch itself (it differs between iOS versions, e.g. wider on iOS 26)
+    val switchSize = remember { uiSwitch.intrinsicContentSize.useContents { width to height } }
 
     val switchTarget = remember{
         object : NSObject() {
@@ -47,6 +44,7 @@ actual fun KSwitch(
     }
 
     UIKitView(
+        properties = NativeInteropProperties,
         factory = {
             uiSwitch.addTarget(
                 target = switchTarget,
@@ -70,6 +68,6 @@ actual fun KSwitch(
             }
         },
         modifier = modifier
-            .defaultMinSize(minWidth = width.dp, minHeight = height.dp)
+            .defaultMinSize(minWidth = switchSize.first.dp, minHeight = switchSize.second.dp)
     )
 }

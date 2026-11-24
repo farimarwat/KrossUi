@@ -13,6 +13,9 @@ import androidx.compose.ui.unit.dp
 /**
  * A cross-platform button composable that adapts to the native design on each platform.
  *
+ * Android: Material 3 filled button. iOS 26+: native prominent Liquid Glass button (capsule shape,
+ * [cornerRadius] and disabled colors are handled by the system). Earlier iOS: native filled button.
+ *
  * @param modifier The [Modifier] to be applied to the button.
  * @param text The text label to display inside the button.
  * @param onClick The lambda to invoke when the button is clicked.

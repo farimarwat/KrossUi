@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KMenu
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -45,6 +47,7 @@ actual fun KMenu(
     }
     val size = button.intrinsicContentSize
     UIKitView(
+        properties = NativeInteropProperties,
         modifier = modifier
             .defaultMinSize(
                 minWidth = size.useContents { width }.dp,

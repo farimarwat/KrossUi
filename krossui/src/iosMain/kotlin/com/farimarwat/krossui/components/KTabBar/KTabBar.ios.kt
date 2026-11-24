@@ -1,5 +1,7 @@
 package com.farimarwat.krossui.components.KTabBar
 
+import com.farimarwat.krossui.utils.NativeInteropProperties
+
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
@@ -61,6 +63,7 @@ actual fun KTabBar(
     }
 
     UIKitView(
+        properties = NativeInteropProperties,
         factory = {
             tabBar.apply {
                 setNeedsLayout()
