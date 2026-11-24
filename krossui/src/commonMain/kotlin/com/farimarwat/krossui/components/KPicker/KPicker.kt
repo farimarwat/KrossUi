@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
  * @param onItemPicked Callback function triggered when an item is selected.
  */
 @Composable
-expect fun KPicker(
+public expect fun KPicker(
     modifier: Modifier = Modifier,
     items: List<String>,
     colors: KPickerColors = KPickerDefaults.colors(),

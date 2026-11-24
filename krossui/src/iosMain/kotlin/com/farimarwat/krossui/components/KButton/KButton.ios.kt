@@ -28,7 +28,7 @@ import kotlin.math.max
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
-actual fun KButton(
+public actual fun KButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,

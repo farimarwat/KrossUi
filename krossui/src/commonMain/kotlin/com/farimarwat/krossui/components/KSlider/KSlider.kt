@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
  * @param onValueChanged Callback function triggered when the slider value changes.
  */
 @Composable
-expect fun KSlider(
+public expect fun KSlider(
     modifier: Modifier = Modifier,
     value: Float = 0f,
     minValue: Float = 0f,

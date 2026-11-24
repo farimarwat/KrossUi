@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
  * @param isEnabled Whether the button is enabled or disabled.
  */
 @Composable
-expect fun KButton(
+public expect fun KButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,

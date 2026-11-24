@@ -57,7 +57,7 @@ private class PaddedUITextField(
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KTextField(
+public actual fun KTextField(
     modifier: Modifier,
     padding: KPadding,
     value: String,

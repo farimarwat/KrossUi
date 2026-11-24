@@ -6,7 +6,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Provides default color values for [KTabBar].
  */
-object KTabBarDefaults {
+public object KTabBarDefaults {
 
     /**
      * Returns a default [KTabBarColors] instance with optional overrides.
@@ -16,7 +16,7 @@ object KTabBarDefaults {
      * @param unselectedContentColor The color of the unselected tabs' icon and text.
      * @return A configured [KTabBarColors] instance.
      */
-    fun colors(
+    public fun colors(
         backgroundColor: Color = PlatformColors.systemBackground,
         selectedContentColor: Color = PlatformColors.systemBlue,
         unselectedContentColor: Color = PlatformColors.systemGray

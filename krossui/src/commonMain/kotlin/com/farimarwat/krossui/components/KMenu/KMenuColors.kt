@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
  * @property contentColor Color used for menu item text and icons.
  * @property disabledContentColor Color used for disabled items.
  */
-data class KMenuColors(
+public data class KMenuColors(
     val backgroundColor: Color,
     val contentColor: Color,
     val disabledContentColor: Color

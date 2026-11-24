@@ -18,7 +18,7 @@ import platform.darwin.NSObject
  * in sync with the latest values on every recomposition without recreating the picker.
  */
 @OptIn(ExperimentalForeignApi::class)
-class PickerDataSourceDelegate(
+internal class PickerDataSourceDelegate(
     var items: List<String>,
     var colors: KPickerColors,
     var onItemPicked: (String) -> Unit

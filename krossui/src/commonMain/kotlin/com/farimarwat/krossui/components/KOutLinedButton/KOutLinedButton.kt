@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.TextUnit
  * @param isEnabled Whether the button is enabled or disabled.
  */
 @Composable
-expect fun KOutLinedButton(
+public expect fun KOutLinedButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,

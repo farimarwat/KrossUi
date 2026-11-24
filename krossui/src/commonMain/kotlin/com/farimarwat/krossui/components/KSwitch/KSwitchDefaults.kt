@@ -6,7 +6,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Default values and factory for creating [KSwitchColors].
  */
-object KSwitchDefaults {
+public object KSwitchDefaults {
 
     /**
      * Creates a [KSwitchColors] instance with optional custom or default values.
@@ -16,7 +16,7 @@ object KSwitchDefaults {
      * @param trackColorUnchecked Track color when unchecked, default is [Color.Gray].
      * @return A [KSwitchColors] instance with the specified color configuration.
      */
-    fun colors(
+    public fun colors(
         thumbColor: Color = Color.White,
         trackColorChecked: Color = PlatformColors.systemBlue,
         trackColorUnchecked: Color = Color.Gray,

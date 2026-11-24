@@ -25,7 +25,7 @@ import androidx.compose.ui.window.PopupProperties
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-actual fun KDatePicker(
+public actual fun KDatePicker(
     show: Boolean,
     initialDate: Long,
     colors: KDatePickerColors,

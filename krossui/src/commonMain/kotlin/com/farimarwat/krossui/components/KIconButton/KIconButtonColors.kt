@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
  * @param disabledContainerColor The background color when the button is disabled.
  * @param disabledContentColor The color of the text and icon when the button is disabled.
  */
-data class KIconButtonColors(
+public data class KIconButtonColors(
     val containerColor: Color,
     val contentColor: Color,
     val disabledContainerColor: Color,

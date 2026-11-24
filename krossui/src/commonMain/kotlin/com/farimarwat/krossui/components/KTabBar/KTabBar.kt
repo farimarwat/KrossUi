@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
  * @param colors The color scheme for the tab bar, see [KTabBarDefaults.colors].
  */
 @Composable
-expect fun KTabBar(
+public expect fun KTabBar(
     modifier: Modifier = Modifier,
     tabs: List<KTabItem>,
     selectedIndex: Int,

@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
  * @param onDateSelected Callback invoked with the selected date in milliseconds.
  */
 @Composable
-expect fun KDatePicker(
+public expect fun KDatePicker(
     show: Boolean,
     initialDate: Long,
     colors: KDatePickerColors = KDatePickerDefaults.colors(),

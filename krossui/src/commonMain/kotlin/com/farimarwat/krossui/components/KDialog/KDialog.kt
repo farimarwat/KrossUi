@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
  * @param onDismiss Callback invoked when the dialog is dismissed (e.g., outside click or back press). Defaults to an empty lambda.
  */
 @Composable
-expect fun KDialog(
+public expect fun KDialog(
     show: Boolean,
     title: String,
     message: String,

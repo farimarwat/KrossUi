@@ -18,7 +18,7 @@ import platform.UIKit.UIActivityIndicatorView
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KProgressIndicator(
+public actual fun KProgressIndicator(
     size: Double,
     color: Color
 ) {

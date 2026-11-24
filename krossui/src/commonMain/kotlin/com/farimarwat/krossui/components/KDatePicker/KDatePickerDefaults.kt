@@ -7,7 +7,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Provides default color configurations for `KDatePicker`.
  */
-object KDatePickerDefaults {
+public object KDatePickerDefaults {
 
     /**
      * Returns a [KDatePickerColors] instance with customizable defaults.
@@ -18,7 +18,7 @@ object KDatePickerDefaults {
      * @param footerContentColor Color used for footer buttons and labels.
      */
     @Composable
-    fun colors(
+    public fun colors(
         containerColor: Color = PlatformColors.systemBackground,
         contentColor: Color = PlatformColors.systemBlue,
         footerContainerColor: Color = PlatformColors.systemGray.copy(alpha = 0.5f),

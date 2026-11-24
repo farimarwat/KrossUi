@@ -10,7 +10,7 @@ import org.jetbrains.compose.resources.DrawableResource
  * @property iosIcon Optional SF Symbol name to display on iOS.
  * @property enabled Determines if the item is enabled (clickable).
  */
-data class KMenuItem(
+public data class KMenuItem(
     val title: String,
     val androidIcon: DrawableResource? = null,
     val iosIcon: String? = null,

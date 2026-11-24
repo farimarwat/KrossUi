@@ -6,7 +6,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Contains default values and helper functions for configuring the [KSlider].
  */
-object KSliderDefaults {
+public object KSliderDefaults {
 
     /**
      * Returns a [KSliderColors] instance with provided or default color values.
@@ -18,7 +18,7 @@ object KSliderDefaults {
      * @param disabledInactiveTrackColor Color of the unfilled track when disabled.
      * @param disabledThumbColor Color of the thumb when disabled.
      */
-    fun colors(
+    public fun colors(
         activeTrackColor: Color = PlatformColors.systemBlue,
         inactiveTrackColor: Color = PlatformColors.systemGray,
         thumbColor: Color = Color.White,

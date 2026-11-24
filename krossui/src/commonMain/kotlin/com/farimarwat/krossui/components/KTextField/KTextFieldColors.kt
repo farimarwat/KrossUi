@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
  * @property disabledBorderColor Border color when the field is disabled.
  * @property readOnlyTextColor Text color when the field is read-only.
  */
-data class KTextFieldColors(
+public data class KTextFieldColors(
     val textColor: Color,
     val unfocusedBackgroundColor: Color,
     val focusedBackgroundColor: Color,

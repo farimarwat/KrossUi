@@ -9,7 +9,7 @@ import org.jetbrains.compose.resources.DrawableResource
  * @param androidIcon The icon resource used for Android.
  * @param iosIcon The SF Symbol name or asset name used for iOS.
  */
-data class KTabItem(
+public data class KTabItem(
     val title: String,
     val androidIcon: DrawableResource,
     val iosIcon: String

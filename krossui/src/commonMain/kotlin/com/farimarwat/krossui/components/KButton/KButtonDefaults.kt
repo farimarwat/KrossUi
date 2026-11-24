@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 
-object KButtonDefaults {
+public object KButtonDefaults {
 
     /**
      * Returns a [KButtonColors] instance with the given customization options.
@@ -15,7 +15,7 @@ object KButtonDefaults {
      * @param disabledBackgroundColor The background color when the button is disabled.
      * @param disabledTextColor The text color when the button is disabled.
      */
-    fun colors(
+    public fun colors(
         containerColor: Color = PlatformColors.systemBlue,
         contentColor: Color = Color.White,
         disabledBackgroundColor: Color = containerColor.copy(alpha = 0.3f),
@@ -30,9 +30,9 @@ object KButtonDefaults {
     /**
      * The default font size used in [KButton] text, expressed in sp.
      */
-    val DefaultFontSize: TextUnit = 14.sp
+    public val DefaultFontSize: TextUnit = 14.sp
     /**
      * The default corner radius for [KButton], expressed in dp.
      */
-    val CornerRadius = 8.0
+    public val CornerRadius: Double = 8.0
 }

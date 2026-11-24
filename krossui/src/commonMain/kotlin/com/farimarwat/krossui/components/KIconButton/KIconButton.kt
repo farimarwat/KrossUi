@@ -23,7 +23,7 @@ import org.jetbrains.compose.resources.DrawableResource
  * @param androidIcon The drawable resource to be used on Android.
  */
 @Composable
-expect fun KIconButton(
+public expect fun KIconButton(
     modifier: Modifier = Modifier,
     title: String? = null,
     onClick: () -> Unit,

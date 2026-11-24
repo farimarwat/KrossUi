@@ -17,7 +17,7 @@ import org.jetbrains.compose.resources.DrawableResource
  * @param colors Color customization for menu background and content.
  */
 @Composable
-expect fun KMenu(
+public expect fun KMenu(
     title: String = "Hello",
     iOSIcon: String? = null,
     androidIcon: DrawableResource? = null,

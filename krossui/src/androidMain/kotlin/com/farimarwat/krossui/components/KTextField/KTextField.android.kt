@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import com.farimarwat.krossui.components.Common.KPadding
 
 @Composable
-actual fun KTextField(
+public actual fun KTextField(
     modifier: Modifier,
     padding: KPadding,
     value: String,

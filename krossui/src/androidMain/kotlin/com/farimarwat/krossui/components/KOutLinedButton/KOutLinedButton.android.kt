@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
-actual fun KOutLinedButton(
+public actual fun KOutLinedButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,

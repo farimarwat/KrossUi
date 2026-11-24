@@ -2,14 +2,14 @@ package com.farimarwat.krossui.components.ColorUtils
 
 import androidx.compose.ui.graphics.Color
 
-expect object PlatformColors {
-    val systemBlue: Color
-    val systemRed: Color
-    val systemGreen: Color
-    val systemOrange: Color
-    val systemPurple: Color
-    val systemGray: Color
-    val label: Color
-    val secondaryLabel: Color
-    val systemBackground: Color
+public expect object PlatformColors {
+    public val systemBlue: Color
+    public val systemRed: Color
+    public val systemGreen: Color
+    public val systemOrange: Color
+    public val systemPurple: Color
+    public val systemGray: Color
+    public val label: Color
+    public val secondaryLabel: Color
+    public val systemBackground: Color
 }

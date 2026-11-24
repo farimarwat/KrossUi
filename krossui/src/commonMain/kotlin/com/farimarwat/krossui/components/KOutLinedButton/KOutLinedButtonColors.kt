@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
  * @property borderColor The border color when the button is enabled.
  * @property disabledBorderColor The border color when the button is disabled.
  */
-data class KOutLinedButtonColors(
+public data class KOutLinedButtonColors(
     val backgroundColor: Color,
     val textColor: Color,
     val disabledBackgroundColor: Color,

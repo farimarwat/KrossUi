@@ -7,7 +7,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Provides default configuration values for [KTextField], including colors, border width, and padding.
  */
-object KTextFieldDefaults {
+public object KTextFieldDefaults {
 
     /**
      * Returns a [KTextFieldColors] instance with color values for all supported states.
@@ -23,7 +23,7 @@ object KTextFieldDefaults {
      * @param readOnlyTextColor Text color when the field is read-only.
      */
     @Composable
-    fun colors(
+    public fun colors(
         textColor: Color = Color.Black,
         unfocusedBackgroundColor: Color = Color.White,
         focusedBackgroundColor: Color = Color.White,
@@ -50,15 +50,15 @@ object KTextFieldDefaults {
     /**
      * Default border width for [KTextField] in dp.
      */
-    val BorderWidth = 1
+    public val BorderWidth: Int = 1
 
     /**
      * Default corner radius for [KTextField] in dp.
      */
-    val CornerRadius = 8.0
+    public val CornerRadius: Double = 8.0
 
     /**
      * Default padding value for [KTextField] in dp.
      */
-    val Padding = 12
+    public val Padding: Int = 12
 }

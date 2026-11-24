@@ -7,7 +7,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Provides default configurations for [KOutLinedButton], including colors, font size, corner radius, and border width.
  */
-object KOutLinedButtonDefaults {
+public object KOutLinedButtonDefaults {
     /**
      * Returns a [KOutLinedButtonColors] instance with customizable values for container, text, and border colors.
      *
@@ -18,7 +18,7 @@ object KOutLinedButtonDefaults {
      * @param borderColor The border color when the button is enabled.
      * @param disabledBorderColor The border color when the button is disabled.
      */
-    fun colors(
+    public fun colors(
         containerColor: Color = PlatformColors.systemBackground,
         contentColor: Color = PlatformColors.systemBlue,
         disabledBackgroundColor: Color = containerColor.copy(alpha = 0.3f),
@@ -36,13 +36,13 @@ object KOutLinedButtonDefaults {
     /**
      * The default font size for the button text.
      */
-    val DefaultFontSize: TextUnit = 14.sp
+    public val DefaultFontSize: TextUnit = 14.sp
     /**
      * The default corner radius for the button in dp.
      */
-    val CornerRadius = 8.0
+    public val CornerRadius: Double = 8.0
     /**
      * The default border width for the outlined button in dp.
      */
-    val BorderWidth: Double = 1.0
+    public val BorderWidth: Double = 1.0
 }

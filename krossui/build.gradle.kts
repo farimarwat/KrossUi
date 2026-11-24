@@ -7,6 +7,16 @@ plugins {
 }
 
 kotlin {
+    // Every public declaration must state its visibility, so nothing becomes public API by accident
+    explicitApi()
+
+    compilerOptions {
+        // expect/actual classes are Beta in Kotlin; we use them deliberately (PlatformColors)
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+        optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
+        optIn.add("kotlinx.cinterop.BetaInteropApi")
+    }
+
 
     // Target declarations - add or remove as needed below. These define
     // which platforms this KMP module supports.

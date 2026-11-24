@@ -6,7 +6,7 @@ import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 
 @Composable
-actual fun KDialog(
+public actual fun KDialog(
     show: Boolean,
     title: String,
     message: String,

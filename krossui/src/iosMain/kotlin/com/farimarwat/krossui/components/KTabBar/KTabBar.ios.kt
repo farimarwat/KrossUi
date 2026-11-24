@@ -22,7 +22,7 @@ import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KTabBar(
+public actual fun KTabBar(
     modifier: Modifier,
     tabs: List<KTabItem>,
     selectedIndex: Int,

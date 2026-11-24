@@ -7,7 +7,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Provides default values and factory methods for [KMenu] styling.
  */
-object KMenuDefaults {
+public object KMenuDefaults {
 
     /**
      * Returns a default [KMenuColors] instance with system-based colors.
@@ -17,7 +17,7 @@ object KMenuDefaults {
      * @param disabledContentColor The color used for disabled menu items.
      */
     @Composable
-    fun colors(
+    public fun colors(
         backgroundColor: Color = PlatformColors.systemGray,
         contentColor: Color = PlatformColors.label,
         disabledContentColor: Color = contentColor.copy(alpha = 0.4f)

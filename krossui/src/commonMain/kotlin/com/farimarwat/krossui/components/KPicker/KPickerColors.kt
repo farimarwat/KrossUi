@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
  * @property disabledContainerColor The background color when the picker is disabled.
  * @property disabledContentColor The text color when the picker is disabled.
  */
-data class KPickerColors(
+public data class KPickerColors(
     val containerColor: Color,
     val contentColor: Color,
     val disabledContainerColor: Color,

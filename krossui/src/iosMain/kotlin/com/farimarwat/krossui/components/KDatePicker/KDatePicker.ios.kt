@@ -48,7 +48,7 @@ import platform.UIKit.systemBackgroundColor
 import platform.darwin.NSObject
 @OptIn(ExperimentalForeignApi::class, ExperimentalComposeUiApi::class)
 @Composable
-actual fun KDatePicker(
+public actual fun KDatePicker(
     show: Boolean,
     initialDate: Long,
     colors: KDatePickerColors,

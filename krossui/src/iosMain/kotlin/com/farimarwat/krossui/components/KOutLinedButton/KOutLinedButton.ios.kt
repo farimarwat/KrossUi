@@ -28,7 +28,7 @@ import kotlin.math.max
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
-actual fun KOutLinedButton(
+public actual fun KOutLinedButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,

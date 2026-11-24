@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-actual fun KMenu(
+public actual fun KMenu(
     title:String,
     iOSIcon:String?,
     androidIcon: DrawableResource?,

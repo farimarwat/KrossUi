@@ -15,7 +15,7 @@ import platform.UIKit.UIWindow
 import platform.UIKit.UIWindowScene
 
 @Composable
-actual fun KDialog(
+public actual fun KDialog(
     show: Boolean,
     title: String,
     message: String,

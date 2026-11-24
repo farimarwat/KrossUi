@@ -16,7 +16,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
  * @param isEnabled Whether the switch is enabled and interactive.
  */
 @Composable
-expect fun KSwitch(
+public expect fun KSwitch(
     modifier: Modifier = Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,

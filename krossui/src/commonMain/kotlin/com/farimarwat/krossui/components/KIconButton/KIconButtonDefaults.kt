@@ -9,14 +9,14 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Default values and helpers for [KIconButton] styling.
  */
-object KIconButtonDefaults {
+public object KIconButtonDefaults {
 
     /**
      * Returns the default [KIconButtonColors] for the button.
      *
      * @return A [KIconButtonColors] instance with default styling.
      */
-    fun colors(): KIconButtonColors = KIconButtonColors(
+    public fun colors(): KIconButtonColors = KIconButtonColors(
         containerColor = PlatformColors.systemBlue,
         contentColor = Color.White,
         disabledContainerColor = Color.LightGray,
@@ -26,10 +26,10 @@ object KIconButtonDefaults {
     /**
      * Default font size for the button's text.
      */
-    val FontSize = 14.sp
+    public val FontSize: TextUnit = 14.sp
 
     /**
      * Default corner radius for the button.
      */
-    val CornerRadius = 8.0
+    public val CornerRadius: Double = 8.0
 }

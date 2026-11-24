@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
  * @param disabledInactiveTrackColor Color of the unfilled track when disabled.
  * @param disabledThumbColor Color of the thumb when disabled.
  */
-data class KSliderColors(
+public data class KSliderColors(
     val activeTrackColor: Color,
     val inactiveTrackColor: Color,
     val thumbColor: Color,

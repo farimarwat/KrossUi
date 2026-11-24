@@ -7,7 +7,7 @@ import com.farimarwat.krossui.components.ColorUtils.PlatformColors
 /**
  * Provides default styling values for [KPicker].
  */
-object KPickerDefaults {
+public object KPickerDefaults {
 
     /**
      * Returns default color values for the [KPicker] component.
@@ -15,7 +15,7 @@ object KPickerDefaults {
      * @return [KPickerColors] with predefined platform-aware colors.
      */
     @Composable
-    fun colors(): KPickerColors = KPickerColors(
+    public fun colors(): KPickerColors = KPickerColors(
         containerColor = Color.White,
         contentColor = PlatformColors.systemBlue,
         disabledContainerColor = PlatformColors.systemGray.copy(alpha = 0.5f),

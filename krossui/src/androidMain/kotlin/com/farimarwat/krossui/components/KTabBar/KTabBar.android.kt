@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-actual fun KTabBar(
+public actual fun KTabBar(
     modifier: Modifier,
     tabs: List<KTabItem>,
     selectedIndex: Int,

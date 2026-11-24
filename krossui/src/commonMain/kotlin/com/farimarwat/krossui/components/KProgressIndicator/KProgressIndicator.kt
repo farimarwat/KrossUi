@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
  * @param color The color of the progress indicator. Defaults to [KProgressIndicatorDefaults.colors].
  */
 @Composable
-expect fun KProgressIndicator(
+public expect fun KProgressIndicator(
     size: Double = KProgressIndicatorDefaults.DefaultSize,
     color: Color = KProgressIndicatorDefaults.colors().color
 )

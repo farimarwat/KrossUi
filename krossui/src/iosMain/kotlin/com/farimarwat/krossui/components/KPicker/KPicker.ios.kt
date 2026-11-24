@@ -19,7 +19,7 @@ import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
-actual fun KPicker(
+public actual fun KPicker(
     modifier: Modifier,
     items: List<String>,
     colors: KPickerColors,

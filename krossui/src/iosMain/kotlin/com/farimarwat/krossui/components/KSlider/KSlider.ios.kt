@@ -20,7 +20,7 @@ import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KSlider(
+public actual fun KSlider(
     modifier: Modifier,
     value: Float,
     minValue: Float,

@@ -28,7 +28,7 @@ import com.farimarwat.krossui.components.Common.KPadding
  * @param colors Visual styling for different states of the text field.
  */
 @Composable
-expect fun KTextField(
+public expect fun KTextField(
     modifier: Modifier = Modifier,
     padding: KPadding = KPadding.all(12.0),
     value: String,

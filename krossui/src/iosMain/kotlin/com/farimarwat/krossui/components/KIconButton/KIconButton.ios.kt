@@ -31,7 +31,7 @@ import kotlin.math.max
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
-actual fun KIconButton(
+public actual fun KIconButton(
     modifier: Modifier,
     title: String?,
     onClick: () -> Unit,

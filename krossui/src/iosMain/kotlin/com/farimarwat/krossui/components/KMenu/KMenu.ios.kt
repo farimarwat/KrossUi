@@ -21,7 +21,7 @@ import platform.UIKit.*
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun KMenu(
+public actual fun KMenu(
     title: String,
     iOSIcon: String?,
     androidIcon: DrawableResource?, // not used in iOS

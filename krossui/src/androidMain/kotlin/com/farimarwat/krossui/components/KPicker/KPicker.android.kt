@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 
 @Composable
-actual fun KPicker(
+public actual fun KPicker(
     modifier: Modifier, items: List<String>, colors: KPickerColors, onItemPicked: (String) -> Unit
 ) {
     val listState = rememberLazyListState()

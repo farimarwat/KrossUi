@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-actual fun KIconButton(
+public actual fun KIconButton(
     modifier: Modifier,
     title: String?,
     onClick: () -> Unit,

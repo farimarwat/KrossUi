@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
  * @property footerContainerColor Background color of the footer section.
  * @property footerContentColor Color used for footer buttons/text (e.g., "OK", "Cancel").
  */
-data class KDatePickerColors(
+public data class KDatePickerColors(
     val containerColor: Color,
     val contentColor: Color,
     val footerContainerColor: Color,
