@@ -44,3 +44,12 @@ jobs:
         run: ./gradlew :krossui:checkKotlinAbi
       - name: Unit tests (iOS simulator)
         run: ./gradlew :krossui:iosSimulatorArm64Test
+      # References in krossui/screenshots are recorded on macOS; font rendering differs on Linux
+      - name: Android screenshot tests
+        run: ./gradlew :krossui:verifyRoborazziAndroidHostTest
+      - name: Upload screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: roborazzi-diffs
+          path: krossui/build/outputs/roborazzi

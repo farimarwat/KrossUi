@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
  *
  * @property containerColor Background color of the dialog container.
  * @property contentColor Color used for main content like date text and selectors.
- * @property footerContainerColor Background color of the footer section.
+ * @property footerContainerColor Background color of the footer section (iOS; on Android the buttons sit in the dialog).
  * @property footerContentColor Color used for footer buttons/text (e.g., "OK", "Cancel").
  */
 @Immutable

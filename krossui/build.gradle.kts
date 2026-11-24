@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.roborazzi)
 }
 
 kotlin {
@@ -30,13 +31,10 @@ kotlin {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
+        // Android UI tests run on the JVM with Robolectric (interaction + Roborazzi screenshots)
         withHostTestBuilder {
-        }
-
-        withDeviceTestBuilder {
-            sourceSetTreeName = "test"
         }.configure {
-            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            isIncludeAndroidResources = true
         }
     }
 
@@ -93,11 +91,16 @@ kotlin {
             }
         }
 
-        getByName("androidDeviceTest") {
+        getByName("androidHostTest") {
             dependencies {
-                implementation(libs.androidx.test.runner)
-                implementation(libs.androidx.test.core)
+                implementation(libs.junit)
                 implementation(libs.androidx.testExt.junit)
+                implementation(libs.robolectric)
+                implementation(libs.androidx.compose.ui.test.junit4)
+                implementation(libs.androidx.compose.ui.test.manifest)
+                implementation(libs.roborazzi)
+                implementation(libs.roborazzi.compose)
+                implementation(libs.roborazzi.junit.rule)
             }
         }
 
@@ -153,4 +156,9 @@ kotlin {
         // Enable GPG signing for all publications
         signAllPublications()
     }
+}
+
+// Screenshot references live next to the tests and are committed; CI verifies against them
+roborazzi {
+    outputDir.set(file("screenshots"))
 }

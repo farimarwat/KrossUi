@@ -74,12 +74,17 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - [ ] Manual TalkBack / VoiceOver walk-through on devices (user).
 
 ### Step 7 · Tests
-- [ ] Replace template tests.
-- [ ] `compose-ui-test` in `commonTest` for interaction/state logic.
-- [ ] Roborazzi screenshot tests for Android (light/dark, enabled/disabled, LTR/RTL).
-- [ ] iOS snapshot/UI tests via XCTest against the demo app.
-- [ ] Wire all into CI.
-- **Done when:** each component has interaction + screenshot coverage on both platforms.
+- [x] Template tests replaced; broken Android device-test setup removed (Robolectric covers it).
+- [x] Android interaction tests (Robolectric + compose-ui-test): click, toggle, slider progress, text input,
+      password semantics, picker selection, menu, dialog, date picker, labels.
+- [x] Android screenshot tests (Roborazzi): every component in light, dark, RTL and disabled; references in
+      `krossui/screenshots`, verified in CI (macOS job, same renderer as local recording).
+- [x] iOS tests on the simulator: native sizing rules, button styling, color conversion, date round trips.
+- [x] All tests wired into CI.
+- [ ] iOS UI / screenshot tests of the rendered UIKit controls (XCUITest target in the demo app) — later;
+      Compose UI tests cannot host UIKit interop views.
+- **Found by the tests:** the Android date picker's custom popup could push "Done" off small screens →
+  now Material's `DatePickerDialog`.
 
 ### Step 8 · Desktop & Web fallbacks
 - [ ] Add `jvm()` and `wasmJs()` targets.

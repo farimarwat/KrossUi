@@ -129,9 +129,9 @@ public actual fun KDatePicker(
 }
 
 /** UIDatePicker works in the device time zone: a calendar date maps to its local midnight. */
-private fun LocalDate.toNSDate(): NSDate =
+internal fun LocalDate.toNSDate(): NSDate =
     NSDate.dateWithTimeIntervalSince1970(atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds() / 1000.0)
 
-private fun NSDate.toLocalDate(): LocalDate = Instant.fromEpochMilliseconds((timeIntervalSince1970 * 1000).toLong())
+internal fun NSDate.toLocalDate(): LocalDate = Instant.fromEpochMilliseconds((timeIntervalSince1970 * 1000).toLong())
     .toLocalDateTime(TimeZone.currentSystemDefault())
     .date

@@ -108,7 +108,8 @@ The deprecated 1.x `…Defaults` objects keep their old fixed values, so 1.x cod
 - `KIconButtonDefaults.colors()` now accepts color parameters like the other components.
 - All `*Colors` classes are `@Immutable`.
 - `KSwitch` on Android no longer stretches to full width; size it with `modifier` if needed.
-- `KDatePicker` on Android now opens at `initialDate` (it was ignored before).
+- `KDatePicker` on Android now opens at `initialDate` (it was ignored before) and uses Material's
+  `DatePickerDialog`, so it fits small screens; `footerContainerColor` applies on iOS only.
 - `KMenu` on Android shows a text button (not a filled button) when no icon is given, as Material menus do.
 
 ## What the compatibility layer does not cover

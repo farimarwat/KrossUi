@@ -91,7 +91,7 @@ internal fun <T : UIView> NativeView(
     )
 }
 
-private fun Density.resolveSize(min: Int, max: Int, preferred: Dp, minimum: Dp): Int {
+internal fun Density.resolveSize(min: Int, max: Int, preferred: Dp, minimum: Dp): Int {
     val bounded = max != Constraints.Infinity
     val natural = when {
         preferred.isSpecified -> preferred.roundToPx()
