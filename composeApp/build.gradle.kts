@@ -43,7 +43,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
 
             implementation(project(":krossui"))
-            // implementation("io.github.farimarwat:krossui:1.0")
+            // Published artifact instead of the local module: implementation("io.github.farimarwat:krossui:2.0.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

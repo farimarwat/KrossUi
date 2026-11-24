@@ -124,7 +124,9 @@ kotlin {
         pom {
             name.set("KrossUI")
             description.set(
-                "A simple and customizable UI component library for Kotlin Multiplatform (KMP), offering native-style widgets like buttons, dialogs, pickers, and more — fully optimized for Android and iOS."
+                "Native UI components for Compose Multiplatform: one Kotlin API that renders Material 3 on Android " +
+                    "and UIKit on iOS, including Liquid Glass on iOS 26. Buttons, text fields, switches, sliders, " +
+                    "pickers, date picker, menus, dialogs and tab bar, with dark mode, accessibility and RTL support."
             )
             inceptionYear.set("2025")
             url.set("https://github.com/farimarwat/KrossUi")
@@ -148,6 +150,8 @@ kotlin {
             // Specify SCM information
             scm {
                 url.set("https://github.com/farimarwat/KrossUi")
+                connection.set("scm:git:https://github.com/farimarwat/KrossUi.git")
+                developerConnection.set("scm:git:ssh://git@github.com/farimarwat/KrossUi.git")
             }
         }
 
