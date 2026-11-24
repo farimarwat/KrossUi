@@ -1,24 +1,23 @@
 package com.farimarwat.krossui
 
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.UIKitView
-import com.farimarwat.krossui.utils.NativeInteropProperties
+import androidx.compose.ui.unit.DpSize
+import com.farimarwat.krossui.utils.MinTouchTarget
+import com.farimarwat.krossui.utils.NativeView
 import com.farimarwat.krossui.utils.toUiColorOrNull
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.useContents
 import org.jetbrains.compose.resources.DrawableResource
-import platform.CoreGraphics.CGRectMake
-import platform.UIKit.*
+import platform.UIKit.UIAction
+import platform.UIKit.UIButton
+import platform.UIKit.UIButtonTypeSystem
+import platform.UIKit.UIControlStateNormal
+import platform.UIKit.UIImage
+import platform.UIKit.UIMenu
+import platform.UIKit.UIMenuElementAttributesDisabled
+import platform.UIKit.accessibilityLabel
 
-@OptIn(ExperimentalForeignApi::class)
 @Composable
 public actual fun KMenu(
     items: List<KMenuItem>,
@@ -29,69 +28,34 @@ public actual fun KMenu(
     androidIcon: DrawableResource?, // Ignored on iOS
     colors: KMenuColors
 ) {
-    val itemClickCallback = remember { mutableStateOf(onItemClick) }
-    itemClickCallback.value = onItemClick
-    val button = remember {
-        UIButton.buttonWithType(UIButtonTypeSystem).apply {
-            // Set icon or text
-            if (iosIcon != null) {
-                val iconImage = UIImage.systemImageNamed(iosIcon)
-                setImage(iconImage, forState = UIControlStateNormal)
-                setTitle("", forState = UIControlStateNormal)
-            } else {
-                setTitle(title, forState = UIControlStateNormal)
-                setTitleColor(colors.contentColor.toUiColorOrNull(), UIControlStateNormal)
-            }
-        }
-    }
-    val size = button.intrinsicContentSize
-    UIKitView(
-        properties = NativeInteropProperties,
-        modifier = modifier
-            .defaultMinSize(
-                minWidth = size.useContents { width }.dp,
-                minHeight = size.useContents { height }.dp
-            ),
+    val currentOnItemClick by rememberUpdatedState(onItemClick)
+
+    // A system button that opens a native UIMenu on tap
+    NativeView(
         factory = {
-            val actions = items.map { item ->
-                UIAction.actionWithTitle(
-                    title = item.title,
-                    image = item.iosIcon?.let { UIImage.systemImageNamed(it) },
-                    identifier = null,
-                    handler = { _ -> itemClickCallback.value(item) }
-                ).apply {
-                    if (!item.enabled) {
-                        this.attributes = UIMenuElementAttributesDisabled
-                    }
-                }
-            }
-
-            // Create menu
-            val menu = UIMenu.menuWithTitle("", children = actions)
-            button.menu = menu
-            button.showsMenuAsPrimaryAction = true
-
-            button
+            UIButton.buttonWithType(UIButtonTypeSystem).apply { showsMenuAsPrimaryAction = true }
         },
-        update = {
-            // Recreate menu when items update
-            val updatedActions = items.map { item ->
-                UIAction.actionWithTitle(
-                    title = item.title,
-                    image = item.iosIcon?.let { UIImage.systemImageNamed(it) },
-                    identifier = null,
-                    handler = { _ -> itemClickCallback.value(item) }
-                ).apply {
-                    if (!item.enabled) {
-                        this.attributes = UIMenuElementAttributesDisabled
+        update = { button ->
+            val icon = iosIcon?.takeIf { it.isNotBlank() }?.let { UIImage.systemImageNamed(it) }
+            button.setImage(icon, forState = UIControlStateNormal)
+            button.setTitle(if (icon == null) title else null, forState = UIControlStateNormal)
+            button.setTitleColor(colors.contentColor.toUiColorOrNull(), forState = UIControlStateNormal)
+            button.accessibilityLabel = title.ifBlank { null }
+            button.menu = UIMenu.menuWithTitle(
+                title = "",
+                children = items.map { item ->
+                    UIAction.actionWithTitle(
+                        title = item.title,
+                        image = item.iosIcon?.let { UIImage.systemImageNamed(it) },
+                        identifier = null,
+                        handler = { _ -> currentOnItemClick(item) }
+                    ).apply {
+                        if (!item.enabled) attributes = UIMenuElementAttributesDisabled
                     }
                 }
-            }
-            val updatedMenu = UIMenu.menuWithTitle("", children = updatedActions)
-            it.menu = updatedMenu
-
-            // Update colors
-            it.setTitleColor(colors.contentColor.toUiColorOrNull(), UIControlStateNormal)
-        }
+            )
+        },
+        modifier = modifier,
+        minSize = DpSize(MinTouchTarget, MinTouchTarget)
     )
 }

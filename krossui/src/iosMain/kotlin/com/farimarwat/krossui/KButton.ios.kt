@@ -1,18 +1,17 @@
 package com.farimarwat.krossui
 
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.ButtonKind
-import com.farimarwat.krossui.utils.NativeInteropProperties
+import com.farimarwat.krossui.utils.MinTouchTarget
+import com.farimarwat.krossui.utils.NativeView
 import com.farimarwat.krossui.utils.applyNativeStyle
-import com.farimarwat.krossui.utils.nativeButtonMinSize
+import com.farimarwat.krossui.utils.nativeButtonSize
 import com.farimarwat.krossui.utils.orIfDisabled
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSSelectorFromString
@@ -54,21 +53,18 @@ public actual fun KButton(
             cornerRadius = cornerRadius
         )
     }
-    val minSize = remember(text, fontSize) { nativeButtonMinSize(style) }
-
-    val button = remember {
-        UIButton.buttonWithType(UIButtonTypeSystem).apply {
-            addTarget(target, NSSelectorFromString("buttonTapped"), UIControlEventTouchUpInside)
-        }
-    }
-
-    UIKitView(
-        factory = { button },
-        update = { view ->
-            view.style()
-            view.enabled = enabled
+    NativeView(
+        factory = {
+            UIButton.buttonWithType(UIButtonTypeSystem).apply {
+                addTarget(target, NSSelectorFromString("buttonTapped"), UIControlEventTouchUpInside)
+            }
         },
-        modifier = modifier.defaultMinSize(minWidth = minSize.first.dp, minHeight = minSize.second.dp),
-        properties = NativeInteropProperties
+        update = { button ->
+            button.style()
+            button.enabled = enabled
+        },
+        modifier = modifier,
+        minSize = DpSize(MinTouchTarget, MinTouchTarget),
+        preferredSize = { it.nativeButtonSize() }
     )
 }

@@ -1,22 +1,22 @@
 package com.farimarwat.krossui
 
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.UIKitView
-import com.farimarwat.krossui.utils.NativeInteropProperties
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
+import com.farimarwat.krossui.utils.MinTouchTarget
+import com.farimarwat.krossui.utils.NativeView
+import com.farimarwat.krossui.utils.intrinsicDpSize
 import com.farimarwat.krossui.utils.toUiColorOrNull
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.UIControlEventValueChanged
 import platform.UIKit.UISlider
 import platform.darwin.NSObject
 
-@OptIn(ExperimentalForeignApi::class)
 @Composable
 public actual fun KSlider(
     value: Float,
@@ -26,58 +26,34 @@ public actual fun KSlider(
     maxValue: Float,
     colors: KSliderColors
 ) {
-    val valueChangedCallback = remember { mutableStateOf(onValueChange) }
-
+    val currentOnValueChange by rememberUpdatedState(onValueChange)
+    // UIControl holds targets weakly; remember keeps it alive
     val target = remember {
         object : NSObject() {
             @ObjCAction
             fun sliderValueChanged(sender: UISlider) {
-                valueChangedCallback.value(sender.value)
+                currentOnValueChange(sender.value)
             }
         }
     }
 
-    // Update the callback reference when it changes
-    valueChangedCallback.value = onValueChange
-
-    UIKitView(
-        properties = NativeInteropProperties,
+    // UISlider has no natural width, so it fills the available width (like Material's Slider)
+    NativeView(
         factory = {
-            val slider = UISlider().apply {
-                minimumValue = minValue
-                maximumValue = maxValue
-                this.value = value
-
-                minimumTrackTintColor = colors.activeTrackColor.toUiColorOrNull()
-                maximumTrackTintColor = colors.inactiveTrackColor.toUiColorOrNull()
-                thumbTintColor = colors.thumbColor.toUiColorOrNull()
-
-                // Add target for value changed events
-                addTarget(
-                    target = target,
-                    action = NSSelectorFromString("sliderValueChanged:"),
-                    forControlEvents = UIControlEventValueChanged
-                )
+            UISlider().apply {
+                addTarget(target, NSSelectorFromString("sliderValueChanged:"), UIControlEventValueChanged)
             }
-
-            // Return the UISlider instance
-            slider
         },
-        modifier = modifier
-            .defaultMinSize(minWidth = 150.dp, minHeight = 44.dp), // Ensure minimum usable size
         update = { slider ->
-            if (slider.value != value) {
-                slider.value = value
-            }
-
-            // Update colors if they change
+            slider.minimumValue = minValue
+            slider.maximumValue = maxValue
+            if (slider.value != value) slider.value = value
             slider.minimumTrackTintColor = colors.activeTrackColor.toUiColorOrNull()
             slider.maximumTrackTintColor = colors.inactiveTrackColor.toUiColorOrNull()
             slider.thumbTintColor = colors.thumbColor.toUiColorOrNull()
-
-            // Update range if it changes
-            slider.minimumValue = minValue
-            slider.maximumValue = maxValue
-        }
+        },
+        modifier = modifier,
+        minSize = DpSize(MinTouchTarget, MinTouchTarget),
+        preferredSize = { DpSize(Dp.Unspecified, it.intrinsicDpSize().height) }
     )
 }

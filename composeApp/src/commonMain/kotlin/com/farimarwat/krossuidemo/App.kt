@@ -67,23 +67,10 @@ fun App() {
     // Follow the system light/dark setting; KrossUI components pick up this theme on Android
     MaterialTheme(colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
         var showDialog by remember { mutableStateOf(false) }
-        var selectedTab by remember { mutableStateOf(1) }
+        var selectedTab by remember { mutableStateOf(0) }
         val list = listOf(
-            KTabItem(
-                "Home",
-                Res.drawable.ic_home,
-                "house.fill"
-            ),
-            KTabItem(
-                "Favourite",
-                Res.drawable.ic_star,
-                "star.fill"
-            ),
-            KTabItem(
-                "Settings",
-                Res.drawable.ic_settings,
-                "gearshape.fill"
-            )
+            KTabItem("Components", Res.drawable.ic_home, "square.grid.2x2"),
+            KTabItem("Layout", Res.drawable.ic_settings, "ruler")
         )
         Scaffold(
             bottomBar = {
@@ -97,6 +84,10 @@ fun App() {
                 )
             }
         ) { paddingValues ->
+            if (selectedTab == 1) {
+                LayoutScreen(Modifier.fillMaxSize().padding(paddingValues))
+                return@Scaffold
+            }
             Column(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)

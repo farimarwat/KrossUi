@@ -1,7 +1,6 @@
 package com.farimarwat.krossui
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -12,13 +11,14 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
-import androidx.compose.ui.viewinterop.UIKitView
-import com.farimarwat.krossui.utils.NativeInteropProperties
+import com.farimarwat.krossui.utils.MinTouchTarget
+import com.farimarwat.krossui.utils.NativeView
+import com.farimarwat.krossui.utils.intrinsicDpSize
 import com.farimarwat.krossui.utils.toUiColorOrNull
-import kotlin.math.max
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGRect
@@ -92,20 +92,6 @@ public actual fun KTextField(
         colors.focusedBorderColor != Color.Unspecified ||
         colors.disabledBorderColor != Color.Unspecified
 
-    val minSize = remember(placeholder, fontSize, maxLines, insets) {
-        val probe = UITextField().apply {
-            text = placeholder.ifEmpty { "Sample Text" }
-            if (fontSize != TextUnit.Unspecified) font = UIFont.systemFontOfSize(fontSize.value.toDouble())
-            borderStyle = UITextBorderStyle.UITextBorderStyleRoundedRect
-            sizeToFit()
-        }
-        probe.intrinsicContentSize.useContents {
-            val extraWidth = insets?.let { it.left + it.right } ?: 0.0
-            val extraHeight = insets?.let { it.top + it.bottom } ?: 0.0
-            max(width, 120.0) + extraWidth to max(height * maxLines + extraHeight, 44.0)
-        }
-    }
-
     // The delegate is created once, so read the latest values through updated state
     val currentOnValueChange by rememberUpdatedState(onValueChange)
     val currentStyle by rememberUpdatedState(
@@ -142,9 +128,7 @@ public actual fun KTextField(
         }
     }
 
-    UIKitView(
-        properties = NativeInteropProperties,
-        modifier = modifier.defaultMinSize(minWidth = minSize.first.dp, minHeight = minSize.second.dp),
+    NativeView(
         factory = {
             InsetTextField(insets).apply {
                 this.keyboardType = when (keyboardType) {
@@ -190,9 +174,19 @@ public actual fun KTextField(
             textField.enabled = enabled
             textField.userInteractionEnabled = !readOnly
             textField.alpha = if (enabled) 1.0 else 0.6
+        },
+        modifier = modifier,
+        minSize = DpSize(0.dp, MinTouchTarget),
+        // Default width matches Material's text field (280dp); height is UIKit's plus any custom padding
+        preferredSize = { textField ->
+            val extraHeight = insets?.let { it.top + it.bottom } ?: 0.0
+            DpSize(DefaultTextFieldWidth, textField.intrinsicDpSize().height + extraHeight.dp)
         }
     )
 }
+
+/** Default width when the caller does not size the field; same as Material's OutlinedTextField minimum width. */
+private val DefaultTextFieldWidth = 280.dp
 
 /** Everything that decides the field's look; unspecified values keep the system default. */
 private data class TextFieldStyle(

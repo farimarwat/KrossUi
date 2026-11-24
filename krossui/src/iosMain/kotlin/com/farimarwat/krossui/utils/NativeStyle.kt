@@ -3,18 +3,18 @@ package com.farimarwat.krossui.utils
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
+import androidx.compose.ui.viewinterop.UIKitInteropInteractionMode
 import androidx.compose.ui.viewinterop.UIKitInteropProperties
-import kotlin.math.max
-import kotlinx.cinterop.useContents
 import platform.Foundation.NSBundle
 import platform.Foundation.NSNumber
 import platform.UIKit.NSFontAttributeName
 import platform.UIKit.UIButton
 import platform.UIKit.UIButtonConfiguration
 import platform.UIKit.UIButtonConfigurationCornerStyleFixed
-import platform.UIKit.UIButtonTypeSystem
 import platform.UIKit.UIColor
 import platform.UIKit.UIControlStateNormal
 import platform.UIKit.UIDevice
@@ -27,9 +27,18 @@ import platform.UIKit.UIImage
  * `placedAsOverlay` puts the native view above the Compose canvas, so its background is
  * transparent and iOS 26 Liquid Glass can show the Compose content behind it.
  * Trade-off: Compose content cannot be drawn on top of these native views.
+ *
+ * The view is placed above the Compose canvas, touches are shared cooperatively with scroll containers,
+ * and native accessibility is on so VoiceOver reads the UIKit control.
  */
 @OptIn(ExperimentalComposeUiApi::class)
-internal val NativeInteropProperties = UIKitInteropProperties(placedAsOverlay = true)
+internal val NativeInteropProperties = UIKitInteropProperties(
+    // Cooperative: touches that start a scroll go to the enclosing Compose scroll container
+    interactionMode = UIKitInteropInteractionMode.Cooperative(),
+    // VoiceOver reads the native control (its label, value and traits)
+    isNativeAccessibilityEnabled = true,
+    placedAsOverlay = true
+)
 
 /** True when the running iOS version is at least [major].[minor]. */
 internal fun isIosAtLeast(major: Int, minor: Int = 0): Boolean {
@@ -164,12 +173,10 @@ private fun UIButton.applyLegacyStyle(
     clipsToBounds = true
 }
 
-/** Minimum size of a native button styled by [style]: its intrinsic size, at least a 44pt touch target. */
-internal fun nativeButtonMinSize(style: UIButton.() -> Unit): Pair<Double, Double> {
-    val button = UIButton.buttonWithType(UIButtonTypeSystem).apply(style)
-    if (!isIosAtLeast(15)) {
-        // Legacy buttons have no content insets; add native-looking padding
-        return button.intrinsicContentSize.useContents { max(width + 32, 44.0) to max(height + 16, 44.0) }
-    }
-    return button.intrinsicContentSize.useContents { max(width, 44.0) to max(height, 44.0) }
+/** Natural size of a styled native button. Button configurations (iOS 15+) include their own padding. */
+internal fun UIButton.nativeButtonSize(): DpSize {
+    val size = intrinsicDpSize()
+    if (isIosAtLeast(15) || !size.width.isSpecified || !size.height.isSpecified) return size
+    // Classic iOS 14 buttons have no content insets; add native-looking padding
+    return DpSize(size.width + 32.dp, size.height + 16.dp)
 }

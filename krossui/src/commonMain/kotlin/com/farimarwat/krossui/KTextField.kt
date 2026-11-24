@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.TextUnit
  * @param readOnly Whether the text can be selected but not edited.
  * @param placeholder Text shown when [value] is empty.
  * @param fontSize The size of the text.
- * @param maxLines The maximum number of visible lines.
+ * @param maxLines The maximum number of visible lines (Android; the iOS UITextField is single-line).
  * @param keyboardType The keyboard shown while editing.
  * @param imeAction The action button shown on the keyboard.
  * @param contentPadding Space between the border and the text; `null` = platform default.

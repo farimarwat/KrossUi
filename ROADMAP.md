@@ -47,11 +47,13 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - **Done:** demo has no hard-coded colors and follows light/dark on both platforms (verified iOS 26, iOS 18, Android).
 
 ### Step 4 · Native sizing & interop
-- [ ] Shared iOS helper: measure UIKit views with `sizeThatFits` inside a custom `Layout` (respects min/max constraints).
-- [ ] Remove temporary-view size hacks from all components.
-- [ ] Review `UIKitInteropProperties` (interaction mode, placement) for each component.
-- [ ] Confirm targets/delegates are retained and callbacks use `rememberUpdatedState` everywhere.
-- **Done when:** every component wraps, fills and fixed-sizes correctly in a test screen.
+- [x] Shared iOS `NativeView`: sizes UIKit views from their intrinsic size inside a Compose `layout`
+      (respects wrap / fill / fixed constraints and the 44pt touch target).
+- [x] Removed temporary-view and hard-coded size hacks (buttons, switch, slider, menu, picker, text field, tab bar).
+- [x] Interop properties: cooperative touches, native accessibility on, overlay placement; overlay views are
+      clipped when Compose clips them (e.g. scrolled out of a list), unclipped while fully visible (glass halos).
+- [x] Targets/delegates retained; callbacks read through `rememberUpdatedState`; tab bar items/selection applied synchronously.
+- **Done:** demo "Layout" tab shows every component wrapped, filling and fixed-size (verified iOS 26 and iOS 18).
 
 ### Step 5 · State holders & types
 - [ ] Add `kotlinx-datetime`; date/time APIs use `LocalDate` / `LocalTime`.
