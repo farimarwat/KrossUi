@@ -19,6 +19,7 @@ kotlin {
         freeCompilerArgs.add("-Xexpect-actual-classes")
         optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
         optIn.add("kotlinx.cinterop.BetaInteropApi")
+        optIn.add("kotlin.time.ExperimentalTime")
     }
 
     // Target declarations - add or remove as needed below. These define
@@ -73,6 +74,8 @@ kotlin {
                 implementation(libs.compose.material3)
                 implementation(libs.compose.ui)
                 implementation(libs.compose.components.resources)
+                // Part of the public API (KDatePicker uses LocalDate)
+                api(libs.kotlinx.datetime)
             }
         }
 

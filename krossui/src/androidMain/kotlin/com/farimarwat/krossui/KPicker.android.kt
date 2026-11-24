@@ -13,10 +13,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,18 +24,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.launch
 
 @Composable
 public actual fun KPicker(
     items: List<String>,
-    onItemPicked: (String) -> Unit,
+    selectedIndex: Int,
+    onSelectedIndexChange: (Int) -> Unit,
     modifier: Modifier,
     colors: KPickerColors
 ) {
     val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
-    var selectedIndex by remember { mutableStateOf(0) }
+    // Keep the selected row in view when the selection changes
+    LaunchedEffect(selectedIndex) {
+        if (selectedIndex in items.indices) listState.animateScrollToItem(selectedIndex)
+    }
     // Unspecified colors follow the app's MaterialTheme
     val selectedColor = colors.contentColor.takeOrElse { MaterialTheme.colorScheme.primary }
     val otherColor = colors.disabledContentColor.takeOrElse { MaterialTheme.colorScheme.onSurfaceVariant }
@@ -54,13 +56,7 @@ public actual fun KPicker(
                     text = item,
                     color = if (index == selectedIndex) selectedColor else otherColor,
                     fontSize = if (index == selectedIndex) 20.sp else 16.sp,
-                    modifier = Modifier.padding(vertical = 12.dp).clickable {
-                        selectedIndex = index
-                        onItemPicked(item)
-                        coroutineScope.launch {
-                            listState.animateScrollToItem(index)
-                        }
-                    }
+                    modifier = Modifier.padding(vertical = 12.dp).clickable { onSelectedIndexChange(index) }
                 )
             }
         }

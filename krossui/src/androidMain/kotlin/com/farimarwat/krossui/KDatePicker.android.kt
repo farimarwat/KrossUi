@@ -21,19 +21,22 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import kotlinx.datetime.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public actual fun KDatePicker(
     show: Boolean,
-    initialDate: Long,
-    onDateSelected: (Long) -> Unit,
+    onDateSelected: (LocalDate) -> Unit,
     onDismiss: () -> Unit,
+    initialDate: LocalDate?,
     colors: KDatePickerColors
 ) {
     if (!show) return
 
-    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = initialDate)
+    val startDate = initialDate ?: today()
+    // Material works in UTC-midnight milliseconds; the state is saved across configuration changes
+    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = startDate.toUtcMillis())
     val pickerColors = DatePickerDefaults.colors(
         containerColor = colors.containerColor,
         dayContentColor = colors.contentColor
@@ -57,7 +60,9 @@ public actual fun KDatePicker(
                     Text("Cancel")
                 }
                 TextButton(
-                    onClick = { onDateSelected(datePickerState.selectedDateMillis ?: initialDate) },
+                    onClick = {
+                        onDateSelected(datePickerState.selectedDateMillis?.let(::localDateFromUtcMillis) ?: startDate)
+                    },
                     colors = footerButtonColors
                 ) {
                     Text("Done")

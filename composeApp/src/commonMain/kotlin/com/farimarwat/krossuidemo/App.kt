@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,23 +45,17 @@ import com.farimarwat.krossui.KMenuItem
 import com.farimarwat.krossui.KOutlinedButton
 import com.farimarwat.krossui.KPicker
 import com.farimarwat.krossui.KProgressIndicator
+import com.farimarwat.krossui.KSecureField
 import com.farimarwat.krossui.KSlider
 import com.farimarwat.krossui.KSwitch
 import com.farimarwat.krossui.KTabBar
 import com.farimarwat.krossui.KTabItem
 import com.farimarwat.krossui.KTextField
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import krossuidemo.composeapp.generated.resources.Res
 import krossuidemo.composeapp.generated.resources.ic_home
 import krossuidemo.composeapp.generated.resources.ic_settings
 import krossuidemo.composeapp.generated.resources.ic_star
 
-@OptIn(ExperimentalTime::class)
 @Composable
 @Preview
 fun App() {
@@ -105,6 +100,13 @@ fun App() {
                     onValueChange = { textValue = it },
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = "Type something"
+                )
+                var password by remember { mutableStateOf("") }
+                KSecureField(
+                    value = password,
+                    onValueChange = { password = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = "Password"
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -226,13 +228,13 @@ fun App() {
                     }
                 }
 
+                val fruits = listOf("Apple", "Mango", "Grapes", "Pineapple", "Banana")
+                var fruitIndex by rememberSaveable { mutableStateOf(0) }
                 KPicker(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    items = listOf("Apple", "Mango", "Graps", "PineApple", "Banana"),
-                    onItemPicked = {
-                        println(it)
-                    }
+                    items = fruits,
+                    selectedIndex = fruitIndex,
+                    onSelectedIndexChange = { fruitIndex = it },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 var showDatePicker by remember { mutableStateOf(false) }
                 var currentDate by remember { mutableStateOf("") }
@@ -275,22 +277,15 @@ fun App() {
 
                 KDatePicker(
                     show = showDatePicker,
-                    initialDate = Clock.System.now().toEpochMilliseconds(),
                     onDismiss = {
                         showDatePicker = false
                     },
                     onDateSelected = {
                         showDatePicker = false
-                        currentDate = formatDateFromMillis(it)
+                        currentDate = it.toString()
                     }
                 )
             }
         }
     }
-}
-
-@OptIn(ExperimentalTime::class)
-fun formatDateFromMillis(timestamp: Long): String {
-    val instant = Instant.fromEpochMilliseconds(timestamp)
-    return instant.toString()
 }

@@ -70,10 +70,47 @@ public actual fun KTextField(
     maxLines: Int,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
+    onImeAction: () -> Unit,
     contentPadding: PaddingValues?,
     borderWidth: Dp,
     cornerRadius: Dp,
     colors: KTextFieldColors
+): Unit = PlatformTextField(
+    value = value,
+    onValueChange = onValueChange,
+    modifier = modifier,
+    enabled = enabled,
+    readOnly = readOnly,
+    placeholder = placeholder,
+    fontSize = fontSize,
+    keyboardType = keyboardType,
+    imeAction = imeAction,
+    onImeAction = onImeAction,
+    contentPadding = contentPadding,
+    borderWidth = borderWidth,
+    cornerRadius = cornerRadius,
+    colors = colors,
+    secure = keyboardType == KeyboardType.Password
+)
+
+/** Shared implementation of [KTextField] and [KSecureField] (UITextField is single-line). */
+@Composable
+internal fun PlatformTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier,
+    enabled: Boolean,
+    readOnly: Boolean,
+    placeholder: String,
+    fontSize: TextUnit,
+    keyboardType: KeyboardType,
+    imeAction: ImeAction,
+    onImeAction: () -> Unit,
+    contentPadding: PaddingValues?,
+    borderWidth: Dp,
+    cornerRadius: Dp,
+    colors: KTextFieldColors,
+    secure: Boolean
 ) {
     val layoutDirection = LocalLayoutDirection.current
     val insets = remember(contentPadding, layoutDirection) {
@@ -94,6 +131,7 @@ public actual fun KTextField(
 
     // The delegate is created once, so read the latest values through updated state
     val currentOnValueChange by rememberUpdatedState(onValueChange)
+    val currentOnImeAction by rememberUpdatedState(onImeAction)
     val currentStyle by rememberUpdatedState(
         TextFieldStyle(colors, enabled, readOnly, customBorder, borderWidth, cornerRadius)
     )
@@ -115,6 +153,7 @@ public actual fun KTextField(
 
             override fun textFieldShouldReturn(textField: UITextField): Boolean {
                 textField.resignFirstResponder()
+                currentOnImeAction()
                 return true
             }
 
@@ -138,7 +177,7 @@ public actual fun KTextField(
                     KeyboardType.Uri -> UIKeyboardTypeURL
                     else -> UIKeyboardTypeDefault
                 }
-                secureTextEntry = keyboardType == KeyboardType.Password
+                secureTextEntry = secure
                 returnKeyType = when (imeAction) {
                     ImeAction.Done -> UIReturnKeyType.UIReturnKeyDone
                     ImeAction.Go -> UIReturnKeyType.UIReturnKeyGo

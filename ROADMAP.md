@@ -55,11 +55,14 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - [x] Targets/delegates retained; callbacks read through `rememberUpdatedState`; tab bar items/selection applied synchronously.
 - **Done:** demo "Layout" tab shows every component wrapped, filling and fixed-size (verified iOS 26 and iOS 18).
 
-### Step 5 · State holders & types
-- [ ] Add `kotlinx-datetime`; date/time APIs use `LocalDate` / `LocalTime`.
-- [ ] Hoisted state: `rememberKDatePickerState()`, `rememberKPickerState()` (selected index), `KSlider` steps/range.
-- [ ] Split password handling out of `KTextField` into `KSecureField`; add `visualTransformation`/`keyboardOptions` equivalents.
-- **Done when:** no component takes raw epoch millis; state survives recomposition and config change.
+### Step 5 · State & types
+- [x] `kotlinx-datetime`: `KDatePicker` uses `LocalDate` (optional `initialDate`, `null` = today); no raw epoch millis.
+- [x] Controlled components instead of extra state classes: `KPicker(selectedIndex, onSelectedIndexChange)`;
+      state lives in the app (`rememberSaveable` survives configuration changes).
+- [x] `KSlider`: `valueRange`, `steps`, `enabled`, `onValueChangeFinished` (iOS snaps to steps).
+- [x] `KSecureField` for passwords; `KTextField.onImeAction`.
+- [x] 1.x overloads kept in `compat/`; unit tests for step snapping and date conversion (Android + iOS) run in CI.
+- **Done:** no component takes epoch millis; all state is hoisted to the caller.
 
 ### Step 6 · Accessibility
 - [ ] `contentDescription` / accessibility label params where needed; propagate to UIKit `accessibilityLabel`.

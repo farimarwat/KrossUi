@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
@@ -31,7 +32,6 @@ import androidx.compose.ui.unit.takeOrElse
  * Material 3 outlined text field, built from Material's own pieces (BasicTextField + DecorationBox + Container)
  * so padding, border width and shape can be customized while keeping the native look.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public actual fun KTextField(
     value: String,
@@ -44,10 +44,50 @@ public actual fun KTextField(
     maxLines: Int,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
+    onImeAction: () -> Unit,
     contentPadding: PaddingValues?,
     borderWidth: Dp,
     cornerRadius: Dp,
     colors: KTextFieldColors
+): Unit = PlatformTextField(
+    value = value,
+    onValueChange = onValueChange,
+    modifier = modifier,
+    enabled = enabled,
+    readOnly = readOnly,
+    placeholder = placeholder,
+    fontSize = fontSize,
+    maxLines = maxLines,
+    keyboardType = keyboardType,
+    imeAction = imeAction,
+    onImeAction = onImeAction,
+    contentPadding = contentPadding,
+    borderWidth = borderWidth,
+    cornerRadius = cornerRadius,
+    colors = colors,
+    secure = keyboardType == KeyboardType.Password
+)
+
+/** Shared implementation of [KTextField] and [KSecureField]. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun PlatformTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier,
+    enabled: Boolean,
+    readOnly: Boolean,
+    placeholder: String,
+    fontSize: TextUnit,
+    maxLines: Int,
+    keyboardType: KeyboardType,
+    imeAction: ImeAction,
+    onImeAction: () -> Unit,
+    contentPadding: PaddingValues?,
+    borderWidth: Dp,
+    cornerRadius: Dp,
+    colors: KTextFieldColors,
+    secure: Boolean
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val focused by interactionSource.collectIsFocusedAsState()
@@ -73,8 +113,7 @@ public actual fun KTextField(
         focused -> fieldColors.focusedTextColor
         else -> fieldColors.unfocusedTextColor
     }
-    val visualTransformation =
-        if (keyboardType == KeyboardType.Password) PasswordVisualTransformation() else VisualTransformation.None
+    val visualTransformation = if (secure) PasswordVisualTransformation() else VisualTransformation.None
     val shape = if (cornerRadius.isSpecified) RoundedCornerShape(cornerRadius) else OutlinedTextFieldDefaults.shape
 
     BasicTextField(
@@ -88,6 +127,11 @@ public actual fun KTextField(
         readOnly = readOnly,
         textStyle = LocalTextStyle.current.merge(TextStyle(color = resolvedTextColor, fontSize = fontSize)),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        // Report the action, then keep the default behavior (move focus, close the keyboard, ...)
+        keyboardActions = KeyboardActions(onAny = {
+            onImeAction()
+            defaultKeyboardAction(imeAction)
+        }),
         singleLine = singleLine,
         maxLines = maxLines,
         visualTransformation = visualTransformation,

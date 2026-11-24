@@ -1,8 +1,8 @@
 public final class com/farimarwat/krossui/ComposableSingletons$KDatePicker_androidKt {
 	public static final field INSTANCE Lcom/farimarwat/krossui/ComposableSingletons$KDatePicker_androidKt;
 	public fun <init> ()V
-	public final fun getLambda$-1194955567$KrossUiDemo_krossui ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-296747110$KrossUiDemo_krossui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-64281722$KrossUiDemo_krossui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1321920093$KrossUiDemo_krossui ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/farimarwat/krossui/KButtonColors {
@@ -61,7 +61,7 @@ public final class com/farimarwat/krossui/KDatePickerDefaults {
 }
 
 public final class com/farimarwat/krossui/KDatePicker_androidKt {
-	public static final fun KDatePicker (ZJLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lcom/farimarwat/krossui/KDatePickerColors;Landroidx/compose/runtime/Composer;II)V
+	public static final fun KDatePicker (ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlinx/datetime/LocalDate;Lcom/farimarwat/krossui/KDatePickerColors;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/farimarwat/krossui/KDialog_androidKt {
@@ -205,7 +205,7 @@ public final class com/farimarwat/krossui/KPickerDefaults {
 }
 
 public final class com/farimarwat/krossui/KPicker_androidKt {
-	public static final fun KPicker (Ljava/util/List;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/farimarwat/krossui/KPickerColors;Landroidx/compose/runtime/Composer;II)V
+	public static final fun KPicker (Ljava/util/List;ILkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/farimarwat/krossui/KPickerColors;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/farimarwat/krossui/KProgressIndicatorColors {
@@ -230,6 +230,10 @@ public final class com/farimarwat/krossui/KProgressIndicatorDefaults {
 
 public final class com/farimarwat/krossui/KProgressIndicator_androidKt {
 	public static final fun KProgressIndicator-9IZ8Weo (Landroidx/compose/ui/Modifier;FJLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/KSecureField_androidKt {
+	public static final fun KSecureField-ugZwyZk (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLjava/lang/String;JILkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/PaddingValues;FFLcom/farimarwat/krossui/KTextFieldColors;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/farimarwat/krossui/KSliderColors {
@@ -262,7 +266,7 @@ public final class com/farimarwat/krossui/KSliderDefaults {
 }
 
 public final class com/farimarwat/krossui/KSlider_androidKt {
-	public static final fun KSlider (FLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;FFLcom/farimarwat/krossui/KSliderColors;Landroidx/compose/runtime/Composer;II)V
+	public static final fun KSlider (FLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/ranges/ClosedFloatingPointRange;ILkotlin/jvm/functions/Function0;Lcom/farimarwat/krossui/KSliderColors;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/farimarwat/krossui/KSwitchColors {
@@ -372,7 +376,7 @@ public final class com/farimarwat/krossui/KTextFieldDefaults {
 }
 
 public final class com/farimarwat/krossui/KTextField_androidKt {
-	public static final fun KTextField-IRfAqVI (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;JIIILandroidx/compose/foundation/layout/PaddingValues;FFLcom/farimarwat/krossui/KTextFieldColors;Landroidx/compose/runtime/Composer;III)V
+	public static final fun KTextField-dLUhCYE (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;JIIILkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/PaddingValues;FFLcom/farimarwat/krossui/KTextFieldColors;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/farimarwat/krossui/PlatformColors {

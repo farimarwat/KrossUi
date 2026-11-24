@@ -13,6 +13,9 @@ import com.farimarwat.krossui.utils.intrinsicDpSize
 import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSSelectorFromString
+import platform.UIKit.UIControlEventTouchCancel
+import platform.UIKit.UIControlEventTouchUpInside
+import platform.UIKit.UIControlEventTouchUpOutside
 import platform.UIKit.UIControlEventValueChanged
 import platform.UIKit.UISlider
 import platform.darwin.NSObject
@@ -22,17 +25,30 @@ public actual fun KSlider(
     value: Float,
     onValueChange: (Float) -> Unit,
     modifier: Modifier,
-    minValue: Float,
-    maxValue: Float,
+    enabled: Boolean,
+    valueRange: ClosedFloatingPointRange<Float>,
+    steps: Int,
+    onValueChangeFinished: (() -> Unit)?,
     colors: KSliderColors
 ) {
     val currentOnValueChange by rememberUpdatedState(onValueChange)
+    val currentOnValueChangeFinished by rememberUpdatedState(onValueChangeFinished)
+    val currentRange by rememberUpdatedState(valueRange)
+    val currentSteps by rememberUpdatedState(steps)
     // UIControl holds targets weakly; remember keeps it alive
     val target = remember {
         object : NSObject() {
             @ObjCAction
-            fun sliderValueChanged(sender: UISlider) {
-                currentOnValueChange(sender.value)
+            fun valueChanged(sender: UISlider) {
+                // UISlider is continuous; snap to steps like Material's Slider
+                val snapped = snapToSteps(sender.value, currentRange, currentSteps)
+                if (snapped != sender.value) sender.value = snapped
+                currentOnValueChange(snapped)
+            }
+
+            @ObjCAction
+            fun touchEnded() {
+                currentOnValueChangeFinished?.invoke()
             }
         }
     }
@@ -41,13 +57,19 @@ public actual fun KSlider(
     NativeView(
         factory = {
             UISlider().apply {
-                addTarget(target, NSSelectorFromString("sliderValueChanged:"), UIControlEventValueChanged)
+                addTarget(target, NSSelectorFromString("valueChanged:"), UIControlEventValueChanged)
+                addTarget(
+                    target,
+                    NSSelectorFromString("touchEnded"),
+                    UIControlEventTouchUpInside or UIControlEventTouchUpOutside or UIControlEventTouchCancel
+                )
             }
         },
         update = { slider ->
-            slider.minimumValue = minValue
-            slider.maximumValue = maxValue
+            slider.minimumValue = valueRange.start
+            slider.maximumValue = valueRange.endInclusive
             if (slider.value != value) slider.value = value
+            slider.enabled = enabled
             slider.minimumTrackTintColor = colors.activeTrackColor.toUiColorOrNull()
             slider.maximumTrackTintColor = colors.inactiveTrackColor.toUiColorOrNull()
             slider.thumbTintColor = colors.thumbColor.toUiColorOrNull()

@@ -18,15 +18,16 @@ private val NativePickerHeight = 216.dp
 @Composable
 public actual fun KPicker(
     items: List<String>,
-    onItemPicked: (String) -> Unit,
+    selectedIndex: Int,
+    onSelectedIndexChange: (Int) -> Unit,
     modifier: Modifier,
     colors: KPickerColors
 ) {
     // Created once; kept in sync with the latest parameters (UIPickerView holds its delegate weakly)
-    val delegate = remember { PickerDataSourceDelegate(items, colors, onItemPicked) }
+    val delegate = remember { PickerDataSourceDelegate(items, colors, onSelectedIndexChange) }
     delegate.items = items
     delegate.colors = colors
-    delegate.onItemPicked = onItemPicked
+    delegate.onSelectedIndexChange = onSelectedIndexChange
 
     // Fills the available width; height is the native wheel height
     NativeView(
@@ -39,6 +40,9 @@ public actual fun KPicker(
         update = { picker ->
             picker.backgroundColor = colors.containerColor.toUiColorOrNull()
             picker.reloadAllComponents()
+            if (selectedIndex in items.indices && picker.selectedRowInComponent(0).toInt() != selectedIndex) {
+                picker.selectRow(selectedIndex.toLong(), inComponent = 0, animated = true)
+            }
         },
         modifier = modifier,
         preferredSize = {

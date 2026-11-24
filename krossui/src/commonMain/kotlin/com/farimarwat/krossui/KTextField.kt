@@ -20,8 +20,9 @@ import androidx.compose.ui.unit.TextUnit
  * @param placeholder Text shown when [value] is empty.
  * @param fontSize The size of the text.
  * @param maxLines The maximum number of visible lines (Android; the iOS UITextField is single-line).
- * @param keyboardType The keyboard shown while editing.
+ * @param keyboardType The keyboard shown while editing. For passwords use [KSecureField].
  * @param imeAction The action button shown on the keyboard.
+ * @param onImeAction Called when the keyboard action button is pressed.
  * @param contentPadding Space between the border and the text; `null` = platform default.
  * @param borderWidth The border width.
  * @param cornerRadius The corner radius.
@@ -39,6 +40,7 @@ public expect fun KTextField(
     maxLines: Int = 1,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Default,
+    onImeAction: () -> Unit = {},
     contentPadding: PaddingValues? = null,
     borderWidth: Dp = KTextFieldDefaults.BorderWidth,
     cornerRadius: Dp = KTextFieldDefaults.CornerRadius,

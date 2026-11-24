@@ -63,7 +63,26 @@ KTabBar(Modifier.fillMaxWidth(), tabs, selected, onTabClick = { selected = it })
 KTabBar(tabs, selected, onTabClick = { selected = it }, modifier = Modifier.fillMaxWidth())
 ```
 
-## 5. Native look by default
+## 5. Dates, controlled picker, slider and password field
+
+- `KDatePicker` uses `kotlinx.datetime.LocalDate` instead of epoch milliseconds, and `initialDate` is optional
+  (`null` = today). The library now exposes `kotlinx-datetime` as an `api` dependency.
+
+  ```kotlin
+  // 1.x
+  KDatePicker(show, initialDate = millis, onDateSelected = { millis -> … })
+  // 2.0
+  KDatePicker(show, onDateSelected = { date: LocalDate -> … }, initialDate = LocalDate(2026, 1, 31))
+  ```
+  The deprecated 1.x overload still accepts and returns milliseconds (as UTC midnight).
+- `KPicker` is controlled: pass `selectedIndex` and handle `onSelectedIndexChange`
+  (replaces `onItemPicked`). Keep the index in your state, e.g. `rememberSaveable`.
+- `KSlider` takes `valueRange` (replaces `minValue`/`maxValue`) and adds `enabled`, `steps` and
+  `onValueChangeFinished`, like Material's `Slider`.
+- New `KSecureField` for passwords. `KTextField(keyboardType = KeyboardType.Password)` still masks the text.
+- `KTextField` adds `onImeAction`, called when the keyboard action button is pressed.
+
+## 6. Native look by default
 
 All defaults are now **unspecified**, which means "use the platform's native look":
 
@@ -77,7 +96,7 @@ Pass a value only where you want to override the native look, e.g.
 `KButtonDefaults.colors(containerColor = Color.Red)` or `cornerRadius = 12.dp`.
 The deprecated 1.x `…Defaults` objects keep their old fixed values, so 1.x code looks the same until migrated.
 
-## 6. Other changes
+## 7. Other changes
 
 - `KSlider`: `value` and `onValueChange` are now required.
 - `KProgressIndicator` now accepts a `modifier`.

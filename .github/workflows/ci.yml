@@ -24,6 +24,8 @@ jobs:
         run: ./gradlew ktlintCheck
       - name: Build library and Android demo
         run: ./gradlew :krossui:compileAndroidMain :androidApp:assembleDebug
+      - name: Unit tests (Android host)
+        run: ./gradlew :krossui:testAndroidHostTest
 
   ios:
     name: iOS build and API check
@@ -40,3 +42,5 @@ jobs:
       # Fails when the public API changes without running ./gradlew :krossui:updateKotlinAbi
       - name: Check public API
         run: ./gradlew :krossui:checkKotlinAbi
+      - name: Unit tests (iOS simulator)
+        run: ./gradlew :krossui:iosSimulatorArm64Test

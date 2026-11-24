@@ -10,15 +10,20 @@ public actual fun KSlider(
     value: Float,
     onValueChange: (Float) -> Unit,
     modifier: Modifier,
-    minValue: Float,
-    maxValue: Float,
+    enabled: Boolean,
+    valueRange: ClosedFloatingPointRange<Float>,
+    steps: Int,
+    onValueChangeFinished: (() -> Unit)?,
     colors: KSliderColors
 ) {
     Slider(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier,
-        valueRange = minValue..maxValue,
+        enabled = enabled,
+        valueRange = valueRange,
+        steps = steps,
+        onValueChangeFinished = onValueChangeFinished,
         colors = SliderDefaults.colors(
             thumbColor = colors.thumbColor,
             activeTrackColor = colors.activeTrackColor,

@@ -22,8 +22,7 @@ public typealias KSliderDefaults = com.farimarwat.krossui.KSliderDefaults
 @Deprecated(
     "Moved to com.farimarwat.krossui (KrossUI 2.0). See MIGRATION.md.",
     ReplaceWith(
-        "com.farimarwat.krossui.KSlider(value = value, onValueChange = onValueChanged, modifier = modifier, minValue = minValue, maxValue = maxValue, colors = colors)",
-        "androidx.compose.ui.unit.dp"
+        "com.farimarwat.krossui.KSlider(value = value, onValueChange = onValueChanged, modifier = modifier, valueRange = minValue..maxValue, colors = colors)"
     )
 )
 @Composable
@@ -38,7 +37,6 @@ public fun KSlider(
     value = value,
     onValueChange = onValueChanged,
     modifier = modifier,
-    minValue = minValue,
-    maxValue = maxValue,
+    valueRange = minValue..maxValue,
     colors = colors
 )

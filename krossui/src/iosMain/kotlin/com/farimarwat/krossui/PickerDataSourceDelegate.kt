@@ -16,14 +16,14 @@ import platform.darwin.NSObject
 /**
  * Data source and delegate for the iOS [KPicker].
  *
- * [items], [colors] and [onItemPicked] are mutable so the composable can keep them
+ * [items], [colors] and [onSelectedIndexChange] are mutable so the composable can keep them
  * in sync with the latest values on every recomposition without recreating the picker.
  */
 @OptIn(ExperimentalForeignApi::class)
 internal class PickerDataSourceDelegate(
     var items: List<String>,
     var colors: KPickerColors,
-    var onItemPicked: (String) -> Unit
+    var onSelectedIndexChange: (Int) -> Unit
 ) : NSObject(),
     UIPickerViewDataSourceProtocol,
     UIPickerViewDelegateProtocol {
@@ -49,6 +49,6 @@ internal class PickerDataSourceDelegate(
 
     @ObjCSignatureOverride
     override fun pickerView(pickerView: UIPickerView, didSelectRow: Long, inComponent: Long) {
-        items.getOrNull(didSelectRow.toInt())?.let { onItemPicked(it) }
+        if (didSelectRow.toInt() in items.indices) onSelectedIndexChange(didSelectRow.toInt())
     }
 }
