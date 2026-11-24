@@ -11,7 +11,9 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 ## Phase 0 — Baseline
 
 ### Step 0 · Land the bug fixes
-- [ ] Commit the iOS fixes (dialog, date picker, picker, tab bar, text field, buttons, menu, colors) and licence alignment on a branch, open a PR.
+- [x] Commit the iOS fixes (dialog, date picker, picker, tab bar, text field, buttons, menu, colors) and licence alignment on a branch.
+- [x] Toolchain upgrade (Kotlin 2.4, Compose Multiplatform 1.12, AGP 9, Gradle 9) and demo split into `androidApp` + `composeApp`.
+- [x] Native iOS 26 Liquid Glass for iOS components; classic native look on earlier iOS.
 - **Done when:** merged to `main`, demo app runs on Android + iOS simulator.
 
 ---
@@ -19,11 +21,11 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 ## Phase 1 — Foundations (→ release 2.0.0)
 
 ### Step 1 · Tooling & CI
-- [ ] `explicitApi()` in `krossui`; add explicit `public` modifiers.
-- [ ] ktlint + detekt with a checked-in config.
-- [ ] ABI validation (Kotlin `abiValidation` / binary-compatibility-validator, incl. klib) with a committed API dump.
-- [ ] GitHub Actions: Linux job (Android compile, lint, unit tests) + macOS job (iOS compile, iOS tests).
-- [ ] Move library version to `gradle.properties`.
+- [x] `explicitApi()` in `krossui`; add explicit `public` modifiers.
+- [x] ktlint with a checked-in config (`.editorconfig`).
+- [x] ABI validation (Kotlin built-in `abiValidation`, incl. klib) with a committed API dump in `krossui/api/`.
+- [x] GitHub Actions: Linux job (lint, Android build) + macOS job (iOS build, API check). Tests are added in Step 7.
+- [x] Move library version to `gradle.properties` (`VERSION_NAME`).
 - **Done when:** CI is green on PRs and fails on an unintended API change.
 
 ### Step 2 · API 2.0 cleanup

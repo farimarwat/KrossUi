@@ -1,0 +1,417 @@
+public final class com/farimarwat/krossui/Platform_androidKt {
+	public static final fun platform ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/ColorUtils/PlatformColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/ColorUtils/PlatformColors;
+	public final fun getLabel-0d7_KjU ()J
+	public final fun getSecondaryLabel-0d7_KjU ()J
+	public final fun getSystemBackground-0d7_KjU ()J
+	public final fun getSystemBlue-0d7_KjU ()J
+	public final fun getSystemGray-0d7_KjU ()J
+	public final fun getSystemGreen-0d7_KjU ()J
+	public final fun getSystemOrange-0d7_KjU ()J
+	public final fun getSystemPurple-0d7_KjU ()J
+	public final fun getSystemRed-0d7_KjU ()J
+}
+
+public final class com/farimarwat/krossui/components/Common/KPadding {
+	public static final field $stable I
+	public static final field Companion Lcom/farimarwat/krossui/components/Common/KPadding$Companion;
+	public fun <init> ()V
+	public fun <init> (DDDD)V
+	public synthetic fun <init> (DDDDILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun component4 ()D
+	public final fun copy (DDDD)Lcom/farimarwat/krossui/components/Common/KPadding;
+	public static synthetic fun copy$default (Lcom/farimarwat/krossui/components/Common/KPadding;DDDDILjava/lang/Object;)Lcom/farimarwat/krossui/components/Common/KPadding;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBottom ()D
+	public final fun getLeading ()D
+	public final fun getTop ()D
+	public final fun getTrailing ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/Common/KPadding$Companion {
+	public final fun all (D)Lcom/farimarwat/krossui/components/Common/KPadding;
+	public final fun horizontal (D)Lcom/farimarwat/krossui/components/Common/KPadding;
+	public final fun symmetric (DD)Lcom/farimarwat/krossui/components/Common/KPadding;
+	public static synthetic fun symmetric$default (Lcom/farimarwat/krossui/components/Common/KPadding$Companion;DDILjava/lang/Object;)Lcom/farimarwat/krossui/components/Common/KPadding;
+	public final fun vertical (D)Lcom/farimarwat/krossui/components/Common/KPadding;
+}
+
+public final class com/farimarwat/krossui/components/KButton/KButtonColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun copy-jRlVdoo (JJJJ)Lcom/farimarwat/krossui/components/KButton/KButtonColors;
+	public static synthetic fun copy-jRlVdoo$default (Lcom/farimarwat/krossui/components/KButton/KButtonColors;JJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KButton/KButtonColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContainerColor-0d7_KjU ()J
+	public final fun getContentColor-0d7_KjU ()J
+	public final fun getDisabledContainerColor-0d7_KjU ()J
+	public final fun getDisabledContentColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KButton/KButtonDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KButton/KButtonDefaults;
+	public final fun colors-jRlVdoo (JJJJ)Lcom/farimarwat/krossui/components/KButton/KButtonColors;
+	public static synthetic fun colors-jRlVdoo$default (Lcom/farimarwat/krossui/components/KButton/KButtonDefaults;JJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KButton/KButtonColors;
+	public final fun getCornerRadius ()D
+	public final fun getDefaultFontSize-XSAIIZE ()J
+}
+
+public final class com/farimarwat/krossui/components/KButton/KButton_androidKt {
+	public static final fun KButton-eTAvqXw (Landroidx/compose/ui/Modifier;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lcom/farimarwat/krossui/components/KButton/KButtonColors;JDZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KDatePicker/KDatePickerColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun copy-jRlVdoo (JJJJ)Lcom/farimarwat/krossui/components/KDatePicker/KDatePickerColors;
+	public static synthetic fun copy-jRlVdoo$default (Lcom/farimarwat/krossui/components/KDatePicker/KDatePickerColors;JJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KDatePicker/KDatePickerColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContainerColor-0d7_KjU ()J
+	public final fun getContentColor-0d7_KjU ()J
+	public final fun getFooterContainerColor-0d7_KjU ()J
+	public final fun getFooterContentColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KDatePicker/KDatePickerDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KDatePicker/KDatePickerDefaults;
+	public final fun colors-ro_MJ88 (JJJJLandroidx/compose/runtime/Composer;II)Lcom/farimarwat/krossui/components/KDatePicker/KDatePickerColors;
+}
+
+public final class com/farimarwat/krossui/components/KDatePicker/KDatePicker_androidKt {
+	public static final fun KDatePicker (ZJLcom/farimarwat/krossui/components/KDatePicker/KDatePickerColors;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KDialog/KDialog_androidKt {
+	public static final fun KDialog (ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KIconButton/KIconButtonColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun copy-jRlVdoo (JJJJ)Lcom/farimarwat/krossui/components/KIconButton/KIconButtonColors;
+	public static synthetic fun copy-jRlVdoo$default (Lcom/farimarwat/krossui/components/KIconButton/KIconButtonColors;JJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KIconButton/KIconButtonColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContainerColor-0d7_KjU ()J
+	public final fun getContentColor-0d7_KjU ()J
+	public final fun getDisabledContainerColor-0d7_KjU ()J
+	public final fun getDisabledContentColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KIconButton/KIconButtonDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KIconButton/KIconButtonDefaults;
+	public final fun colors ()Lcom/farimarwat/krossui/components/KIconButton/KIconButtonColors;
+	public final fun getCornerRadius ()D
+	public final fun getFontSize-XSAIIZE ()J
+}
+
+public final class com/farimarwat/krossui/components/KIconButton/KIconButton_androidKt {
+	public static final fun KIconButton-k96czNk (Landroidx/compose/ui/Modifier;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lcom/farimarwat/krossui/components/KIconButton/KIconButtonColors;JDZLjava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KMenu/KMenuColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun copy-ysEtTa8 (JJJ)Lcom/farimarwat/krossui/components/KMenu/KMenuColors;
+	public static synthetic fun copy-ysEtTa8$default (Lcom/farimarwat/krossui/components/KMenu/KMenuColors;JJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KMenu/KMenuColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackgroundColor-0d7_KjU ()J
+	public final fun getContentColor-0d7_KjU ()J
+	public final fun getDisabledContentColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KMenu/KMenuDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KMenu/KMenuDefaults;
+	public final fun colors-RGew2ao (JJJLandroidx/compose/runtime/Composer;II)Lcom/farimarwat/krossui/components/KMenu/KMenuColors;
+}
+
+public final class com/farimarwat/krossui/components/KMenu/KMenuItem {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lorg/jetbrains/compose/resources/DrawableResource;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Z
+	public final fun copy (Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;Z)Lcom/farimarwat/krossui/components/KMenu/KMenuItem;
+	public static synthetic fun copy$default (Lcom/farimarwat/krossui/components/KMenu/KMenuItem;Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;ZILjava/lang/Object;)Lcom/farimarwat/krossui/components/KMenu/KMenuItem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAndroidIcon ()Lorg/jetbrains/compose/resources/DrawableResource;
+	public final fun getEnabled ()Z
+	public final fun getIosIcon ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KMenu/KMenu_androidKt {
+	public static final fun KMenu (Ljava/lang/String;Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/util/List;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/farimarwat/krossui/components/KMenu/KMenuColors;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun component5-0d7_KjU ()J
+	public final fun component6-0d7_KjU ()J
+	public final fun copy-tNS2XkQ (JJJJJJ)Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors;
+	public static synthetic fun copy-tNS2XkQ$default (Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors;JJJJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackgroundColor-0d7_KjU ()J
+	public final fun getBorderColor-0d7_KjU ()J
+	public final fun getDisabledBackgroundColor-0d7_KjU ()J
+	public final fun getDisabledBorderColor-0d7_KjU ()J
+	public final fun getDisabledTextColor-0d7_KjU ()J
+	public final fun getTextColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonDefaults;
+	public final fun colors-tNS2XkQ (JJJJJJ)Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors;
+	public static synthetic fun colors-tNS2XkQ$default (Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonDefaults;JJJJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors;
+	public final fun getBorderWidth ()D
+	public final fun getCornerRadius ()D
+	public final fun getDefaultFontSize-XSAIIZE ()J
+}
+
+public final class com/farimarwat/krossui/components/KOutLinedButton/KOutLinedButton_androidKt {
+	public static final fun KOutLinedButton-d7DBnB0 (Landroidx/compose/ui/Modifier;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lcom/farimarwat/krossui/components/KOutLinedButton/KOutLinedButtonColors;JDDZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KPicker/KPickerColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun copy-jRlVdoo (JJJJ)Lcom/farimarwat/krossui/components/KPicker/KPickerColors;
+	public static synthetic fun copy-jRlVdoo$default (Lcom/farimarwat/krossui/components/KPicker/KPickerColors;JJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KPicker/KPickerColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContainerColor-0d7_KjU ()J
+	public final fun getContentColor-0d7_KjU ()J
+	public final fun getDisabledContainerColor-0d7_KjU ()J
+	public final fun getDisabledContentColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KPicker/KPickerDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KPicker/KPickerDefaults;
+	public final fun colors (Landroidx/compose/runtime/Composer;I)Lcom/farimarwat/krossui/components/KPicker/KPickerColors;
+}
+
+public final class com/farimarwat/krossui/components/KPicker/KPicker_androidKt {
+	public static final fun KPicker (Landroidx/compose/ui/Modifier;Ljava/util/List;Lcom/farimarwat/krossui/components/KPicker/KPickerColors;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorColors {
+	public static final field $stable I
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun copy-8_81llA (J)Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorColors;
+	public static synthetic fun copy-8_81llA$default (Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorColors;JILjava/lang/Object;)Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorDefaults;
+	public final fun colors-8_81llA (J)Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorColors;
+	public static synthetic fun colors-8_81llA$default (Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorDefaults;JILjava/lang/Object;)Lcom/farimarwat/krossui/components/KProgressIndicator/KProgressIndicatorColors;
+	public final fun getDefaultSize ()D
+}
+
+public final class com/farimarwat/krossui/components/KProgressIndicator/KProgressIndicator_androidKt {
+	public static final fun KProgressIndicator-iJQMabo (DJLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KSlider/KSliderColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun component5-0d7_KjU ()J
+	public final fun component6-0d7_KjU ()J
+	public final fun copy-tNS2XkQ (JJJJJJ)Lcom/farimarwat/krossui/components/KSlider/KSliderColors;
+	public static synthetic fun copy-tNS2XkQ$default (Lcom/farimarwat/krossui/components/KSlider/KSliderColors;JJJJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KSlider/KSliderColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActiveTrackColor-0d7_KjU ()J
+	public final fun getDisabledActiveTrackColor-0d7_KjU ()J
+	public final fun getDisabledInactiveTrackColor-0d7_KjU ()J
+	public final fun getDisabledThumbColor-0d7_KjU ()J
+	public final fun getInactiveTrackColor-0d7_KjU ()J
+	public final fun getThumbColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KSlider/KSliderDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KSlider/KSliderDefaults;
+	public final fun colors-tNS2XkQ (JJJJJJ)Lcom/farimarwat/krossui/components/KSlider/KSliderColors;
+	public static synthetic fun colors-tNS2XkQ$default (Lcom/farimarwat/krossui/components/KSlider/KSliderDefaults;JJJJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KSlider/KSliderColors;
+}
+
+public final class com/farimarwat/krossui/components/KSlider/KSlider_androidKt {
+	public static final fun KSlider (Landroidx/compose/ui/Modifier;FFFLcom/farimarwat/krossui/components/KSlider/KSliderColors;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KSwitch/KSwitchColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun copy-ysEtTa8 (JJJ)Lcom/farimarwat/krossui/components/KSwitch/KSwitchColors;
+	public static synthetic fun copy-ysEtTa8$default (Lcom/farimarwat/krossui/components/KSwitch/KSwitchColors;JJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KSwitch/KSwitchColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getThumbColor-0d7_KjU ()J
+	public final fun getTrackColorChecked-0d7_KjU ()J
+	public final fun getTrackColorUnchecked-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KSwitch/KSwitchDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KSwitch/KSwitchDefaults;
+	public final fun colors-ysEtTa8 (JJJ)Lcom/farimarwat/krossui/components/KSwitch/KSwitchColors;
+	public static synthetic fun colors-ysEtTa8$default (Lcom/farimarwat/krossui/components/KSwitch/KSwitchDefaults;JJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KSwitch/KSwitchColors;
+}
+
+public final class com/farimarwat/krossui/components/KSwitch/KSwitch_androidKt {
+	public static final fun KSwitch (Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function1;Lcom/farimarwat/krossui/components/KSwitch/KSwitchColors;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KTabBar/KTabBarColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun copy-ysEtTa8 (JJJ)Lcom/farimarwat/krossui/components/KTabBar/KTabBarColors;
+	public static synthetic fun copy-ysEtTa8$default (Lcom/farimarwat/krossui/components/KTabBar/KTabBarColors;JJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KTabBar/KTabBarColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackgroundColor-0d7_KjU ()J
+	public final fun getSelectedContentColor-0d7_KjU ()J
+	public final fun getUnselectedContentColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KTabBar/KTabBarDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KTabBar/KTabBarDefaults;
+	public final fun colors-ysEtTa8 (JJJ)Lcom/farimarwat/krossui/components/KTabBar/KTabBarColors;
+	public static synthetic fun colors-ysEtTa8$default (Lcom/farimarwat/krossui/components/KTabBar/KTabBarDefaults;JJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KTabBar/KTabBarColors;
+}
+
+public final class com/farimarwat/krossui/components/KTabBar/KTabBar_androidKt {
+	public static final fun KTabBar (Landroidx/compose/ui/Modifier;Ljava/util/List;ILkotlin/jvm/functions/Function1;Lcom/farimarwat/krossui/components/KTabBar/KTabBarColors;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/farimarwat/krossui/components/KTabBar/KTabItem {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lorg/jetbrains/compose/resources/DrawableResource;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;)Lcom/farimarwat/krossui/components/KTabBar/KTabItem;
+	public static synthetic fun copy$default (Lcom/farimarwat/krossui/components/KTabBar/KTabItem;Ljava/lang/String;Lorg/jetbrains/compose/resources/DrawableResource;Ljava/lang/String;ILjava/lang/Object;)Lcom/farimarwat/krossui/components/KTabBar/KTabItem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAndroidIcon ()Lorg/jetbrains/compose/resources/DrawableResource;
+	public final fun getIosIcon ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KTextField/KTextFieldColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun component5-0d7_KjU ()J
+	public final fun component6-0d7_KjU ()J
+	public final fun component7-0d7_KjU ()J
+	public final fun component8-0d7_KjU ()J
+	public final fun component9-0d7_KjU ()J
+	public final fun copy-5r9EGqc (JJJJJJJJJ)Lcom/farimarwat/krossui/components/KTextField/KTextFieldColors;
+	public static synthetic fun copy-5r9EGqc$default (Lcom/farimarwat/krossui/components/KTextField/KTextFieldColors;JJJJJJJJJILjava/lang/Object;)Lcom/farimarwat/krossui/components/KTextField/KTextFieldColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDisabledBorderColor-0d7_KjU ()J
+	public final fun getDisabledTextColor-0d7_KjU ()J
+	public final fun getFocusedBackgroundColor-0d7_KjU ()J
+	public final fun getFocusedBorderColor-0d7_KjU ()J
+	public final fun getPlaceholderColor-0d7_KjU ()J
+	public final fun getReadOnlyTextColor-0d7_KjU ()J
+	public final fun getTextColor-0d7_KjU ()J
+	public final fun getUnfocusedBackgroundColor-0d7_KjU ()J
+	public final fun getUnfocusedBorderColor-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/farimarwat/krossui/components/KTextField/KTextFieldDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/farimarwat/krossui/components/KTextField/KTextFieldDefaults;
+	public final fun colors-J08w3-E (JJJJJJJJJLandroidx/compose/runtime/Composer;II)Lcom/farimarwat/krossui/components/KTextField/KTextFieldColors;
+	public final fun getBorderWidth ()I
+	public final fun getCornerRadius ()D
+	public final fun getPadding ()I
+}
+
+public final class com/farimarwat/krossui/components/KTextField/KTextField_androidKt {
+	public static final fun KTextField-rtZXQUA (Landroidx/compose/ui/Modifier;Lcom/farimarwat/krossui/components/Common/KPadding;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Ljava/lang/String;JZZIIDIILcom/farimarwat/krossui/components/KTextField/KTextFieldColors;Landroidx/compose/runtime/Composer;III)V
+}
+

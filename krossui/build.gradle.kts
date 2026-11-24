@@ -10,6 +10,10 @@ kotlin {
     // Every public declaration must state its visibility, so nothing becomes public API by accident
     explicitApi()
 
+    // Public API is recorded in krossui/api/; CI fails if it changes without updating the dump
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation()
+
     compilerOptions {
         // expect/actual classes are Beta in Kotlin; we use them deliberately (PlatformColors)
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -106,10 +110,10 @@ kotlin {
     }
 
     mavenPublishing {
+        // Version comes from VERSION_NAME in gradle.properties
         coordinates(
             groupId = "io.github.farimarwat",
-            artifactId = "krossui",
-            version = "1.0"
+            artifactId = "krossui"
         )
         pom {
             name.set("KrossUI")
