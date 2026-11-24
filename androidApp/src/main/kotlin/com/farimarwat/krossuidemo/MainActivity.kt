@@ -13,7 +13,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+            // adb shell am start -n com.farimarwat.krossuidemo/.MainActivity -e benchmark native|material
+            App(benchmark = intent.getStringExtra("benchmark"))
         }
     }
 }

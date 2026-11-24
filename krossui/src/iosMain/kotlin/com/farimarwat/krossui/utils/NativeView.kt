@@ -116,5 +116,7 @@ private fun UIView.clipWhenCompose(coordinates: LayoutCoordinates) {
     val visible = coordinates.boundsInWindow()
     val full = Rect(coordinates.positionInWindow(), coordinates.size.toSize())
     val clippedByCompose = abs(visible.width - full.width) > 0.5f || abs(visible.height - full.height) > 0.5f
-    superview?.superview?.clipsToBounds = clippedByCompose
+    val wrapper = superview?.superview ?: return
+    // Called on every scroll frame: only touch UIKit when the value changes
+    if (wrapper.clipsToBounds != clippedByCompose) wrapper.clipsToBounds = clippedByCompose
 }

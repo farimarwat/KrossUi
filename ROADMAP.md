@@ -87,10 +87,13 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
   now Material's `DatePickerDialog`.
 
 ### Step 9 · Performance
-- [ ] Benchmarks: `LazyColumn` with 500 rows of interop components vs. pure Compose.
-- [ ] Publish numbers and guidance ("native vs. compose mode") in docs.
-- [ ] Optional `KrossTheme(renderMode = Native | Compose)` switch if the cost is significant.
-- **Done when:** numbers are documented and no component regresses scrolling noticeably.
+- [x] Demo **Performance** page: automated 500-row scroll benchmark, KrossUI vs Compose Material rows
+      (launch argument `-benchmark native|material` for repeatable runs).
+- [x] Measured on iOS 26 simulator: no difference at fast-fling speed; < 1% slow frames under extreme stress.
+- [x] Clipping update only touches UIKit when it changes (no per-frame UIKit writes while scrolling).
+- [x] `docs/performance.md`: numbers, how to measure on devices, guidance for long lists.
+- [ ] Render-mode switch: not needed (no significant cost measured). View reuse via `onReset`: documented as future work.
+- [ ] Device measurements (iPhone, Pixel) — user, using the Performance page.
 
 ### Step 10 · Documentation
 - [ ] Dokka API reference published to GitHub Pages.

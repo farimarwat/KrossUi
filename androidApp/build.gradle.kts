@@ -25,6 +25,8 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            // Demo app only: signed with the debug key so release builds can be installed for performance testing
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }

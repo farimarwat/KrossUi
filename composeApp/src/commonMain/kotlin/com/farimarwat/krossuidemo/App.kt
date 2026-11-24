@@ -48,17 +48,22 @@ enum class DemoPageId(val title: String, val subtitle: String) {
     Progress("Progress", "KProgressIndicator"),
     TabBar("Tab bar", "KTabBar"),
     Layout("Layout", "Wrap, fill and fixed sizes"),
-    LongList("Long list", "200 rows of native controls: scrolling and clipping")
+    LongList("Long list", "200 rows of native controls: scrolling and clipping"),
+    Performance("Performance", "Scroll benchmark: KrossUI vs Compose Material")
 }
 
+/**
+ * @param benchmark `"native"` or `"material"`: open the Performance page and run that benchmark
+ *   (launch argument, for repeatable measurements).
+ */
 @Composable
 @Preview
-fun App() {
+fun App(benchmark: String? = null) {
     // Display options for manual testing (null = follow the system)
     var darkOverride by rememberSaveable { mutableStateOf<Boolean?>(null) }
     var rtl by rememberSaveable { mutableStateOf(false) }
     var enabled by rememberSaveable { mutableStateOf(true) }
-    var page by rememberSaveable { mutableStateOf<DemoPageId?>(null) }
+    var page by rememberSaveable { mutableStateOf(if (benchmark != null) DemoPageId.Performance else null) }
 
     LaunchedEffect(darkOverride) { applyAppearanceOverride(darkOverride) }
     PlatformBackHandler(enabled = page != null) { page = null }
@@ -99,6 +104,7 @@ fun App() {
                         DemoPageId.TabBar -> TabBarPage(log)
                         DemoPageId.Layout -> LayoutScreen(Modifier.fillMaxSize())
                         DemoPageId.LongList -> LongListScreen(options)
+                        DemoPageId.Performance -> PerformanceScreen(autoRun = benchmark)
                     }
                 }
             }
