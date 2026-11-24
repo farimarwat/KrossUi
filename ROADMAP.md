@@ -104,8 +104,14 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - [ ] Push `docs/wiki/` to the GitHub wiki (user).
 
 ### Step 11 · Release 2.0.0
-- [ ] Final API review against ABI dump; changelog; tag; publish to Maven Central.
-- **Done when:** `io.github.farimarwat:krossui:2.0.0` is live and docs point to it.
+- [x] Version `2.0.0` (`VERSION_NAME`), CHANGELOG dated, POM description/SCM updated.
+- [x] Full check passed (lint, builds, API, Android + iOS tests, screenshots).
+- [x] Signed local dry run (`publishToMavenLocal`): all platform artifacts + sources/javadoc + `.asc` signatures;
+      demo app builds against the published `2.0.0` artifacts.
+- [ ] Push `release-2.0.0`, merge into `main`, CI green on GitHub (user).
+- [ ] `./gradlew :krossui:publishAndReleaseToMavenCentral` (user) — wait until 2.0.0 shows on Maven Central.
+- [ ] Tag `v2.0.0` (+ optional GitHub Release from CHANGELOG) (user).
+- [ ] Push `docs/wiki/` to the GitHub wiki (after 2.0.0 is visible; user approved me doing it then).
 
 ---
 

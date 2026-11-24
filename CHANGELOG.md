@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0 (unreleased)
+## 2.0.0 (2026-11-24)
 
 Upgrading from 1.x: your code keeps compiling with deprecation warnings — see [MIGRATION.md](MIGRATION.md).
 
