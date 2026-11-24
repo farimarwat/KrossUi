@@ -10,12 +10,14 @@ import androidx.compose.ui.unit.Dp
  * (Material 3 circular indicator on Android, UIActivityIndicatorView on iOS).
  *
  * @param modifier The [Modifier] applied to the indicator.
+ * @param contentDescription Text read by TalkBack / VoiceOver; e.g. "Loading".
  * @param size The diameter of the indicator.
  * @param color The indicator color.
  */
 @Composable
 public expect fun KProgressIndicator(
     modifier: Modifier = Modifier,
+    contentDescription: String? = null,
     size: Dp = KProgressIndicatorDefaults.Size,
     color: Color = KProgressIndicatorDefaults.colors().color
 )

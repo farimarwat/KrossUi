@@ -39,6 +39,7 @@ public actual fun KTextField(
     modifier: Modifier,
     enabled: Boolean,
     readOnly: Boolean,
+    contentDescription: String?,
     placeholder: String,
     fontSize: TextUnit,
     maxLines: Int,
@@ -55,6 +56,7 @@ public actual fun KTextField(
     modifier = modifier,
     enabled = enabled,
     readOnly = readOnly,
+    contentDescription = contentDescription,
     placeholder = placeholder,
     fontSize = fontSize,
     maxLines = maxLines,
@@ -77,6 +79,7 @@ internal fun PlatformTextField(
     modifier: Modifier,
     enabled: Boolean,
     readOnly: Boolean,
+    contentDescription: String?,
     placeholder: String,
     fontSize: TextUnit,
     maxLines: Int,
@@ -119,7 +122,7 @@ internal fun PlatformTextField(
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier.defaultMinSize(
+        modifier = modifier.labelled(contentDescription ?: placeholder.ifEmpty { null }).defaultMinSize(
             minWidth = OutlinedTextFieldDefaults.MinWidth,
             minHeight = OutlinedTextFieldDefaults.MinHeight
         ),

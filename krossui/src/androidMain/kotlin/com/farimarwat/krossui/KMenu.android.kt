@@ -26,13 +26,18 @@ public actual fun KMenu(
     title: String,
     iosIcon: String?, // Ignored on Android
     androidIcon: DrawableResource?,
+    contentDescription: String?,
     colors: KMenuColors
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
         if (androidIcon != null) {
             IconButton(onClick = { expanded = true }) {
-                Icon(painter = painterResource(androidIcon), contentDescription = title.ifBlank { null })
+                Icon(
+                    painter = painterResource(androidIcon),
+                    contentDescription =
+                        contentDescription ?: title.ifBlank { null }
+                )
             }
         } else {
             TextButton(onClick = { expanded = true }) {

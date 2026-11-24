@@ -24,6 +24,7 @@ public actual fun KIconButton(
     title: String?,
     iosIcon: String?, // Ignored on Android
     androidIcon: DrawableResource?,
+    contentDescription: String?,
     colors: KIconButtonColors,
     fontSize: TextUnit,
     cornerRadius: Dp
@@ -31,7 +32,7 @@ public actual fun KIconButton(
     val hasTitle = !title.isNullOrBlank()
     Button(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.labelled(contentDescription),
         enabled = enabled,
         shape = if (cornerRadius.isSpecified) RoundedCornerShape(cornerRadius) else ButtonDefaults.shape,
         colors = ButtonDefaults.buttonColors(

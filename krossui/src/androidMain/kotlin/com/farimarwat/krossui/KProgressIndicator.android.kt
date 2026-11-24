@@ -11,9 +11,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.isSpecified
 
 @Composable
-public actual fun KProgressIndicator(modifier: Modifier, size: Dp, color: Color) {
+public actual fun KProgressIndicator(modifier: Modifier, contentDescription: String?, size: Dp, color: Color) {
     CircularProgressIndicator(
-        modifier = if (size.isSpecified) modifier.size(size) else modifier,
+        modifier = (if (size.isSpecified) modifier.size(size) else modifier).labelled(contentDescription),
         color = color.takeOrElse { ProgressIndicatorDefaults.circularColor }
     )
 }

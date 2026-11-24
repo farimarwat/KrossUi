@@ -145,6 +145,7 @@ fun App() {
                         contentAlignment = Alignment.Center
                     ) {
                         KSwitch(
+                            contentDescription = "Notifications",
                             checked = switch,
                             onCheckedChange = {
                                 switch = it
@@ -159,12 +160,14 @@ fun App() {
                         contentAlignment = Alignment.Center
                     ) {
                         KProgressIndicator(
+                            contentDescription = "Loading",
                             size = 50.dp
                         )
                     }
                 }
                 var sliderValue by remember { mutableStateOf(0.5f) }
                 KSlider(
+                    contentDescription = "Volume",
                     modifier = Modifier
                         .fillMaxWidth(),
                     value = sliderValue,
@@ -201,6 +204,7 @@ fun App() {
                         contentAlignment = Alignment.Center
                     ) {
                         KMenu(
+                            contentDescription = "Settings menu",
                             title = "Menu",
                             items = list,
                             iosIcon = "gear",
@@ -231,6 +235,7 @@ fun App() {
                 val fruits = listOf("Apple", "Mango", "Grapes", "Pineapple", "Banana")
                 var fruitIndex by rememberSaveable { mutableStateOf(0) }
                 KPicker(
+                    contentDescription = "Fruit",
                     items = fruits,
                     selectedIndex = fruitIndex,
                     onSelectedIndexChange = { fruitIndex = it },

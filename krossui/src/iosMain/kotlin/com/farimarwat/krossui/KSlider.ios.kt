@@ -26,6 +26,7 @@ public actual fun KSlider(
     onValueChange: (Float) -> Unit,
     modifier: Modifier,
     enabled: Boolean,
+    contentDescription: String?,
     valueRange: ClosedFloatingPointRange<Float>,
     steps: Int,
     onValueChangeFinished: (() -> Unit)?,
@@ -76,6 +77,7 @@ public actual fun KSlider(
         },
         modifier = modifier,
         minSize = DpSize(MinTouchTarget, MinTouchTarget),
+        accessibilityLabel = contentDescription,
         preferredSize = { DpSize(Dp.Unspecified, it.intrinsicDpSize().height) }
     )
 }

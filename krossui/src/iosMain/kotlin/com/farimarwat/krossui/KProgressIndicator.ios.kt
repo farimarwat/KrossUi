@@ -15,7 +15,7 @@ import platform.UIKit.UIActivityIndicatorView
 import platform.UIKit.UIActivityIndicatorViewStyleMedium
 
 @Composable
-public actual fun KProgressIndicator(modifier: Modifier, size: Dp, color: Color) {
+public actual fun KProgressIndicator(modifier: Modifier, contentDescription: String?, size: Dp, color: Color) {
     val indicator = remember {
         UIActivityIndicatorView(activityIndicatorStyle = UIActivityIndicatorViewStyleMedium).apply { startAnimating() }
     }
@@ -32,6 +32,8 @@ public actual fun KProgressIndicator(modifier: Modifier, size: Dp, color: Color)
             view.transform = CGAffineTransformMakeScale(scale, scale)
         },
         // Natural size is the native spinner (≈20pt); a given size overrides it
-        modifier = if (size.isSpecified) modifier.size(size) else modifier
+        modifier = if (size.isSpecified) modifier.size(size) else modifier,
+        // VoiceOver reads "In progress" by default
+        accessibilityLabel = contentDescription
     )
 }

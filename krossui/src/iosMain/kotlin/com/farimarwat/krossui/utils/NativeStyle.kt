@@ -19,6 +19,7 @@ import platform.UIKit.UIColor
 import platform.UIKit.UIControlStateNormal
 import platform.UIKit.UIDevice
 import platform.UIKit.UIFont
+import platform.UIKit.UIFontMetrics
 import platform.UIKit.UIImage
 
 /**
@@ -119,7 +120,7 @@ internal fun UIButton.applyNativeStyle(
     }
 
     if (fontSize != TextUnit.Unspecified) {
-        val font = UIFont.systemFontOfSize(fontSize.value.toDouble())
+        val font = scaledSystemFont(fontSize)
         config.titleTextAttributesTransformer = { incoming ->
             val attributes = HashMap<Any?, Any?>()
             incoming?.let { attributes.putAll(it) }
@@ -159,7 +160,7 @@ private fun UIButton.applyLegacyStyle(
     setTitle(title, forState = UIControlStateNormal)
     setImage(image, forState = UIControlStateNormal)
     if (fontSize != TextUnit.Unspecified) {
-        titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
+        titleLabel?.font = scaledSystemFont(fontSize)
     }
     val foreground = contentColor.toUiColorOrNull() ?: if (filled) UIColor.whiteColor else tintColor
     setTitleColor(foreground, forState = UIControlStateNormal)
@@ -180,3 +181,7 @@ internal fun UIButton.nativeButtonSize(): DpSize {
     // Classic iOS 14 buttons have no content insets; add native-looking padding
     return DpSize(size.width + 32.dp, size.height + 16.dp)
 }
+
+/** System font of [size] that scales with the user's text size (Dynamic Type), like native text. */
+internal fun scaledSystemFont(size: TextUnit): UIFont =
+    UIFontMetrics.defaultMetrics.scaledFontForFont(UIFont.systemFontOfSize(size.value.toDouble()))

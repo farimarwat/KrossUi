@@ -18,6 +18,7 @@ import org.jetbrains.compose.resources.DrawableResource
  * @param title Optional text shown next to the icon.
  * @param iosIcon SF Symbol name used on iOS, e.g. `"star.fill"`.
  * @param androidIcon Drawable resource used on Android.
+ * @param contentDescription Text read by TalkBack / VoiceOver; required when there is no [title].
  * @param colors The colors in enabled and disabled states. See [KIconButtonDefaults.colors].
  * @param fontSize The size of the title.
  * @param cornerRadius The corner radius (Android and iOS before 26).
@@ -30,6 +31,7 @@ public expect fun KIconButton(
     title: String? = null,
     iosIcon: String? = null,
     androidIcon: DrawableResource? = null,
+    contentDescription: String? = null,
     colors: KIconButtonColors = KIconButtonDefaults.colors(),
     fontSize: TextUnit = KIconButtonDefaults.FontSize,
     cornerRadius: Dp = KIconButtonDefaults.CornerRadius

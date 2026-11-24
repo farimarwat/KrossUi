@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
  * @param onValueChange Called with the new value while the user drags.
  * @param modifier The [Modifier] applied to the slider.
  * @param enabled Whether the slider can be dragged.
+ * @param contentDescription Text read by TalkBack / VoiceOver; describe what the slider controls.
  * @param valueRange The range of selectable values.
  * @param steps Number of discrete values between the ends of [valueRange]; `0` = continuous.
  * @param onValueChangeFinished Called when the user releases the slider.
@@ -22,6 +23,7 @@ public expect fun KSlider(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    contentDescription: String? = null,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
     onValueChangeFinished: (() -> Unit)? = null,

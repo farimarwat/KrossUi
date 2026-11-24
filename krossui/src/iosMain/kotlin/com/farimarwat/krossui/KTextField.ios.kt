@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.isSpecified
 import com.farimarwat.krossui.utils.MinTouchTarget
 import com.farimarwat.krossui.utils.NativeView
 import com.farimarwat.krossui.utils.intrinsicDpSize
+import com.farimarwat.krossui.utils.scaledSystemFont
 import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.useContents
@@ -65,6 +66,7 @@ public actual fun KTextField(
     modifier: Modifier,
     enabled: Boolean,
     readOnly: Boolean,
+    contentDescription: String?,
     placeholder: String,
     fontSize: TextUnit,
     maxLines: Int,
@@ -81,6 +83,7 @@ public actual fun KTextField(
     modifier = modifier,
     enabled = enabled,
     readOnly = readOnly,
+    contentDescription = contentDescription,
     placeholder = placeholder,
     fontSize = fontSize,
     keyboardType = keyboardType,
@@ -101,6 +104,7 @@ internal fun PlatformTextField(
     modifier: Modifier,
     enabled: Boolean,
     readOnly: Boolean,
+    contentDescription: String?,
     placeholder: String,
     fontSize: TextUnit,
     keyboardType: KeyboardType,
@@ -170,6 +174,8 @@ internal fun PlatformTextField(
     NativeView(
         factory = {
             InsetTextField(insets).apply {
+                // Follow Dynamic Type changes while visible
+                adjustsFontForContentSizeCategory = true
                 this.keyboardType = when (keyboardType) {
                     KeyboardType.Number -> UIKeyboardTypeNumberPad
                     KeyboardType.Email -> UIKeyboardTypeEmailAddress
@@ -193,7 +199,7 @@ internal fun PlatformTextField(
             if (textField.text != value) textField.text = value
             textField.insets = insets
             textField.font = if (fontSize != TextUnit.Unspecified) {
-                UIFont.systemFontOfSize(fontSize.value.toDouble())
+                scaledSystemFont(fontSize)
             } else {
                 UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             }
@@ -216,6 +222,8 @@ internal fun PlatformTextField(
         },
         modifier = modifier,
         minSize = DpSize(0.dp, MinTouchTarget),
+        // VoiceOver reads the placeholder when no label is given
+        accessibilityLabel = contentDescription,
         // Default width matches Material's text field (280dp); height is UIKit's plus any custom padding
         preferredSize = { textField ->
             val extraHeight = insets?.let { it.top + it.bottom } ?: 0.0

@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.TextUnit
  * @param modifier The [Modifier] applied to the field.
  * @param enabled Whether the field can be focused and edited.
  * @param readOnly Whether the text can be selected but not edited.
+ * @param contentDescription Text read by TalkBack / VoiceOver; defaults to [placeholder].
  * @param placeholder Text shown when [value] is empty.
  * @param fontSize The size of the text.
  * @param maxLines The maximum number of visible lines (Android; the iOS UITextField is single-line).
@@ -35,6 +36,7 @@ public expect fun KTextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
+    contentDescription: String? = null,
     placeholder: String = "",
     fontSize: TextUnit = TextUnit.Unspecified,
     maxLines: Int = 1,

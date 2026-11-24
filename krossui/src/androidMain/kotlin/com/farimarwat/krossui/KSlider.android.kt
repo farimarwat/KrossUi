@@ -11,6 +11,7 @@ public actual fun KSlider(
     onValueChange: (Float) -> Unit,
     modifier: Modifier,
     enabled: Boolean,
+    contentDescription: String?,
     valueRange: ClosedFloatingPointRange<Float>,
     steps: Int,
     onValueChangeFinished: (() -> Unit)?,
@@ -19,7 +20,7 @@ public actual fun KSlider(
     Slider(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier,
+        modifier = modifier.labelled(contentDescription),
         enabled = enabled,
         valueRange = valueRange,
         steps = steps,

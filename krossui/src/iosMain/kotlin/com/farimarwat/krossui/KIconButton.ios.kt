@@ -30,6 +30,7 @@ public actual fun KIconButton(
     title: String?,
     iosIcon: String?,
     androidIcon: DrawableResource?, // Ignored on iOS
+    contentDescription: String?,
     colors: KIconButtonColors,
     fontSize: TextUnit,
     cornerRadius: Dp
@@ -69,6 +70,8 @@ public actual fun KIconButton(
         },
         modifier = modifier,
         minSize = DpSize(MinTouchTarget, MinTouchTarget),
+        // Without a label VoiceOver would read the SF Symbol name
+        accessibilityLabel = contentDescription ?: title?.takeIf { it.isNotBlank() },
         preferredSize = { it.nativeButtonSize() }
     )
 }

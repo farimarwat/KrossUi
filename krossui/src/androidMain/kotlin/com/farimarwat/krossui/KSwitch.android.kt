@@ -11,12 +11,13 @@ public actual fun KSwitch(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier,
     enabled: Boolean,
+    contentDescription: String?,
     colors: KSwitchColors
 ) {
     Switch(
         checked = checked,
         onCheckedChange = onCheckedChange,
-        modifier = modifier,
+        modifier = modifier.labelled(contentDescription),
         enabled = enabled,
         // copy() keeps the theme value for every unspecified color
         colors = SwitchDefaults.colors().copy(

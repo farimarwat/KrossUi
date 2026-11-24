@@ -19,6 +19,7 @@ public actual fun KSwitch(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier,
     enabled: Boolean,
+    contentDescription: String?,
     colors: KSwitchColors
 ) {
     val currentOnCheckedChange by rememberUpdatedState(onCheckedChange)
@@ -47,6 +48,7 @@ public actual fun KSwitch(
             colors.trackColorUnchecked.toUiColorOrNull()?.let { switch.tintColor = it }
             switch.thumbTintColor = colors.thumbColor.toUiColorOrNull()
         },
-        modifier = modifier
+        modifier = modifier,
+        accessibilityLabel = contentDescription
     )
 }

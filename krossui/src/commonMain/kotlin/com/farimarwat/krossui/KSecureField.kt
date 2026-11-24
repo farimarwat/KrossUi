@@ -19,6 +19,7 @@ public expect fun KSecureField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    contentDescription: String? = null,
     placeholder: String = "",
     fontSize: TextUnit = TextUnit.Unspecified,
     imeAction: ImeAction = ImeAction.Done,

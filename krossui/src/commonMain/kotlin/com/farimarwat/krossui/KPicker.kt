@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
  * @param selectedIndex The index of the selected item.
  * @param onSelectedIndexChange Called with the index the user selected.
  * @param modifier The [Modifier] applied to the picker.
+ * @param contentDescription Text read by TalkBack / VoiceOver; describe what is being picked.
  * @param colors The picker colors. See [KPickerDefaults.colors].
  */
 @Composable
@@ -22,5 +23,6 @@ public expect fun KPicker(
     selectedIndex: Int,
     onSelectedIndexChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    contentDescription: String? = null,
     colors: KPickerColors = KPickerDefaults.colors()
 )

@@ -16,6 +16,7 @@ import org.jetbrains.compose.resources.DrawableResource
  * @param title Text of the menu button when no icon is given.
  * @param iosIcon SF Symbol name for the menu button on iOS, e.g. `"ellipsis.circle"`.
  * @param androidIcon Drawable resource for the menu button on Android.
+ * @param contentDescription Text read by TalkBack / VoiceOver; defaults to [title]; set it when only an icon is shown.
  * @param colors The menu colors. See [KMenuDefaults.colors].
  */
 @Composable
@@ -26,5 +27,6 @@ public expect fun KMenu(
     title: String = "",
     iosIcon: String? = null,
     androidIcon: DrawableResource? = null,
+    contentDescription: String? = null,
     colors: KMenuColors = KMenuDefaults.colors()
 )

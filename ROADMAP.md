@@ -65,12 +65,13 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - **Done:** no component takes epoch millis; all state is hoisted to the caller.
 
 ### Step 6 · Accessibility
-- [ ] `contentDescription` / accessibility label params where needed; propagate to UIKit `accessibilityLabel`.
-- [ ] Dynamic Type (iOS `UIFontMetrics`) and Android font scale.
-- [ ] RTL layout check for every component.
-- [ ] Minimum touch targets (44pt / 48dp).
-- [ ] Manual pass with TalkBack and VoiceOver; record results in `docs/accessibility.md`.
-- **Done when:** every component is operable by screen reader and at the largest text size.
+- [x] `contentDescription` on controls without visible text; Android semantics, iOS `accessibilityLabel`
+      (native accessibility enabled for UIKit views).
+- [x] Text size: Android `sp`; iOS Dynamic Type (`UIFontMetrics` for custom sizes, live updates in text fields).
+- [x] RTL: iOS native views follow Compose's layout direction; Android via Compose.
+- [x] Touch targets: 44pt iOS (buttons, menu, slider, fields); Android `KPicker` rows 48dp, selectable radio items.
+- [x] `docs/accessibility.md` with verified results (uiautomator labels, 2× font, Dynamic Type XXXL, iOS RTL).
+- [ ] Manual TalkBack / VoiceOver walk-through on devices (user).
 
 ### Step 7 · Tests
 - [ ] Replace template tests.

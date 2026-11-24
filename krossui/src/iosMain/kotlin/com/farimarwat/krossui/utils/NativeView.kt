@@ -10,17 +10,23 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.viewinterop.UIKitView
 import kotlin.math.abs
 import kotlinx.cinterop.useContents
+import platform.UIKit.UISemanticContentAttributeForceLeftToRight
+import platform.UIKit.UISemanticContentAttributeForceRightToLeft
 import platform.UIKit.UIView
+import platform.UIKit.accessibilityLabel
 
 /** iOS minimum touch target (Human Interface Guidelines). */
 internal val MinTouchTarget: Dp = 44.dp
@@ -42,6 +48,8 @@ internal fun UIView.intrinsicDpSize(): DpSize = intrinsicContentSize.useContents
  *   [preferredSize] (UIKit's intrinsic size by default); a dimension without a natural size fills the
  *   available space. [minSize] (e.g. the 44pt touch target) is always respected.
  * - 1 dp equals 1 pt on iOS, so UIKit sizes map directly to dp.
+ * - Accessibility: VoiceOver reads the native view; [accessibilityLabel] sets its label. The view follows
+ *   Compose's layout direction (RTL).
  * - Clipping: the view is clipped wherever Compose clips it (e.g. scrolled out of a list), but left
  *   unclipped while fully visible so Liquid Glass halos and shadows are not cut off.
  */
@@ -51,11 +59,22 @@ internal fun <T : UIView> NativeView(
     update: (T) -> Unit,
     modifier: Modifier = Modifier,
     minSize: DpSize = DpSize(0.dp, 0.dp),
+    accessibilityLabel: String? = null,
     preferredSize: (T) -> DpSize = { it.intrinsicDpSize() }
 ) {
     val view = remember { factory() }
+    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    // Read so a text-size (Dynamic Type) change recomposes and re-applies scaled fonts
+    LocalDensity.current.fontScale
     // Runs after composition and before layout of the same frame
-    SideEffect { update(view) }
+    SideEffect {
+        // Follow Compose's layout direction (e.g. a forced RTL screen), not only the app language
+        view.semanticContentAttribute =
+            if (rtl) UISemanticContentAttributeForceRightToLeft else UISemanticContentAttributeForceLeftToRight
+        update(view)
+        // VoiceOver label; null keeps UIKit's own label (e.g. a button's title)
+        accessibilityLabel?.let { view.accessibilityLabel = it }
+    }
 
     UIKitView(
         factory = { view },

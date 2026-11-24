@@ -21,6 +21,7 @@ public actual fun KPicker(
     selectedIndex: Int,
     onSelectedIndexChange: (Int) -> Unit,
     modifier: Modifier,
+    contentDescription: String?,
     colors: KPickerColors
 ) {
     // Created once; kept in sync with the latest parameters (UIPickerView holds its delegate weakly)
@@ -45,6 +46,7 @@ public actual fun KPicker(
             }
         },
         modifier = modifier,
+        accessibilityLabel = contentDescription,
         preferredSize = {
             val height = it.intrinsicDpSize().height
             DpSize(Dp.Unspecified, if (height.isSpecified) height else NativePickerHeight)

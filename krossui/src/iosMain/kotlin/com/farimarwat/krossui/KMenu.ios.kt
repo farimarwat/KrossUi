@@ -16,7 +16,6 @@ import platform.UIKit.UIControlStateNormal
 import platform.UIKit.UIImage
 import platform.UIKit.UIMenu
 import platform.UIKit.UIMenuElementAttributesDisabled
-import platform.UIKit.accessibilityLabel
 
 @Composable
 public actual fun KMenu(
@@ -26,6 +25,7 @@ public actual fun KMenu(
     title: String,
     iosIcon: String?,
     androidIcon: DrawableResource?, // Ignored on iOS
+    contentDescription: String?,
     colors: KMenuColors
 ) {
     val currentOnItemClick by rememberUpdatedState(onItemClick)
@@ -40,7 +40,6 @@ public actual fun KMenu(
             button.setImage(icon, forState = UIControlStateNormal)
             button.setTitle(if (icon == null) title else null, forState = UIControlStateNormal)
             button.setTitleColor(colors.contentColor.toUiColorOrNull(), forState = UIControlStateNormal)
-            button.accessibilityLabel = title.ifBlank { null }
             button.menu = UIMenu.menuWithTitle(
                 title = "",
                 children = items.map { item ->
@@ -56,6 +55,7 @@ public actual fun KMenu(
             )
         },
         modifier = modifier,
-        minSize = DpSize(MinTouchTarget, MinTouchTarget)
+        minSize = DpSize(MinTouchTarget, MinTouchTarget),
+        accessibilityLabel = contentDescription ?: title.ifBlank { null }
     )
 }

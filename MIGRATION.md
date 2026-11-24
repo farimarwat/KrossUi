@@ -98,6 +98,9 @@ The deprecated 1.x `…Defaults` objects keep their old fixed values, so 1.x cod
 
 ## 7. Other changes
 
+- Accessibility: `KIconButton`, `KMenu`, `KSwitch`, `KSlider`, `KPicker`, `KProgressIndicator`, `KTextField`
+  and `KSecureField` accept a `contentDescription` for TalkBack / VoiceOver. Give one to icon-only buttons.
+  See [docs/accessibility.md](docs/accessibility.md).
 - `KSlider`: `value` and `onValueChange` are now required.
 - `KProgressIndicator` now accepts a `modifier`.
 - `KMenu`: the default `title` is now empty instead of `"Hello"`.

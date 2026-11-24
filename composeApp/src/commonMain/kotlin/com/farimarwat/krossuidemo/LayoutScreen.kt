@@ -61,7 +61,13 @@ fun LayoutScreen(modifier: Modifier = Modifier) {
         }
         Section("KIconButton") {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                KIconButton(onClick = {}, modifier = bounds, iosIcon = "star.fill", androidIcon = Res.drawable.ic_star)
+                KIconButton(
+                    onClick = {},
+                    modifier = bounds,
+                    iosIcon = "star.fill",
+                    androidIcon = Res.drawable.ic_star,
+                    contentDescription = "Favourite"
+                )
                 KIconButton(
                     onClick = {},
                     modifier = bounds,
