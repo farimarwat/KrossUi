@@ -96,11 +96,12 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - [ ] Device measurements (iPhone, Pixel) — user, using the Performance page.
 
 ### Step 10 · Documentation
-- [ ] Dokka API reference published to GitHub Pages.
-- [ ] Docs site: getting started, theming, every component with Android + iOS screenshots, migration 1.x → 2.0.
-- [ ] Compatibility matrix (Kotlin, Compose MP, AGP, min iOS / Android).
-- [ ] `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue/PR templates.
-- **Done when:** a new user can install and use any component from the docs alone.
+- [x] README rewritten for 2.0 (features, installation + requirements, quick start, components, links).
+- [x] Wiki pages for every component + Home, sidebar and guides, in `docs/wiki/` (ready to push to the GitHub wiki).
+- [x] `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, issue and PR templates.
+- [x] Guides: getting started, native look, accessibility, performance, migration (wiki) + manual testing (repo).
+- [ ] Dokka API reference: dropped by decision (KDoc in the IDE + wiki pages are enough).
+- [ ] Push `docs/wiki/` to the GitHub wiki (user).
 
 ### Step 11 · Release 2.0.0
 - [ ] Final API review against ABI dump; changelog; tag; publish to Maven Central.
