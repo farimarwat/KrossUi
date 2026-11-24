@@ -55,7 +55,7 @@ import krossuidemo.composeapp.generated.resources.Res
 import krossuidemo.composeapp.generated.resources.ic_home
 import krossuidemo.composeapp.generated.resources.ic_settings
 import krossuidemo.composeapp.generated.resources.ic_star
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
