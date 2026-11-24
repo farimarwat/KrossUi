@@ -86,12 +86,6 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - **Found by the tests:** the Android date picker's custom popup could push "Done" off small screens →
   now Material's `DatePickerDialog`.
 
-### Step 8 · Desktop & Web fallbacks
-- [ ] Add `jvm()` and `wasmJs()` targets.
-- [ ] Pure-Compose (Material 3) `actual` for each component, shared in an intermediate `composeMain` source set where possible.
-- [ ] Desktop + web demo entry points.
-- **Done when:** a consumer project targeting all four platforms builds.
-
 ### Step 9 · Performance
 - [ ] Benchmarks: `LazyColumn` with 500 rows of interop components vs. pure Compose.
 - [ ] Publish numbers and guidance ("native vs. compose mode") in docs.
@@ -115,6 +109,12 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 
 Each new component ships with: common API + Colors + Defaults, Android/iOS/Desktop/Web actuals,
 theme support, accessibility, tests, screenshots, docs page, demo screen.
+
+### Desktop & Web fallbacks (moved from Phase 1, step 8)
+- [ ] Add `jvm()` and `wasmJs()` targets.
+- [ ] Pure-Compose (Material 3) `actual` for each component, shared in an intermediate `composeMain` source set where possible.
+- [ ] Desktop + web demo entry points.
+- **Done when:** a consumer project targeting all four platforms builds.
 
 | Step | Components | iOS | Android |
 |---|---|---|---|

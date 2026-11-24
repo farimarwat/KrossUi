@@ -27,6 +27,10 @@ kotlin {
     }
 
     sourceSets {
+        androidMain.dependencies {
+            // System back button in the demo
+            implementation(libs.androidx.activity.compose)
+        }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
