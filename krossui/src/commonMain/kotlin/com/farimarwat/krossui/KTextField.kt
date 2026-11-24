@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.TextUnit
  * @param maxLines The maximum number of visible lines.
  * @param keyboardType The keyboard shown while editing.
  * @param imeAction The action button shown on the keyboard.
- * @param contentPadding Space between the border and the text.
+ * @param contentPadding Space between the border and the text; `null` = platform default.
  * @param borderWidth The border width.
  * @param cornerRadius The corner radius.
  * @param colors The field colors. See [KTextFieldDefaults.colors].
@@ -39,7 +39,7 @@ public expect fun KTextField(
     maxLines: Int = 1,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Default,
-    contentPadding: PaddingValues = KTextFieldDefaults.ContentPadding,
+    contentPadding: PaddingValues? = null,
     borderWidth: Dp = KTextFieldDefaults.BorderWidth,
     cornerRadius: Dp = KTextFieldDefaults.CornerRadius,
     colors: KTextFieldColors = KTextFieldDefaults.colors()

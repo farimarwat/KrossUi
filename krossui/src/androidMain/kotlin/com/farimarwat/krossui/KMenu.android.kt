@@ -1,21 +1,20 @@
 package com.farimarwat.krossui
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.takeOrElse
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -29,46 +28,41 @@ public actual fun KMenu(
     androidIcon: DrawableResource?,
     colors: KMenuColors
 ) {
-    var showMenu by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
         if (androidIcon != null) {
-            IconButton(
-                onClick = {
-                    showMenu = !showMenu
-                }
-            ) {
-                Icon(
-                    modifier = Modifier.size(24.dp),
-                    painter = painterResource(androidIcon),
-                    contentDescription = ""
-                )
+            IconButton(onClick = { expanded = true }) {
+                Icon(painter = painterResource(androidIcon), contentDescription = title.ifBlank { null })
             }
         } else {
-            Button(
-                onClick = { showMenu = !showMenu }
-            ) {
+            TextButton(onClick = { expanded = true }) {
                 Text(title)
             }
         }
 
-        // Menu
         DropdownMenu(
-            expanded = showMenu,
-            onDismissRequest = { showMenu = false }
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            containerColor = colors.containerColor.takeOrElse { MenuDefaults.containerColor }
         ) {
+            val itemColors = MenuDefaults.itemColors(
+                textColor = colors.contentColor,
+                leadingIconColor = colors.contentColor,
+                disabledTextColor = colors.disabledContentColor,
+                disabledLeadingIconColor = colors.disabledContentColor
+            )
             items.forEach { item ->
                 DropdownMenuItem(
+                    text = { Text(item.title) },
                     onClick = {
+                        expanded = false
                         onItemClick(item)
-                        showMenu = false
                     },
                     enabled = item.enabled,
-                    text = { Text(item.title, color = colors.contentColor) },
-                    leadingIcon = item.androidIcon?.let {
-                        {
-                            Icon(painter = painterResource(it), contentDescription = null)
-                        }
-                    }
+                    leadingIcon = item.androidIcon?.let { icon ->
+                        { Icon(painter = painterResource(icon), contentDescription = null) }
+                    },
+                    colors = itemColors
                 )
             }
         }

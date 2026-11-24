@@ -1,40 +1,28 @@
 package com.farimarwat.krossui
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 
 /**
- * Provides default configuration values for [KTextField], including colors, border width, and padding.
+ * Default values used by [KTextField].
+ *
+ * Every default is unspecified: the platform draws its native look (Material theme on Android,
+ * system appearance on iOS). Pass a value only to override it.
  */
 public object KTextFieldDefaults {
-
-    /**
-     * Returns a [KTextFieldColors] instance with color values for all supported states.
-     *
-     * @param textColor Color of the input text when enabled.
-     * @param unfocusedBackgroundColor Background color when not focused.
-     * @param focusedBackgroundColor Background color when focused.
-     * @param placeholderColor Color of the placeholder text.
-     * @param unfocusedBorderColor Border color when not focused.
-     * @param focusedBorderColor Border color when focused.
-     * @param disabledTextColor Text color when disabled.
-     * @param disabledBorderColor Border color when disabled.
-     * @param readOnlyTextColor Text color when the field is read-only.
-     */
+    /** Returns [KTextFieldColors]. Unspecified colors use the platform default. */
     @Composable
     public fun colors(
-        textColor: Color = Color.Black,
-        unfocusedBackgroundColor: Color = Color.White,
-        focusedBackgroundColor: Color = Color.White,
-        placeholderColor: Color = Color.Gray,
-        unfocusedBorderColor: Color = Color.LightGray,
-        focusedBorderColor: Color = PlatformColors.systemBlue,
-        disabledTextColor: Color = Color.Gray,
-        disabledBorderColor: Color = Color.Gray,
-        readOnlyTextColor: Color = Color.DarkGray
+        textColor: Color = Color.Unspecified,
+        unfocusedBackgroundColor: Color = Color.Unspecified,
+        focusedBackgroundColor: Color = Color.Unspecified,
+        placeholderColor: Color = Color.Unspecified,
+        unfocusedBorderColor: Color = Color.Unspecified,
+        focusedBorderColor: Color = Color.Unspecified,
+        disabledTextColor: Color = Color.Unspecified,
+        disabledBorderColor: Color = Color.Unspecified,
+        readOnlyTextColor: Color = Color.Unspecified
     ): KTextFieldColors = KTextFieldColors(
         textColor = textColor,
         unfocusedBackgroundColor = unfocusedBackgroundColor,
@@ -47,12 +35,9 @@ public object KTextFieldDefaults {
         readOnlyTextColor = readOnlyTextColor
     )
 
-    /** Default border width. */
-    public val BorderWidth: Dp = 1.dp
+    /** Border width; unspecified = platform default. */
+    public val BorderWidth: Dp = Dp.Unspecified
 
-    /** Default corner radius. */
-    public val CornerRadius: Dp = 8.dp
-
-    /** Default padding between the border and the text. */
-    public val ContentPadding: PaddingValues = PaddingValues(12.dp)
+    /** Corner radius; unspecified = platform default shape. */
+    public val CornerRadius: Dp = Dp.Unspecified
 }

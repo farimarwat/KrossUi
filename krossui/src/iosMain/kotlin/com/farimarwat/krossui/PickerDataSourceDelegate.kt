@@ -1,14 +1,16 @@
 package com.farimarwat.krossui
 
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCSignatureOverride
 import platform.Foundation.NSAttributedString
 import platform.Foundation.create
 import platform.UIKit.NSForegroundColorAttributeName
+import platform.UIKit.UIColor
 import platform.UIKit.UIPickerView
 import platform.UIKit.UIPickerViewDataSourceProtocol
 import platform.UIKit.UIPickerViewDelegateProtocol
+import platform.UIKit.labelColor
 import platform.darwin.NSObject
 
 /**
@@ -40,7 +42,7 @@ internal class PickerDataSourceDelegate(
         return NSAttributedString.create(
             string = title,
             attributes = mapOf<Any?, Any?>(
-                NSForegroundColorAttributeName to colors.contentColor.toUiColor()
+                NSForegroundColorAttributeName to (colors.contentColor.toUiColorOrNull() ?: UIColor.labelColor)
             )
         )
     }

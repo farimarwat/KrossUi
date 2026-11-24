@@ -37,14 +37,14 @@ Keep the existing component pattern: `expect fun` + `KXxxColors` + `KXxxDefaults
 - [x] Update demo app to the new API.
 - **Done when:** demo uses only new API; old API compiles with deprecation warnings.
 
-### Step 3 · Theming (`KrossTheme`)
-- [ ] `KrossTheme { }` providing `KrossColors`, `KrossTypography`, `KrossShapes` via `CompositionLocal`.
-- [ ] Light + dark schemes; follow system dark mode by default.
-- [ ] iOS: resolve semantic UIKit colors (`labelColor`, `systemBackgroundColor`, …) per trait collection; replace hard-coded `PlatformColors`.
-- [ ] Android: Material You dynamic color (API 31+) opt-in.
-- [ ] `KXxxDefaults.colors()` become `@Composable` and read from the theme.
-- [ ] `toUiColor()` handles color spaces correctly.
-- **Done when:** demo switches light/dark live on both platforms with no hard-coded colors.
+### Step 3 · Native-first defaults (replaces the planned `KrossTheme`)
+- [x] Every default (colors, font size, corner radius, border width, size, padding) is *unspecified* = platform default.
+- [x] Android: unspecified values resolve from the app's `MaterialTheme` (dark mode, Material You, brand colors).
+- [x] iOS: unspecified values keep UIKit's system appearance (dark mode, tint, Liquid Glass); buttons use native
+      configurations (glass on 26+, filled/bordered on 15–25, classic on 14).
+- [x] Android `KTextField` is Material 3's outlined text field.
+- [x] `toUiColor()` converts to sRGB.
+- **Done:** demo has no hard-coded colors and follows light/dark on both platforms (verified iOS 26, iOS 18, Android).
 
 ### Step 4 · Native sizing & interop
 - [ ] Shared iOS helper: measure UIKit views with `sizeThatFits` inside a custom `Layout` (respects min/max constraints).

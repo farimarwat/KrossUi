@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
 import org.jetbrains.compose.resources.DrawableResource
@@ -40,7 +40,7 @@ public actual fun KMenu(
                 setTitle("", forState = UIControlStateNormal)
             } else {
                 setTitle(title, forState = UIControlStateNormal)
-                setTitleColor(colors.contentColor.toUiColor(), UIControlStateNormal)
+                setTitleColor(colors.contentColor.toUiColorOrNull(), UIControlStateNormal)
             }
         }
     }
@@ -91,7 +91,7 @@ public actual fun KMenu(
             it.menu = updatedMenu
 
             // Update colors
-            it.setTitleColor(colors.contentColor.toUiColor(), UIControlStateNormal)
+            it.setTitleColor(colors.contentColor.toUiColorOrNull(), UIControlStateNormal)
         }
     )
 }

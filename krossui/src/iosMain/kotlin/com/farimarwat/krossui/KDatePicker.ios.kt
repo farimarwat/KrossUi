@@ -19,6 +19,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import androidx.compose.ui.window.Dialog
@@ -26,7 +27,8 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.farimarwat.krossui.utils.NativeInteropProperties
 import com.farimarwat.krossui.utils.isIosAtLeast
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.resolvedForCompose
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSDate
@@ -41,7 +43,9 @@ import platform.UIKit.UIDatePicker
 import platform.UIKit.UIDatePickerMode
 import platform.UIKit.UIDatePickerStyle
 import platform.UIKit.UIDevice
+import platform.UIKit.secondarySystemBackgroundColor
 import platform.UIKit.systemBackgroundColor
+import platform.UIKit.systemBlueColor
 import platform.darwin.NSObject
 @OptIn(ExperimentalForeignApi::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -80,7 +84,7 @@ public actual fun KDatePicker(
                 setDate(nsDate, animated = true)
 
                 locale = NSLocale.currentLocale
-                backgroundColor = colors.containerColor.toUiColor()
+                backgroundColor = colors.containerColor.toUiColorOrNull() ?: UIColor.systemBackgroundColor
                 addTarget(
                     target = target,
                     action = NSSelectorFromString("dateChanged:"),
@@ -88,6 +92,12 @@ public actual fun KDatePicker(
                 )
             }
         }
+        // Compose-drawn parts follow the iOS system colors (light/dark) unless a color is given
+        val containerColor = colors.containerColor.takeOrElse { UIColor.systemBackgroundColor.resolvedForCompose() }
+        val footerContainerColor =
+            colors.footerContainerColor.takeOrElse { UIColor.secondarySystemBackgroundColor.resolvedForCompose() }
+        val footerContentColor = colors.footerContentColor.takeOrElse { UIColor.systemBlueColor.resolvedForCompose() }
+
         Popup(
             onDismissRequest = onDismiss,
             alignment = Alignment.Center,
@@ -108,9 +118,10 @@ public actual fun KDatePicker(
                     modifier = Modifier
                         .height(260.dp)
                         .fillMaxWidth()
-                        .background(colors.containerColor),
+                        .background(containerColor),
                     update = { picker ->
-                        picker.backgroundColor = colors.containerColor.toUiColor()
+                        picker.backgroundColor =
+                            colors.containerColor.toUiColorOrNull() ?: UIColor.systemBackgroundColor
                         // Sync the wheel only when the state differs (e.g. a new initialDate)
                         val pickerDate = (picker.date.timeIntervalSince1970 * 1000).toLong()
                         if (kotlin.math.abs(pickerDate - currentDate) >= 1000) {
@@ -124,7 +135,7 @@ public actual fun KDatePicker(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(colors.footerContainerColor),
+                        .background(footerContainerColor),
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(onClick = {
@@ -132,7 +143,7 @@ public actual fun KDatePicker(
                     }) {
                         Text(
                             text = "Cancel",
-                            color = colors.footerContentColor
+                            color = footerContentColor
                         )
                     }
                     TextButton(onClick = {
@@ -140,7 +151,7 @@ public actual fun KDatePicker(
                     }) {
                         Text(
                             text = "Done",
-                            color = colors.footerContentColor
+                            color = footerContentColor
                         )
                     }
                 }

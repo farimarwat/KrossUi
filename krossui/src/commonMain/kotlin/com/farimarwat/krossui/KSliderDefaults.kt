@@ -3,27 +3,20 @@ package com.farimarwat.krossui
 import androidx.compose.ui.graphics.Color
 
 /**
- * Contains default values and helper functions for configuring the [KSlider].
+ * Default values used by [KSlider].
+ *
+ * Every default is unspecified: the platform draws its native look (Material theme on Android,
+ * system appearance on iOS). Pass a value only to override it.
  */
 public object KSliderDefaults {
-
-    /**
-     * Returns a [KSliderColors] instance with provided or default color values.
-     *
-     * @param activeTrackColor Color of the filled track when enabled.
-     * @param inactiveTrackColor Color of the unfilled track when enabled.
-     * @param thumbColor Color of the thumb when enabled.
-     * @param disabledActiveTrackColor Color of the filled track when disabled.
-     * @param disabledInactiveTrackColor Color of the unfilled track when disabled.
-     * @param disabledThumbColor Color of the thumb when disabled.
-     */
+    /** Returns [KSliderColors]. Unspecified colors use the platform default. */
     public fun colors(
-        activeTrackColor: Color = PlatformColors.systemBlue,
-        inactiveTrackColor: Color = PlatformColors.systemGray,
-        thumbColor: Color = Color.White,
-        disabledActiveTrackColor: Color = activeTrackColor.copy(alpha = 0.3f),
-        disabledInactiveTrackColor: Color = inactiveTrackColor.copy(alpha = 0.3f),
-        disabledThumbColor: Color = thumbColor.copy(alpha = 0.3f)
+        activeTrackColor: Color = Color.Unspecified,
+        inactiveTrackColor: Color = Color.Unspecified,
+        thumbColor: Color = Color.Unspecified,
+        disabledActiveTrackColor: Color = Color.Unspecified,
+        disabledInactiveTrackColor: Color = Color.Unspecified,
+        disabledThumbColor: Color = Color.Unspecified
     ): KSliderColors = KSliderColors(
         activeTrackColor = activeTrackColor,
         inactiveTrackColor = inactiveTrackColor,

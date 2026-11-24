@@ -9,25 +9,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
-import com.farimarwat.krossui.utils.GlassStyle
+import com.farimarwat.krossui.utils.ButtonKind
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.applyGlassConfiguration
-import com.farimarwat.krossui.utils.isLiquidGlassEnabled
-import com.farimarwat.krossui.utils.toUiColor
-import kotlin.math.max
-import kotlinx.cinterop.BetaInteropApi
-import kotlinx.cinterop.ExperimentalForeignApi
+import com.farimarwat.krossui.utils.applyNativeStyle
+import com.farimarwat.krossui.utils.nativeButtonMinSize
+import com.farimarwat.krossui.utils.orIfDisabled
 import kotlinx.cinterop.ObjCAction
-import kotlinx.cinterop.useContents
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.UIButton
 import platform.UIKit.UIButtonTypeSystem
 import platform.UIKit.UIControlEventTouchUpInside
-import platform.UIKit.UIControlStateNormal
-import platform.UIKit.UIFont
 import platform.darwin.NSObject
 
-@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
 public actual fun KButton(
     text: String,
@@ -49,73 +42,33 @@ public actual fun KButton(
         }
     }
 
-    // Measure a button styled exactly like the real one
-    val minSize = remember(text, fontSize) {
-        UIButton.buttonWithType(UIButtonTypeSystem).apply {
-            style(text, colors, fontSize, cornerRadius.value.toDouble(), isEnabled = true)
-        }.intrinsicContentSize.useContents {
-            if (isLiquidGlassEnabled) {
-                // Glass configuration already includes its own content insets
-                max(width, 44.0) to max(height, 44.0)
-            } else {
-                max(width + 32, 44.0) to max(height + 16, 44.0)
-            }
-        }
+    // Filled (iOS 15–25) or prominent glass (iOS 26+); unspecified values keep the system look
+    val style: UIButton.() -> Unit = {
+        applyNativeStyle(
+            kind = ButtonKind.Filled,
+            title = text,
+            image = null,
+            fontSize = fontSize,
+            containerColor = colors.containerColor.orIfDisabled(enabled, colors.disabledContainerColor),
+            contentColor = colors.contentColor.orIfDisabled(enabled, colors.disabledContentColor),
+            cornerRadius = cornerRadius
+        )
     }
+    val minSize = remember(text, fontSize) { nativeButtonMinSize(style) }
 
     val button = remember {
         UIButton.buttonWithType(UIButtonTypeSystem).apply {
-            addTarget(
-                target = target,
-                action = NSSelectorFromString("buttonTapped"),
-                forControlEvents = UIControlEventTouchUpInside
-            )
+            addTarget(target, NSSelectorFromString("buttonTapped"), UIControlEventTouchUpInside)
         }
     }
 
     UIKitView(
         factory = { button },
         update = { view ->
-            view.style(text, colors, fontSize, cornerRadius.value.toDouble(), enabled)
+            view.style()
             view.enabled = enabled
         },
-        modifier = modifier
-            .defaultMinSize(minWidth = minSize.first.dp, minHeight = minSize.second.dp),
+        modifier = modifier.defaultMinSize(minWidth = minSize.first.dp, minHeight = minSize.second.dp),
         properties = NativeInteropProperties
     )
-}
-
-/** iOS 26+: prominent Liquid Glass tinted with the container color. Earlier iOS: filled button. */
-@OptIn(ExperimentalForeignApi::class)
-private fun UIButton.style(
-    text: String,
-    colors: KButtonColors,
-    fontSize: TextUnit,
-    cornerRadius: Double,
-    isEnabled: Boolean
-) {
-    if (isLiquidGlassEnabled) {
-        // Glass handles its own capsule shape and disabled appearance
-        applyGlassConfiguration(
-            style = GlassStyle.Prominent,
-            title = text,
-            image = null,
-            fontSize = fontSize,
-            tint = colors.containerColor,
-            foreground = colors.contentColor
-        )
-        return
-    }
-
-    setTitle(text, forState = UIControlStateNormal)
-    setTitleColor(
-        color = (if (isEnabled) colors.contentColor else colors.disabledContentColor).toUiColor(),
-        forState = UIControlStateNormal
-    )
-    backgroundColor = (if (isEnabled) colors.containerColor else colors.disabledContainerColor).toUiColor()
-    if (fontSize != TextUnit.Unspecified) {
-        titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
-    }
-    layer.cornerRadius = cornerRadius
-    clipsToBounds = true
 }

@@ -4,10 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +23,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,13 +32,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.farimarwat.krossui.KButton
 import com.farimarwat.krossui.KDatePicker
-import com.farimarwat.krossui.KDatePickerDefaults
 import com.farimarwat.krossui.KDialog
 import com.farimarwat.krossui.KIconButton
 import com.farimarwat.krossui.KMenu
@@ -47,11 +47,8 @@ import com.farimarwat.krossui.KProgressIndicator
 import com.farimarwat.krossui.KSlider
 import com.farimarwat.krossui.KSwitch
 import com.farimarwat.krossui.KTabBar
-import com.farimarwat.krossui.KTabBarDefaults
 import com.farimarwat.krossui.KTabItem
 import com.farimarwat.krossui.KTextField
-import com.farimarwat.krossui.KTextFieldDefaults
-import com.farimarwat.krossui.PlatformColors
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -67,7 +64,8 @@ import krossuidemo.composeapp.generated.resources.ic_star
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    // Follow the system light/dark setting; KrossUI components pick up this theme on Android
+    MaterialTheme(colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
         var showDialog by remember { mutableStateOf(false) }
         var selectedTab by remember { mutableStateOf(1) }
         val list = listOf(
@@ -95,17 +93,13 @@ fun App() {
                     onTabClick = {
                         selectedTab = it
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = KTabBarDefaults.colors(
-                        selectedContentColor = PlatformColors.systemRed,
-                        unselectedContentColor = PlatformColors.systemGray
-                    )
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         ) { paddingValues ->
             Column(
                 modifier = Modifier
-                    .background(PlatformColors.systemBackground)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(8.dp)
                     .fillMaxSize()
                     .padding(paddingValues)
@@ -116,18 +110,10 @@ fun App() {
                 var textValue by remember { mutableStateOf("") }
                 var switch by remember { mutableStateOf(true) }
                 KTextField(
-                    modifier = Modifier.fillMaxWidth(),
                     value = textValue,
-                    cornerRadius = 8.dp,
-                    borderWidth = 1.dp,
-                    onValueChange = {
-                        textValue = it
-                        println(it)
-                    },
-                    contentPadding = PaddingValues(horizontal = 12.dp),
-                    colors = KTextFieldDefaults.colors(
-                        focusedBackgroundColor = Color.LightGray
-                    )
+                    onValueChange = { textValue = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = "Type something"
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -148,7 +134,6 @@ fun App() {
                         modifier = Modifier
                             .weight(0.5f),
                         text = "Help Me",
-                        borderWidth = 2.dp,
                         onClick = {
                             println("Working")
                         }
@@ -300,9 +285,6 @@ fun App() {
                 KDatePicker(
                     show = showDatePicker,
                     initialDate = Clock.System.now().toEpochMilliseconds(),
-                    colors = KDatePickerDefaults.colors(
-                        containerColor = PlatformColors.systemBackground
-                    ),
                     onDismiss = {
                         showDatePicker = false
                     },

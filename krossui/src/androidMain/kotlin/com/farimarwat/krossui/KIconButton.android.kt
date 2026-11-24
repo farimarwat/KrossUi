@@ -1,6 +1,5 @@
 package com.farimarwat.krossui
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -10,11 +9,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isSpecified
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -30,40 +28,33 @@ public actual fun KIconButton(
     fontSize: TextUnit,
     cornerRadius: Dp
 ) {
-    // Always use Button for consistency and proper icon+text support
+    val hasTitle = !title.isNullOrBlank()
     Button(
         onClick = onClick,
-        enabled = enabled,
         modifier = modifier,
-        shape = RoundedCornerShape(cornerRadius),
+        enabled = enabled,
+        shape = if (cornerRadius.isSpecified) RoundedCornerShape(cornerRadius) else ButtonDefaults.shape,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (enabled) colors.containerColor else colors.disabledContainerColor,
-            contentColor = if (enabled) colors.contentColor else colors.disabledContentColor,
+            containerColor = colors.containerColor,
+            contentColor = colors.contentColor,
             disabledContainerColor = colors.disabledContainerColor,
             disabledContentColor = colors.disabledContentColor
-        )
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            // Show icon if provided
-            androidIcon?.let {
-                Icon(
-                    painter = painterResource(it),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                // Add spacing only if we also have text
-                if (!title.isNullOrBlank()) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
-            }
-
-            // Show text if provided
-            if (!title.isNullOrBlank()) {
-                Text(
-                    text = title,
-                    fontSize = fontSize
-                )
-            }
+        ),
+        // Material's layout for buttons with a leading icon
+        contentPadding = if (androidIcon != null && hasTitle) {
+            ButtonDefaults.ButtonWithIconContentPadding
+        } else {
+            ButtonDefaults.ContentPadding
         }
+    ) {
+        androidIcon?.let {
+            Icon(
+                painter = painterResource(it),
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize)
+            )
+            if (hasTitle) Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+        }
+        if (hasTitle) Text(text = title, fontSize = fontSize)
     }
 }

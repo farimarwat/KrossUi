@@ -3,22 +3,17 @@ package com.farimarwat.krossui
 import androidx.compose.ui.graphics.Color
 
 /**
- * Provides default color values for [KTabBar].
+ * Default values used by [KTabBar].
+ *
+ * Every default is unspecified: the platform draws its native look (Material theme on Android,
+ * system appearance on iOS). Pass a value only to override it.
  */
 public object KTabBarDefaults {
-
-    /**
-     * Returns a default [KTabBarColors] instance with optional overrides.
-     *
-     * @param containerColor The background color of the tab bar.
-     * @param selectedContentColor The color of the selected tab's icon and text.
-     * @param unselectedContentColor The color of the unselected tabs' icon and text.
-     * @return A configured [KTabBarColors] instance.
-     */
+    /** Returns [KTabBarColors]. Unspecified colors use the platform default. */
     public fun colors(
-        containerColor: Color = PlatformColors.systemBackground,
-        selectedContentColor: Color = PlatformColors.systemBlue,
-        unselectedContentColor: Color = PlatformColors.systemGray
+        containerColor: Color = Color.Unspecified,
+        selectedContentColor: Color = Color.Unspecified,
+        unselectedContentColor: Color = Color.Unspecified
     ): KTabBarColors = KTabBarColors(
         containerColor = containerColor,
         selectedContentColor = selectedContentColor,

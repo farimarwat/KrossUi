@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.NSSelectorFromString
@@ -48,9 +48,9 @@ public actual fun KSlider(
                 maximumValue = maxValue
                 this.value = value
 
-                minimumTrackTintColor = colors.activeTrackColor.toUiColor()
-                maximumTrackTintColor = colors.inactiveTrackColor.toUiColor()
-                thumbTintColor = colors.thumbColor.toUiColor()
+                minimumTrackTintColor = colors.activeTrackColor.toUiColorOrNull()
+                maximumTrackTintColor = colors.inactiveTrackColor.toUiColorOrNull()
+                thumbTintColor = colors.thumbColor.toUiColorOrNull()
 
                 // Add target for value changed events
                 addTarget(
@@ -71,9 +71,9 @@ public actual fun KSlider(
             }
 
             // Update colors if they change
-            slider.minimumTrackTintColor = colors.activeTrackColor.toUiColor()
-            slider.maximumTrackTintColor = colors.inactiveTrackColor.toUiColor()
-            slider.thumbTintColor = colors.thumbColor.toUiColor()
+            slider.minimumTrackTintColor = colors.activeTrackColor.toUiColorOrNull()
+            slider.maximumTrackTintColor = colors.inactiveTrackColor.toUiColorOrNull()
+            slider.thumbTintColor = colors.thumbColor.toUiColorOrNull()
 
             // Update range if it changes
             slider.minimumValue = minValue

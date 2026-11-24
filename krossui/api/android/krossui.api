@@ -1,3 +1,10 @@
+public final class com/farimarwat/krossui/ComposableSingletons$KDatePicker_androidKt {
+	public static final field INSTANCE Lcom/farimarwat/krossui/ComposableSingletons$KDatePicker_androidKt;
+	public fun <init> ()V
+	public final fun getLambda$-1194955567$KrossUiDemo_krossui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-296747110$KrossUiDemo_krossui ()Lkotlin/jvm/functions/Function3;
+}
+
 public final class com/farimarwat/krossui/KButtonColors {
 	public static final field $stable I
 	public synthetic fun <init> (JJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -194,7 +201,7 @@ public final class com/farimarwat/krossui/KPickerColors {
 public final class com/farimarwat/krossui/KPickerDefaults {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/farimarwat/krossui/KPickerDefaults;
-	public final fun colors (Landroidx/compose/runtime/Composer;I)Lcom/farimarwat/krossui/KPickerColors;
+	public final fun colors-ro_MJ88 (JJJJLandroidx/compose/runtime/Composer;II)Lcom/farimarwat/krossui/KPickerColors;
 }
 
 public final class com/farimarwat/krossui/KPicker_androidKt {
@@ -361,7 +368,6 @@ public final class com/farimarwat/krossui/KTextFieldDefaults {
 	public static final field INSTANCE Lcom/farimarwat/krossui/KTextFieldDefaults;
 	public final fun colors-J08w3-E (JJJJJJJJJLandroidx/compose/runtime/Composer;II)Lcom/farimarwat/krossui/KTextFieldColors;
 	public final fun getBorderWidth-D9Ej5fM ()F
-	public final fun getContentPadding ()Landroidx/compose/foundation/layout/PaddingValues;
 	public final fun getCornerRadius-D9Ej5fM ()F
 }
 

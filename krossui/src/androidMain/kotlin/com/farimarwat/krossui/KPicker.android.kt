@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
@@ -34,9 +36,12 @@ public actual fun KPicker(
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var selectedIndex by remember { mutableStateOf(0) }
+    // Unspecified colors follow the app's MaterialTheme
+    val selectedColor = colors.contentColor.takeOrElse { MaterialTheme.colorScheme.primary }
+    val otherColor = colors.disabledContentColor.takeOrElse { MaterialTheme.colorScheme.onSurfaceVariant }
 
     Box(
-        modifier = modifier.height(150.dp).background(colors.containerColor),
+        modifier = modifier.height(150.dp).background(colors.containerColor.takeOrElse { Color.Transparent }),
         contentAlignment = Alignment.Center
     ) {
         LazyColumn(
@@ -47,7 +52,7 @@ public actual fun KPicker(
             itemsIndexed(items) { index, item ->
                 Text(
                     text = item,
-                    color = if (index == selectedIndex) colors.contentColor else colors.disabledContentColor,
+                    color = if (index == selectedIndex) selectedColor else otherColor,
                     fontSize = if (index == selectedIndex) 20.sp else 16.sp,
                     modifier = Modifier.padding(vertical = 12.dp).clickable {
                         selectedIndex = index
@@ -63,7 +68,7 @@ public actual fun KPicker(
         // Optional: Visual selection overlay (center line)
         Box(
             Modifier.align(Alignment.Center).fillMaxWidth().height(1.dp)
-                .background(colors.contentColor.copy(alpha = 0.2f))
+                .background(selectedColor.copy(alpha = 0.2f))
         )
     }
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIImage
 import platform.UIKit.UITabBar
@@ -71,9 +71,10 @@ public actual fun KTabBar(
         },
         update = { view ->
             // Apply colors on every recomposition so changes take effect
-            view.barTintColor = colors.containerColor.toUiColor()
-            view.tintColor = colors.selectedContentColor.toUiColor()
-            view.unselectedItemTintColor = colors.unselectedContentColor.toUiColor()
+            view.barTintColor = colors.containerColor.toUiColorOrNull()
+            // tintColor cannot be reset to null from Kotlin; set it only when a color is given
+            colors.selectedContentColor.toUiColorOrNull()?.let { view.tintColor = it }
+            view.unselectedItemTintColor = colors.unselectedContentColor.toUiColorOrNull()
         },
         modifier = modifier
             .wrapContentHeight()

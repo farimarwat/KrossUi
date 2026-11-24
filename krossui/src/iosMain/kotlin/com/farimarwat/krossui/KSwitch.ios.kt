@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import kotlinx.cinterop.useContents
@@ -60,12 +60,10 @@ public actual fun KSwitch(
                 // Update switch state
                 on = checked
                 this.enabled = enabled
-                onTintColor = colors.trackColorChecked.toUiColor()
-                tintColor = colors.trackColorUnchecked.toUiColor()
-                thumbTintColor = colors.thumbColor.toUiColor()
-
-                // Alpha for disabled state
-                alpha = if (enabled) 1.0 else 0.5
+                onTintColor = colors.trackColorChecked.toUiColorOrNull()
+                // tintColor cannot be reset to null from Kotlin; set it only when a color is given
+                colors.trackColorUnchecked.toUiColorOrNull()?.let { tintColor = it }
+                thumbTintColor = colors.thumbColor.toUiColorOrNull()
             }
         },
         modifier = modifier

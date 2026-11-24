@@ -9,28 +9,20 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
-import com.farimarwat.krossui.utils.GlassStyle
+import com.farimarwat.krossui.utils.ButtonKind
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.applyGlassConfiguration
-import com.farimarwat.krossui.utils.isLiquidGlassEnabled
-import com.farimarwat.krossui.utils.toUiColor
-import kotlin.math.max
-import kotlinx.cinterop.BetaInteropApi
-import kotlinx.cinterop.ExperimentalForeignApi
+import com.farimarwat.krossui.utils.applyNativeStyle
+import com.farimarwat.krossui.utils.nativeButtonMinSize
+import com.farimarwat.krossui.utils.orIfDisabled
 import kotlinx.cinterop.ObjCAction
-import kotlinx.cinterop.useContents
 import org.jetbrains.compose.resources.DrawableResource
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.UIButton
 import platform.UIKit.UIButtonTypeSystem
 import platform.UIKit.UIControlEventTouchUpInside
-import platform.UIKit.UIControlStateNormal
-import platform.UIKit.UIFont
 import platform.UIKit.UIImage
-import platform.UIKit.UIViewContentMode
 import platform.darwin.NSObject
 
-@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 @Composable
 public actual fun KIconButton(
     onClick: () -> Unit,
@@ -38,7 +30,7 @@ public actual fun KIconButton(
     enabled: Boolean,
     title: String?,
     iosIcon: String?,
-    androidIcon: DrawableResource?,
+    androidIcon: DrawableResource?, // Ignored on iOS
     colors: KIconButtonColors,
     fontSize: TextUnit,
     cornerRadius: Dp
@@ -54,78 +46,33 @@ public actual fun KIconButton(
         }
     }
 
-    // Measure a button styled exactly like the real one
-    val minSize = remember(title, iosIcon, fontSize) {
-        UIButton.buttonWithType(UIButtonTypeSystem).apply {
-            style(title, iosIcon, colors, fontSize, cornerRadius.value.toDouble(), isEnabled = true)
-        }.intrinsicContentSize.useContents {
-            if (isLiquidGlassEnabled || title.isNullOrBlank()) {
-                max(width, 44.0) to max(height, 44.0)
-            } else {
-                max(width + 32, 44.0) to max(height + 16, 44.0)
-            }
-        }
+    // Filled (iOS 15–25) or prominent glass (iOS 26+) with an SF Symbol; unspecified values keep the system look
+    val style: UIButton.() -> Unit = {
+        applyNativeStyle(
+            kind = ButtonKind.Filled,
+            title = title?.takeIf { it.isNotBlank() },
+            image = iosIcon?.takeIf { it.isNotBlank() }?.let { UIImage.systemImageNamed(it) },
+            fontSize = fontSize,
+            containerColor = colors.containerColor.orIfDisabled(enabled, colors.disabledContainerColor),
+            contentColor = colors.contentColor.orIfDisabled(enabled, colors.disabledContentColor),
+            cornerRadius = cornerRadius
+        )
     }
+    val minSize = remember(title, iosIcon, fontSize) { nativeButtonMinSize(style) }
 
     val button = remember {
         UIButton.buttonWithType(UIButtonTypeSystem).apply {
-            addTarget(
-                target = target,
-                action = NSSelectorFromString("buttonTapped"),
-                forControlEvents = UIControlEventTouchUpInside
-            )
+            addTarget(target, NSSelectorFromString("buttonTapped"), UIControlEventTouchUpInside)
         }
     }
 
     UIKitView(
         factory = { button },
         update = { view ->
-            view.style(title, iosIcon, colors, fontSize, cornerRadius.value.toDouble(), enabled)
+            view.style()
             view.enabled = enabled
         },
-        modifier = modifier
-            .defaultMinSize(minWidth = minSize.first.dp, minHeight = minSize.second.dp),
+        modifier = modifier.defaultMinSize(minWidth = minSize.first.dp, minHeight = minSize.second.dp),
         properties = NativeInteropProperties
     )
-}
-
-/** iOS 26+: prominent Liquid Glass with SF Symbol and/or title. Earlier iOS: filled button. */
-@OptIn(ExperimentalForeignApi::class)
-private fun UIButton.style(
-    title: String?,
-    iosIcon: String?,
-    colors: KIconButtonColors,
-    fontSize: TextUnit,
-    cornerRadius: Double,
-    isEnabled: Boolean
-) {
-    val image = iosIcon?.takeIf { it.isNotBlank() }?.let { UIImage.systemImageNamed(it) }
-    val text = title?.takeIf { it.isNotBlank() }
-
-    if (isLiquidGlassEnabled) {
-        applyGlassConfiguration(
-            style = GlassStyle.Prominent,
-            title = text,
-            image = image,
-            fontSize = fontSize,
-            tint = colors.containerColor,
-            foreground = colors.contentColor
-        )
-        return
-    }
-
-    val content = (if (isEnabled) colors.contentColor else colors.disabledContentColor).toUiColor()
-    backgroundColor = (if (isEnabled) colors.containerColor else colors.disabledContainerColor).toUiColor()
-    layer.cornerRadius = cornerRadius
-    clipsToBounds = true
-
-    setTitle(text, forState = UIControlStateNormal)
-    setTitleColor(content, forState = UIControlStateNormal)
-    if (fontSize != TextUnit.Unspecified) {
-        titleLabel?.font = UIFont.systemFontOfSize(fontSize.value.toDouble())
-    }
-
-    setImage(image, forState = UIControlStateNormal)
-    imageView?.contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
-    tintColor = content
 }

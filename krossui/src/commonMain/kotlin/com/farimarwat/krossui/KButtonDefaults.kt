@@ -3,18 +3,20 @@ package com.farimarwat.krossui
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
-/** Default values used by [KButton]. */
+/**
+ * Default values used by [KButton].
+ *
+ * Every default is unspecified: the platform draws its native look (Material theme on Android,
+ * system appearance on iOS). Pass a value only to override it.
+ */
 public object KButtonDefaults {
-
-    /** Returns [KButtonColors]; disabled colors default to the enabled ones at 30% alpha. */
+    /** Returns [KButtonColors]. Unspecified colors use the platform default. */
     public fun colors(
-        containerColor: Color = PlatformColors.systemBlue,
-        contentColor: Color = Color.White,
-        disabledContainerColor: Color = containerColor.copy(alpha = 0.3f),
-        disabledContentColor: Color = contentColor.copy(alpha = 0.3f)
+        containerColor: Color = Color.Unspecified,
+        contentColor: Color = Color.Unspecified,
+        disabledContainerColor: Color = Color.Unspecified,
+        disabledContentColor: Color = Color.Unspecified
     ): KButtonColors = KButtonColors(
         containerColor = containerColor,
         contentColor = contentColor,
@@ -22,9 +24,9 @@ public object KButtonDefaults {
         disabledContentColor = disabledContentColor
     )
 
-    /** Default label size. */
-    public val FontSize: TextUnit = 14.sp
+    /** Label size; unspecified = platform default. */
+    public val FontSize: TextUnit = TextUnit.Unspecified
 
-    /** Default corner radius. */
-    public val CornerRadius: Dp = 8.dp
+    /** Corner radius; unspecified = platform default shape. */
+    public val CornerRadius: Dp = Dp.Unspecified
 }

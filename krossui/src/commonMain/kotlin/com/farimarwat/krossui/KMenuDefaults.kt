@@ -4,22 +4,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 /**
- * Provides default values and factory methods for [KMenu] styling.
+ * Default values used by [KMenu].
+ *
+ * Every default is unspecified: the platform draws its native look (Material theme on Android,
+ * system appearance on iOS). Pass a value only to override it.
  */
 public object KMenuDefaults {
-
-    /**
-     * Returns a default [KMenuColors] instance with system-based colors.
-     *
-     * @param containerColor The menu's background color.
-     * @param contentColor The active content color (text/icon).
-     * @param disabledContentColor The color used for disabled menu items.
-     */
+    /** Returns [KMenuColors]. Unspecified colors use the platform default. */
     @Composable
     public fun colors(
-        containerColor: Color = PlatformColors.systemGray,
-        contentColor: Color = PlatformColors.label,
-        disabledContentColor: Color = contentColor.copy(alpha = 0.4f)
+        containerColor: Color = Color.Unspecified,
+        contentColor: Color = Color.Unspecified,
+        disabledContentColor: Color = Color.Unspecified
     ): KMenuColors = KMenuColors(
         containerColor = containerColor,
         contentColor = contentColor,

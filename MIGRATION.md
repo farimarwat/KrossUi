@@ -38,7 +38,7 @@ import com.farimarwat.krossui.PlatformColors
 | `padding: KPadding` (`KTextField`) | `contentPadding: PaddingValues` |
 | `KButtonDefaults.DefaultFontSize`, `KOutLinedButtonDefaults.DefaultFontSize` | `…Defaults.FontSize` |
 | `KProgressIndicatorDefaults.DefaultSize` | `KProgressIndicatorDefaults.Size` |
-| `KTextFieldDefaults.Padding` | `KTextFieldDefaults.ContentPadding` |
+| `KTextFieldDefaults.Padding` | `KTextField(contentPadding = …)`; `null` (default) = platform padding |
 
 ## 3. Sizes are `Dp`
 
@@ -63,7 +63,21 @@ KTabBar(Modifier.fillMaxWidth(), tabs, selected, onTabClick = { selected = it })
 KTabBar(tabs, selected, onTabClick = { selected = it }, modifier = Modifier.fillMaxWidth())
 ```
 
-## 5. Other changes
+## 5. Native look by default
+
+All defaults are now **unspecified**, which means "use the platform's native look":
+
+- **Android** components take their colors, shapes and text sizes from your app's `MaterialTheme`
+  (including dark mode and Material You). Without a theme you get Material's baseline colors.
+- **iOS** components keep UIKit's system appearance: dark mode, the app tint color, Dynamic Type sizes,
+  and Liquid Glass on iOS 26.
+- `KTextField` on Android is now Material 3's outlined text field.
+
+Pass a value only where you want to override the native look, e.g.
+`KButtonDefaults.colors(containerColor = Color.Red)` or `cornerRadius = 12.dp`.
+The deprecated 1.x `…Defaults` objects keep their old fixed values, so 1.x code looks the same until migrated.
+
+## 6. Other changes
 
 - `KSlider`: `value` and `onValueChange` are now required.
 - `KProgressIndicator` now accepts a `modifier`.
@@ -71,6 +85,9 @@ KTabBar(tabs, selected, onTabClick = { selected = it }, modifier = Modifier.fill
 - `KMenu` on Android applies `modifier` to the menu button (it was applied to the dropdown).
 - `KIconButtonDefaults.colors()` now accepts color parameters like the other components.
 - All `*Colors` classes are `@Immutable`.
+- `KSwitch` on Android no longer stretches to full width; size it with `modifier` if needed.
+- `KDatePicker` on Android now opens at `initialDate` (it was ignored before).
+- `KMenu` on Android shows a text button (not a filled button) when no icon is given, as Material menus do.
 
 ## What the compatibility layer does not cover
 

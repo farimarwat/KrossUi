@@ -2,11 +2,13 @@ package com.farimarwat.krossui
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.takeOrElse
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -18,25 +20,22 @@ public actual fun KTabBar(
     colors: KTabBarColors
 ) {
     NavigationBar(
-        modifier = modifier
+        modifier = modifier,
+        containerColor = colors.containerColor.takeOrElse { NavigationBarDefaults.containerColor }
     ) {
+        val itemColors = NavigationBarItemDefaults.colors(
+            selectedIconColor = colors.selectedContentColor,
+            selectedTextColor = colors.selectedContentColor,
+            unselectedIconColor = colors.unselectedContentColor,
+            unselectedTextColor = colors.unselectedContentColor
+        )
         tabs.forEachIndexed { index, tab ->
             NavigationBarItem(
-                icon = {
-                    Icon(
-                        painter = painterResource(tab.androidIcon),
-                        contentDescription = tab.title
-                    )
-                },
-                label = { Text(tab.title) },
                 selected = selectedIndex == index,
                 onClick = { onTabClick(index) },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = colors.selectedContentColor,
-                    unselectedIconColor = colors.unselectedContentColor,
-                    selectedTextColor = colors.selectedContentColor,
-                    unselectedTextColor = colors.unselectedContentColor
-                )
+                icon = { Icon(painter = painterResource(tab.androidIcon), contentDescription = null) },
+                label = { Text(tab.title) },
+                colors = itemColors
             )
         }
     }

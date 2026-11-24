@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isSpecified
 
 @Composable
 public actual fun KButton(
@@ -20,19 +20,19 @@ public actual fun KButton(
     fontSize: TextUnit,
     cornerRadius: Dp
 ) {
+    // Unspecified values fall back to the app's MaterialTheme inside Material's own defaults
     Button(
         onClick = onClick,
-        enabled = enabled,
         modifier = modifier,
-        shape = RoundedCornerShape(cornerRadius),
+        enabled = enabled,
+        shape = if (cornerRadius.isSpecified) RoundedCornerShape(cornerRadius) else ButtonDefaults.shape,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (enabled) colors.containerColor else colors.disabledContainerColor,
-            contentColor = if (enabled) colors.contentColor else colors.disabledContentColor
+            containerColor = colors.containerColor,
+            contentColor = colors.contentColor,
+            disabledContainerColor = colors.disabledContainerColor,
+            disabledContentColor = colors.disabledContentColor
         )
     ) {
-        Text(
-            text = text,
-            fontSize = fontSize
-        )
+        Text(text = text, fontSize = fontSize)
     }
 }

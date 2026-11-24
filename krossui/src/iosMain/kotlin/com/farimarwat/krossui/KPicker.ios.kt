@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import com.farimarwat.krossui.utils.NativeInteropProperties
-import com.farimarwat.krossui.utils.toUiColor
+import com.farimarwat.krossui.utils.toUiColorOrNull
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.CoreGraphics.CGRectMake
@@ -40,7 +40,7 @@ public actual fun KPicker(
             UIPickerView().apply {
                 dataSource = dataSourceDelegate
                 delegate = dataSourceDelegate
-                backgroundColor = colors.containerColor.toUiColor()
+                backgroundColor = colors.containerColor.toUiColorOrNull()
             }
         }
 
@@ -50,7 +50,7 @@ public actual fun KPicker(
                 pickerView
             },
             update = {
-                it.backgroundColor = colors.containerColor.toUiColor()
+                it.backgroundColor = colors.containerColor.toUiColorOrNull()
                 it.reloadAllComponents()
             },
             modifier = Modifier.size(width.dp, height.dp)

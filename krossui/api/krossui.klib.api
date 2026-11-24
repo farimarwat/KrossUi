@@ -420,7 +420,7 @@ final object com.farimarwat.krossui/KOutlinedButtonDefaults { // com.farimarwat.
 }
 
 final object com.farimarwat.krossui/KPickerDefaults { // com.farimarwat.krossui/KPickerDefaults|null[0]
-    final fun colors(androidx.compose.runtime/Composer?, kotlin/Int): com.farimarwat.krossui/KPickerColors // com.farimarwat.krossui/KPickerDefaults.colors|colors(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    final fun colors(androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.farimarwat.krossui/KPickerColors // com.farimarwat.krossui/KPickerDefaults.colors|colors(androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
 }
 
 final object com.farimarwat.krossui/KProgressIndicatorDefaults { // com.farimarwat.krossui/KProgressIndicatorDefaults|null[0]
@@ -445,8 +445,6 @@ final object com.farimarwat.krossui/KTabBarDefaults { // com.farimarwat.krossui/
 final object com.farimarwat.krossui/KTextFieldDefaults { // com.farimarwat.krossui/KTextFieldDefaults|null[0]
     final val BorderWidth // com.farimarwat.krossui/KTextFieldDefaults.BorderWidth|{}BorderWidth[0]
         final fun <get-BorderWidth>(): androidx.compose.ui.unit/Dp // com.farimarwat.krossui/KTextFieldDefaults.BorderWidth.<get-BorderWidth>|<get-BorderWidth>(){}[0]
-    final val ContentPadding // com.farimarwat.krossui/KTextFieldDefaults.ContentPadding|{}ContentPadding[0]
-        final fun <get-ContentPadding>(): androidx.compose.foundation.layout/PaddingValues // com.farimarwat.krossui/KTextFieldDefaults.ContentPadding.<get-ContentPadding>|<get-ContentPadding>(){}[0]
     final val CornerRadius // com.farimarwat.krossui/KTextFieldDefaults.CornerRadius|{}CornerRadius[0]
         final fun <get-CornerRadius>(): androidx.compose.ui.unit/Dp // com.farimarwat.krossui/KTextFieldDefaults.CornerRadius.<get-CornerRadius>|<get-CornerRadius>(){}[0]
 

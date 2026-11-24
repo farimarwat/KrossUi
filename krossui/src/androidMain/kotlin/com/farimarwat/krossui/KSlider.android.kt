@@ -17,15 +17,15 @@ public actual fun KSlider(
     Slider(
         value = value,
         onValueChange = onValueChange,
-        valueRange = minValue..maxValue,
         modifier = modifier,
+        valueRange = minValue..maxValue,
         colors = SliderDefaults.colors(
+            thumbColor = colors.thumbColor,
             activeTrackColor = colors.activeTrackColor,
             inactiveTrackColor = colors.inactiveTrackColor,
-            thumbColor = colors.thumbColor,
+            disabledThumbColor = colors.disabledThumbColor,
             disabledActiveTrackColor = colors.disabledActiveTrackColor,
-            disabledInactiveTrackColor = colors.disabledInactiveTrackColor,
-            disabledThumbColor = colors.disabledThumbColor
+            disabledInactiveTrackColor = colors.disabledInactiveTrackColor
         )
     )
 }

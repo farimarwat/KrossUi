@@ -4,20 +4,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 /**
- * Provides default styling values for [KPicker].
+ * Default values used by [KPicker].
+ *
+ * Every default is unspecified: the platform draws its native look (Material theme on Android,
+ * system appearance on iOS). Pass a value only to override it.
  */
 public object KPickerDefaults {
-
-    /**
-     * Returns default color values for the [KPicker] component.
-     *
-     * @return [KPickerColors] with predefined platform-aware colors.
-     */
+    /** Returns [KPickerColors]. Unspecified colors use the platform default. `disabledContentColor` is used for the rows that are not selected. */
     @Composable
-    public fun colors(): KPickerColors = KPickerColors(
-        containerColor = Color.White,
-        contentColor = PlatformColors.systemBlue,
-        disabledContainerColor = PlatformColors.systemGray.copy(alpha = 0.5f),
-        disabledContentColor = PlatformColors.systemGray
+    public fun colors(
+        containerColor: Color = Color.Unspecified,
+        contentColor: Color = Color.Unspecified,
+        disabledContainerColor: Color = Color.Unspecified,
+        disabledContentColor: Color = Color.Unspecified
+    ): KPickerColors = KPickerColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
     )
 }
